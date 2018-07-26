@@ -147,18 +147,7 @@ namespace MySuperMarket.Controllers
             var list2 = list.Select(n => new { PRODUCT_ID = n.PRODUCT_ID, PRODUCT_NAME = n.PRODUCT_NAME, SUPPLIER_ID = n.SUPPLIER_ID, PURCHASE_PRICE = n.PURCHASE_PRICE, SELL_PRICE = n.SELL_PRICE, EXP = n.EXP, TOTAL = n.TOTAL });
             return Json(new { code = 0, msg = "", count = 1000, data = list2 }, JsonRequestBehavior.AllowGet);
         }
-        /*
-        [HttpPost]
-        public bool test(string id)
-        {
-            EMPLOYEE eMPLOYEE = db.EMPLOYEE.Find(id);
-            if (eMPLOYEE != null)
-            {
-                return true;
-            }
-            return false;
-        }
-        */
+        
         [HttpPost]
         public JsonResult Create(string para01, string para02, string para03, string para04, string para05, string para06, string para07)
         {
@@ -221,19 +210,8 @@ namespace MySuperMarket.Controllers
             int.TryParse(exp, out int_exp);
             int int_tot;
             int.TryParse(total, out int_tot);
-            /*
-            if (id == null)
-            {
-                return Json(null);
-            }
-            */
+            
             PRODUCT_ATTRIBUTE newPRODUCT_ATTRIBUTE = db.PRODUCT_ATTRIBUTE.Find(p_id);
-            /*
-            if (eMPLOYEE == null)
-            {
-                //return Json(null);
-            }
-            */
 
             newPRODUCT_ATTRIBUTE.PRODUCT_NAME = name;
             newPRODUCT_ATTRIBUTE.SUPPLIER_ID = s_id;
