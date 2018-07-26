@@ -278,9 +278,9 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">ID</label>
                     <div class="layui-input-inline">
-                        <input name="employee_id" placeholder="请输入ID" type="text"
+                        <input name="employee_id" placeholder="请输入ID" type="number"
                                class="layui-input"
-                               lay-verify="required" required />
+                               lay-verify="required|number1" required />
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -301,16 +301,16 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">手机号</label>
                     <div class="layui-input-inline">
-                        <input name="phone_number" placeholder="请输入手机号" type="text"
+                        <input name="phone_number" placeholder="请输入手机号" type="tel"
                                class="layui-input"
-                               lay-verify="required" required />
+                               lay-verify="required|phone" required />
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">工资</label>
                     <div class="layui-input-inline">
-                        <input name="salary" placeholder="请输入工资" type="text" class="layui-input"
-                               lay-verify="required" required />
+                        <input name="salary" placeholder="请输入工资" type="number" class="layui-input"
+                               lay-verify="required|number" required />
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -337,8 +337,8 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">ID</label>
                     <div class="layui-input-inline">
-                        <input name="EMPLOYEE_ID" placeholder="请输入ID" type="text" class="layui-input"
-                               lay-verify="required" required />
+                        <input name="EMPLOYEE_ID" placeholder="请输入ID" type="number" class="layui-input"
+                               lay-verify="required|number1" required />
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -358,15 +358,15 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">手机号</label>
                     <div class="layui-input-inline">
-                        <input name="PHONE_NUMBER" placeholder="请输入手机号" type="text" class="layui-input"
-                               lay-verify="required" required />
+                        <input name="PHONE_NUMBER" placeholder="请输入手机号" type="tel" class="layui-input"
+                               lay-verify="required|phone" required />
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">工资</label>
                     <div class="layui-input-inline">
-                        <input name="SALARY" placeholder="请输入工资" type="text" class="layui-input"
-                               lay-verify="required" required />
+                        <input name="SALARY" placeholder="请输入工资" type="number" class="layui-input"
+                               lay-verify="required|number" required />
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -503,6 +503,17 @@
             var $ = layui.jquery;
             var form = layui.form;
 
+            //自定义验证规则
+            form.verify({
+                number1: function (value) {
+                    if (value.length != 10) {
+                        return '员工ID必须得10个字符哦';
+                    }
+                }
+
+            });
+
+
             //监听提交，对多个弹出窗口起作用
             //增添
             form.on('submit(bt001)', function (data) {
@@ -552,7 +563,7 @@
                 var elem4 = data.field.SEX;
                 var elem5 = data.field.PHONE_NUMBER;
 
-                
+
                 layui.use(['table', 'element'], function () {
                     var table = layui.table;
                     var element = layui.element;
