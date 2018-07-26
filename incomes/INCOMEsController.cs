@@ -26,16 +26,21 @@ namespace MySuperMarket.Controllers
         }
         public JsonResult search01(string id)
         {
-            string date_low_s = id.Substring(0, 4)+"-01-01";
+            if(id=="!!")
+            {
+                var list2 = db.INCOME.Select(n => new { INCOME_ID = n.INCOME_ID, INCOME_DATE = n.INCOME_DATE, MONEY = n.MONEY, TYPE = n.TYPE });
+                return Json(new { code = 0, msg = "", count = 1000, data = list2 }, JsonRequestBehavior.AllowGet);
+            }
+            string date_low_s = id.Substring(0, 4) + "-01-01";
             string date_high_s = id.Substring(7, 4) + "-12-31";
             var date_low = Convert.ToDateTime(date_low_s);
             var date_high = Convert.ToDateTime(date_high_s);
-            var list=db.INCOME.Where(n=>n.INCOME_DATE>date_low&&n.INCOME_DATE<date_high).Select(n => new { INCOME_ID = n.INCOME_ID, INCOME_DATE = n.INCOME_DATE, MONEY = n.MONEY, TYPE = n.TYPE });
+            var list = db.INCOME.Where(n => n.INCOME_DATE > date_low && n.INCOME_DATE < date_high).Select(n => new { INCOME_ID = n.INCOME_ID, INCOME_DATE = n.INCOME_DATE, MONEY = n.MONEY, TYPE = n.TYPE });
             return Json(new { code = 0, msg = "", count = 1000, data = list }, JsonRequestBehavior.AllowGet);
         }
         public JsonResult advancedSearch(string para01, string para02, string para03, string para04)
         {
-            string type="!!";
+            string type = "!!";
             if (para01 == "0")
                 type = "销售";
             else if (para01 == "1")
@@ -44,7 +49,7 @@ namespace MySuperMarket.Controllers
             var income_high = para03;
             string date_low_s = "!!";
             string date_high_s = "!!";
-            if(para04!="!!")
+            if (para04 != "!!")
             {
                 date_low_s = para04.Substring(0, 4) + "-01-01";
                 date_high_s = para04.Substring(5, 4) + "-12-31";
@@ -56,14 +61,14 @@ namespace MySuperMarket.Controllers
             int.TryParse(income_high, out i_max);
 
             DateTime date_low = Convert.ToDateTime("2018 - 01 - 01");
-            DateTime date_high= Convert.ToDateTime("2018 - 01 - 01");
+            DateTime date_high = Convert.ToDateTime("2018 - 01 - 01");
 
             if (para04 != "!!")
             {
                 date_low = Convert.ToDateTime(date_low_s);
                 date_high = Convert.ToDateTime(date_high_s);
             }
-            
+
 
             var list = from e in db.INCOME select e;
             if (type != "!!")
@@ -72,7 +77,7 @@ namespace MySuperMarket.Controllers
             }
             if (income_low != "!!")
             {
-                list = list.Where(s => s.MONEY >i_min);
+                list = list.Where(s => s.MONEY > i_min);
             }
             if (income_high != "!!")
             {
@@ -80,6 +85,7 @@ namespace MySuperMarket.Controllers
             }
             if (date_low_s != "!!")
             {
+                // date = Convert.ToDateTime(l_date);
                 list = list.Where(s => s.INCOME_DATE > date_low);
             }
             if (date_high_s != "!!")
@@ -106,7 +112,8 @@ namespace MySuperMarket.Controllers
 
             }
             var tot = list.Sum(x => x.MONEY);
+            //iNCOME.MONEY = tot;
             return tot.ToString();
-        } 
+        }
     }
 }
