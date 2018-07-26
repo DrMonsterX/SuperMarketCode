@@ -21,7 +21,7 @@ namespace MySuperMarket.Controllers
         }
 
         // GET: SUPPLIERs/Details/5
-        
+
         public JsonResult getJson()
         {
             var list = db.SUPPLIER.Select(n => new { SUPPLIER_ID = n.SUPPLIER_ID, SUPPLIER_NAME = n.SUPPLIER_NAME, PHONE_NUMBER = n.PHONE_NUMBER });
@@ -105,7 +105,7 @@ namespace MySuperMarket.Controllers
             newSupplier.SUPPLIER_NAME = name;
             newSupplier.PHONE_NUMBER = number;
 
-            
+
             if (sUPPLIER == null)
             {
                 db.SUPPLIER.Add(newSupplier);
@@ -123,20 +123,9 @@ namespace MySuperMarket.Controllers
             string id = para01;
             string name = para02;
             string number = para03;
-
-            /*
-            if (id == null)
-            {
-                return Json(null);
-            }
-            */
+            
             SUPPLIER sUPPLIER = db.SUPPLIER.Find(id);
-            /*
-            if (eMPLOYEE == null)
-            {
-                //return Json(null);
-            }
-            */
+            
             sUPPLIER.SUPPLIER_ID = id;
             sUPPLIER.SUPPLIER_NAME = name;
             sUPPLIER.PHONE_NUMBER = number;
