@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -148,19 +148,9 @@ namespace MySuperMarket.Controllers
 
             int intCredits;
             int.TryParse(credits, out intCredits);
-            /*
-            if (id == null)
-            {
-                return Json(null);
-            }
-            */
+            
             VIP vIP = db.VIP.Find(v_id);
-            /*
-            if (eMPLOYEE == null)
-            {
-                //return Json(null);
-            }
-            */
+            
             vIP.VIP_NAME = name;
             vIP.SEX = sex;
             vIP.PHONE_NUMBER = phone;
