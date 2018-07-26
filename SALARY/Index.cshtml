@@ -174,11 +174,11 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">工资</label>
                     <div class="layui-input-inline" style="width: 82px;">
-                        <input type="text" name="SALARY_MIN" placeholder="最小" autocomplete="off" class="layui-input">
+                        <input type="text" name="SALARY_MIN" placeholder="最小"  lay-verify="number" autocomplete="off" class="layui-input">
                     </div>
                     <div class="layui-form-mid">-</div>
                     <div class="layui-input-inline" style="width: 82px;">
-                        <input type="text" name="SALARY_MAX" placeholder="最大" autocomplete="off" class="layui-input">
+                        <input type="text" name="SALARY_MAX" placeholder="最大" lay-verify="number" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -190,7 +190,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">支出表ID</label>
                     <div class="layui-input-inline">
-                        <input name="EXPENSE_ID" placeholder="请输入支出表ID" type="text" class="layui-input" />
+                        <input name="EXPENSE_ID" placeholder="请输入支出表ID" type="text" lay-verify="number" class="layui-input" />
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -209,15 +209,15 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">ID</label>
                     <div class="layui-input-inline">
-                        <input name="EMPLOYEE_ID" placeholder="请输入ID" type="text" class="layui-input"
-                               lay-verify="required" required />
+                        <input name="EMPLOYEE_ID" placeholder="请输入ID" type="number" class="layui-input"
+                               lay-verify="required|EmpIdNumber" required />
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">支出表ID</label>
                     <div class="layui-input-inline">
-                        <input name="EXPENSE_ID" placeholder="请输入ID" type="text" class="layui-input"
-                               lay-verify="required" required />
+                        <input name="EXPENSE_ID" placeholder="请输入ID" type="number" class="layui-input"
+                               lay-verify="required|ExpIdNumber" required />
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -308,7 +308,19 @@
                         }
                     });
                 });
-
+                //自定义验证规则
+                form.verify({
+                    EmpIdNumber: function (value) {
+                        if (value.length != 10) {
+                            return '员工ID必须得10个字符';
+                        }
+                    }
+                    ,ExpIdNumber: function (value) {
+                    if (value.length != 4) {
+                        return '支出表ID必须得4个字符';
+                    }
+                }
+                });
             });
 
 
