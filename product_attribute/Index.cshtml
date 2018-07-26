@@ -203,9 +203,9 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">商品编码</label>
                     <div class="layui-input-inline">
-                        <input name="PRODUCT_ID" placeholder="请输入商品编码" type="text"
+                        <input name="PRODUCT_ID" placeholder="请输入商品编码" type="number"
                                class="layui-input"
-                               lay-verify="required" disabled />
+                               lay-verify="required|number1" disabled />
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -219,41 +219,41 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">供货商ID</label>
                     <div class="layui-input-inline">
-                        <input name="SUPPLIER_ID" placeholder="请输入供货商ID" type="text"
+                        <input name="SUPPLIER_ID" placeholder="请输入供货商ID" type="number"
                                class="layui-input"
-                               lay-verify="required" required />
+                               lay-verify="required|number2" required />
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">进货价格</label>
                     <div class="layui-input-inline">
-                        <input name="PURCHASE_PRICE" placeholder="请输入进货价格" type="text"
+                        <input name="PURCHASE_PRICE" placeholder="请输入进货价格" type="number"
                                class="layui-input"
-                               lay-verify="required" required />
+                               lay-verify="required|number" required />
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">标准售价</label>
                     <div class="layui-input-inline">
-                        <input name="SELL_PRICE" placeholder="请输入标准售价" type="text"
+                        <input name="SELL_PRICE" placeholder="请输入标准售价" type="number"
                                class="layui-input"
-                               lay-verify="required" required />
+                               lay-verify="required|number" required />
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">保质期</label>
                     <div class="layui-input-inline">
-                        <input name="EXP" placeholder="请输入保质期" type="text"
+                        <input name="EXP" placeholder="请输入保质期" type="number"
                                class="layui-input"
-                               lay-verify="required" required />
+                               lay-verify="required|number" required />
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">商品总数</label>
                     <div class="layui-input-inline">
-                        <input name="TOTAL" placeholder="请输入商品总数" type="text"
+                        <input name="TOTAL" placeholder="请输入商品总数" type="number"
                                class="layui-input"
-                               lay-verify="required" required />
+                               lay-verify="required|number" required />
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -360,9 +360,9 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">商品编码</label>
                     <div class="layui-input-inline">
-                        <input name="PRODUCT_ID" placeholder="请输入商品编码" type="text"
+                        <input name="PRODUCT_ID" placeholder="请输入商品编码" type="number"
                                class="layui-input"
-                               lay-verify="required" required />
+                               lay-verify="required|number1" required />
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -376,41 +376,41 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">供货商ID</label>
                     <div class="layui-input-inline">
-                        <input name="SUPPLIER_ID" placeholder="请输入供货商ID" type="text"
+                        <input name="SUPPLIER_ID" placeholder="请输入供货商ID" type="number"
                                class="layui-input"
-                               lay-verify="required" required />
+                               lay-verify="required|number2" required />
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">进货价格</label>
                     <div class="layui-input-inline">
-                        <input name="PURCHASE_PRICE" placeholder="请输入进货价格" type="text"
+                        <input name="PURCHASE_PRICE" placeholder="请输入进货价格" type="number"
                                class="layui-input"
-                               lay-verify="required" required />
+                               lay-verify="required|number" required />
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">标准售价</label>
                     <div class="layui-input-inline">
-                        <input name="SELL_PRICE" placeholder="请输入标准售价" type="text"
+                        <input name="SELL_PRICE" placeholder="请输入标准售价" type="number"
                                class="layui-input"
-                               lay-verify="required" required />
+                               lay-verify="required|number" required />
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">保质期</label>
                     <div class="layui-input-inline">
-                        <input name="EXP" placeholder="请输入保质期" type="text"
+                        <input name="EXP" placeholder="请输入保质期" type="number"
                                class="layui-input"
-                               lay-verify="required" required />
+                               lay-verify="required|number" required />
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">商品总数</label>
                     <div class="layui-input-inline">
-                        <input name="TOTAL" placeholder="请输入商品总数" type="text"
+                        <input name="TOTAL" placeholder="请输入商品总数" type="number"
                                class="layui-input"
-                               lay-verify="required" required />
+                               lay-verify="required|number" required />
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -524,6 +524,23 @@
                         layer.close(index);
                     });
                 }
+            });
+
+            //自定义验证规则
+            form.verify({
+                
+                number1: function (value) {
+                    if (value.length != 4) {
+                        return '商品编码必须为4位';
+                    }
+                }
+                , number2: function (value) {
+                    if (value.length != 5) {
+                        return '供货商ID必须为5位';
+                    }
+                }
+                //, pass: [/(.+){6,12}$/, '密码必须6到12位']
+
             });
             //提交按钮监听
             //
