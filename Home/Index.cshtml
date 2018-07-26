@@ -1,0 +1,79 @@
+﻿@{
+    ViewBag.Title = "Login";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>登录超市管理系统</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="/Content/assets/libs/layui/css/layui.css" />
+    <link rel="stylesheet" href="/Content/assets/css/login.css" />
+</head>
+<body>
+    <div class="login-wrapper">
+        <div class="login-header">
+            <p>超市管理系统</p>
+            <i class="layui-icon layui-icon-component" style="font-size: 24px"></i>
+            <span style="font-size: 24px">0.9</span>
+        </div>
+        <div class=" login-body">
+            <div class="layui-card">
+                <div class="layui-card-header">
+                    <i class="layui-icon layui-icon-engine" style="font-size: 16px;"></i>&nbsp;&nbsp;用户登录
+                </div>
+                <form class="layui-card-body layui-form layui-form-pane">
+                    <div class="layui-form-item" style="padding-top:10px">
+                        <label class="layui-form-label"><i class="layui-icon layui-icon-username"></i></label>
+                        <div class="layui-input-block">
+                            <input name="username" type="text" lay-verify="required" placeholder="账号" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item" style="padding-top:5px">
+                        <label class="layui-form-label"><i class="layui-icon layui-icon-password"></i></label>
+                        <div class="layui-input-block">
+                            <input name="password" type="password" lay-verify="required" placeholder="密码" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item" style="padding-top:10px">
+                        <button class="layui-btn layui-btn-fluid"
+                                lay-filter="login-submit" lay-submit type="button">
+                            登&ensp;录
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="login-footer">
+            <p>小分队团队</p>
+            <p>
+                <span><a href="https://github.com" target="_blank ">前往github</a></span>
+                <span><a href="https://gitee.com" target="_blank ">前往gitee</a></span>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
+
+<script src="/Content/assets/libs/layui/layui.js"></script>
+<script>
+    layui.use(['form','element','layer'], function () {
+        var element = layui.element, form = layui.form, layer = layui.layer;
+        var $ = layui.jquery;
+        //登录验证
+        form.on('submit(login-submit)', function (data) {
+            var elem1 = data.field.username;
+            var elem2 = data.field.password;
+            $.post('/Home/login_check/' + elem1 + '/' + elem2, function (data) {
+                var result = data;
+                if (result == "True") {
+                    layer.msg("登录成功");
+                    window.location.href = '/INCOMEs/Index';
+                }
+                else 
+                layer.msg("用户名或密码无效");
+            });
+        });
+    });
+</script>
