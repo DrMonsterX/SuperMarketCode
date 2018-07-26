@@ -138,8 +138,8 @@
                                                     <input name="title" autocomplete="off" placeholder="请输入" class="layui-input" type="text">
                                                 </div>
                                             </div>
-                                            <button id="shelf-btn-search" class="layui-btn icon-btn" type="button"><i class="layui-icon">&#xe615;</i>搜索</button>                                            
-                                            <button id="shelf-sup-btn-search" class="layui-btn icon-btn" type="button"><i class="layui-icon">&#xe615;</i>高级搜索</button>                                                                                                                               
+                                            <button id="shelf-btn-search" class="layui-btn icon-btn" type="button"><i class="layui-icon">&#xe615;</i>搜索</button>
+                                            <button id="shelf-sup-btn-search" class="layui-btn layui-btn-normal" type="button">高级搜索</button>
                                         </div>
                                     </form>
                                     <!-- 主体表格部分 -->
@@ -158,31 +158,31 @@
     </div>
     <script src="/Content/assets/libs/layui/layui.js" charset="utf-8"></script>
     <!--高级搜索后弹窗-->
-    <script type="text/html" id="shelf-search-model">       
+    <script type="text/html" id="shelf-search-model">
         <form id="shelf-search-form" lay-filter="shelf-search-form" class="layui-form model-form">
             <div style="margin: 20px;">
                 <div class="layui-form-item">
                     <label class="layui-form-label">商品批号</label>
                     <div class="layui-input-inline">
-                        <input name="BATCH_ID" placeholder="请输入商品批号"type="text" class="layui-input" />
+                        <input name="BATCH_ID" placeholder="请输入商品批号" type="text" class="layui-input" />
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">商品编码</label>
                     <div class="layui-input-inline">
-                        <input name="PRODUCT_ID" placeholder="请输入商品编码"type="text" class="layui-input" />
+                        <input name="PRODUCT_ID" placeholder="请输入商品编码" type="text" class="layui-input" />
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">商品名称</label>
                     <div class="layui-input-inline">
-                        <input name="PRODUCT_NAME" placeholder="请输入商品名称"type="text" class="layui-input" />
+                        <input name="PRODUCT_NAME" placeholder="请输入商品名称" type="text" class="layui-input" />
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">货架编号</label>
                     <div class="layui-input-inline">
-                        <input name="SHELF_ID" placeholder="请输入货架编号" type="text"class="layui-input" />
+                        <input name="SHELF_ID" placeholder="请输入货架编号" type="text" class="layui-input" />
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -193,7 +193,7 @@
                 </div>
                 <div class="layui-form-item">
                     <div class="layui-input-block">
-                        <button class="layui-btn layui-btn-primary close" type="button"  onclick="layer.closeAll()">取消</button>
+                        <button class="layui-btn layui-btn-primary close" type="button" onclick="layer.closeAll()">取消</button>
                         <button class="layui-btn layui-btn-normal" type="button" lay-filter="shelf-search-form-submit" lay-submit>查询</button>
                     </div>
                 </div>
@@ -208,7 +208,7 @@
                     <label class="layui-form-label">商品批号</label>
                     <div class="layui-input-inline">
                         <input name="BATCH_ID" placeholder="请输入商品批号" type="number" class="layui-input"
-                               lay-verify="required|BInum" required />
+                               lay-verify="required|BInum" required disabled/>
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -235,7 +235,7 @@
         });</script>
     <!-- 表格操作列 -->
     <script type="text/html" id="staff-table-bar">
-        <a class="layui-btn layui-btn-xs" lay-event="edit">修改</a>        
+        <a class="layui-btn layui-btn-xs" lay-event="edit">修改</a>
     </script>
     <script>
         layui.use(['form', 'table', 'element', 'layer'], function () {
@@ -285,7 +285,7 @@
 
                     layer.open({
                         type: 1,
-                        title: '修改商品摆放信息',
+                        title: '高级搜索',
                         area: '400px',
                         offset: 'auto',
                         content: $('#shelf-modify-model').html(),
@@ -305,7 +305,7 @@
             });
         });
     </script>
-    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/jquery-3.3.1.js"></script>
     <script type="text/javascript">
         //搜索按钮响应事件
         $(document).ready(function () {
@@ -350,12 +350,12 @@
             var table = layui.table;
             var $ = layui.jquery;
             var form = layui.form;
-            
+
             //修改弹窗提交按钮点击事件
             form.on('submit(shelf-modify-form-submit)', function (data) {
                 var elem1 = data.field.BATCH_ID;
                 var elem2 = data.field.SHELF_ID;
-                alert(elem1 + elem2);
+                //alert(elem1 + elem2);
 
                 layui.use(['table', 'element'], function () {
                     var table = layui.table;
@@ -403,7 +403,7 @@
                 layui.use(['table', 'element'], function () {
                     var table = layui.table;
                     var $ = layui.jquery;
-                    
+
                     var linkString = '/PRODUCTs/advancedSearchPut/' + elem1 + '/' + elem2 + '/' + elem3 + '/' + elem4 + '/' + elem5;
 
                     table.render({

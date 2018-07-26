@@ -214,7 +214,7 @@
                     <label class="layui-form-label">商品编码</label>
                     <div class="layui-input-inline">
                         <input name="PRODUCT_ID" placeholder="请输入商品编号" type="text" class="layui-input"
-                               lay-verify="required" required />
+                               lay-verify="required" required disabled/>
                     </div>
                 </div>
 
@@ -242,7 +242,7 @@
                     <label class="layui-form-label">商品批号</label>
                     <div class="layui-input-inline">
                         <input name="BATCH_ID" placeholder="请输入商品批号" type="text" class="layui-input"
-                               lay-verify="required" required />
+                               lay-verify="required" required disabled/>
                     </div>
                 </div>
 
@@ -285,7 +285,7 @@
                 , url: '/PRODUCTs/getJson2/' //数据接口
                 , method: "post"
                 , cellMinWidth: 160
- 
+
                 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
                 //width 支持：数字、百分比和不填写。
                 //你还可以通过 minWidth 参数局部定义当前单元格的最小宽度，layui 2.2.1 新增
@@ -419,7 +419,7 @@
             elem: '#discount2_table'
             , url: '/PRODUCTs/getJson3/' //数据接口
             , method: "post"
-            ,cellMinWidth: 140
+            ,cellMinWidth: 170
             //全局定义常规单元格的最小宽度，layui 2.2.1 新增
             //width 支持：数字、百分比和不填写。
             //你还可以通过 minWidth 参数局部定义当前单元格的最小宽度，layui 2.2.1 新增
@@ -427,9 +427,9 @@
             {type: 'numbers'},
             {field: 'BATCH_ID', sort: true, title: '商品批号'},
             {field: 'PRODUCT_ID', sort: true, title: '商品编码'},
-            {field: 'PRODUCT_NAME', sort: true, width:150,title: '商品名称'},
+            {field: 'PRODUCT_NAME', sort: true,title: '商品名称'},
             {field: 'PRODUCT_DATE', sort: true, title: '生产日期', templet: '<div>{{ change(d.PRODUCT_DATE)}}</div>'},
-            {field: 'EXP', sort: true, title: '保质期余期'},
+            {field: 'EXP', sort: true, title: '保质期'},
             {field: 'DISCOUNT', sort: true, title: '折扣'},
             { align: 'center', toolbar: '#product-table-bar', title: '操作' }
             ]]
@@ -491,7 +491,7 @@
                             { field: 'PRODUCT_ID', sort: true, title: '商品编码' },
                             { field: 'PRODUCT_NAME', sort: true, title: '商品名称' },
                             { field: 'PRODUCT_DATE', sort: true, title: '生产日期', templet: '<div>{{ change(d.PRODUCT_DATE)}}</div>' },
-                            { field: 'EXP', sort: true, title: '保质期余期' },
+                            { field: 'EXP', sort: true, title: '保质期' },
                             { field: 'DISCOUNT', sort: true, title: '折扣' },
                             { align: 'center', toolbar: '#staff-table-bar', title: '操作' }
                             ]]
@@ -528,7 +528,7 @@
                             { field: 'PRODUCT_ID', sort: true, title: '商品编码' },
                             { field: 'PRODUCT_NAME', sort: true, title: '商品名称' },
                             { field: 'PRODUCT_DATE', sort: true, title: '生产日期', templet: '<div>{{ change(d.PRODUCT_DATE)}}</div>' },
-                            { field: 'EXP', sort: true, title: '保质期余期' },
+                            { field: 'EXP', sort: true, title: '保质期' },
                             { field: 'DISCOUNT', sort: true, title: '折扣' },
                             { align: 'center', toolbar: '#staff-table-bar', title: '操作' }
                             ]]
