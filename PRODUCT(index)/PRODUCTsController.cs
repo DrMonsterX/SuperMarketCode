@@ -503,6 +503,20 @@ namespace MySuperMarket.Controllers
         }
 
         [HttpPost]
+        public string editTest(string para01, string para02)
+        {
+            string bat_id = para01;
+            string shelf_id = para02;
+
+
+            SHELF myShelf = db.SHELF.Find(shelf_id);
+            if (myShelf == null)
+            {
+                return "1";
+            }
+            else return "2";
+        }
+        [HttpPost]
         public JsonResult Edit(string para01, string para02)
         {
             string bat_id = para01;
@@ -512,7 +526,7 @@ namespace MySuperMarket.Controllers
             int.TryParse(number, out x);
 
             PRODUCT pRODUCT = db.PRODUCT.Find(bat_id);
-            
+
             pRODUCT.BATCH_ID = bat_id;
             pRODUCT.BATCH_NUMBER = x;
 
