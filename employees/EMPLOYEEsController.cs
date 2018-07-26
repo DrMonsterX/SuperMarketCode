@@ -221,19 +221,9 @@ namespace MySuperMarket.Controllers
 
             int intSalary;
             int.TryParse(salary, out intSalary);
-            /*
-            if (id == null)
-            {
-                return Json(null);
-            }
-            */
+            
             EMPLOYEE eMPLOYEE = db.EMPLOYEE.Find(id);
-            /*
-            if (eMPLOYEE == null)
-            {
-                //return Json(null);
-            }
-            */
+            
             eMPLOYEE.EMPLOYEE_NAME = name;
             eMPLOYEE.SALARY = intSalary;
             eMPLOYEE.SEX = sex;
