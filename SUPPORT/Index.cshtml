@@ -182,11 +182,11 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">金额</label>
                     <div class="layui-input-inline" style="width: 82px;">
-                        <input type="text" name="MONEY_MIN" placeholder="最小" autocomplete="off" class="layui-input">
+                        <input type="text" name="MONEY_MIN" placeholder="最小" autocomplete="off" class="layui-input" >
                     </div>
                     <div class="layui-form-mid">-</div>
                     <div class="layui-input-inline" style="width: 82px;">
-                        <input type="text" name="MONEY_MAX" placeholder="最大" autocomplete="off" class="layui-input">
+                        <input type="text" name="MONEY_MAX" placeholder="最大" autocomplete="off" class="layui-input" >
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -211,21 +211,21 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">赞助商ID</label>
                     <div class="layui-input-inline">
-                        <input name="SPONSOR_ID" placeholder="请输入赞助商ID" type="text" class="layui-input"
-                               lay-verify="required" required />
+                        <input name="SPONSOR_ID" placeholder="请输入赞助商ID" type="number" class="layui-input"
+                               lay-verify="required|number1" required />
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">收入表ID</label>
                     <div class="layui-input-inline">
-                        <input name="INCOME_ID" placeholder="请输入收入表ID" type="text" class="layui-input" lay-verify="required" required/>
+                        <input name="INCOME_ID" placeholder="请输入收入表ID" type="number" class="layui-input" lay-verify="required|number2" required/>
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">金额</label>
                     <div class="layui-input-inline">
-                        <input name="MONEY" placeholder="请输入金额" type="text" class="layui-input"
-                               lay-verify="required" required />
+                        <input name="MONEY" placeholder="请输入金额" type="number" class="layui-input"
+                               lay-verify="required|number" required />
                     </div>
                 </div>
                
@@ -361,6 +361,22 @@
             var table = layui.table;
             var $ = layui.jquery;
             var form = layui.form;
+
+            //自定义验证规则
+            form.verify({
+                number1: function (value) {
+                    if (value.length != 4) {
+                        return '赞助商ID必须为4位';
+                    }
+                }
+                , number2: function (value) {
+                    if (value.length != 7) {
+                        return '支出表ID必须为7位';
+                    }
+                }
+                //, pass: [/(.+){6,12}$/, '密码必须6到12位']
+
+            });
 
 
             //添加弹窗提交按钮点击事件
