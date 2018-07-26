@@ -111,10 +111,6 @@ namespace MySuperMarket.Controllers
             int high;
             int.TryParse(money_high, out high);
 
-            //SUPPORT su = db.SUPPORT.Find(para01,para03);
-            //string setet = su.SUPPORT_DATE.ToString();
-
-
             var list = from e in db.SUPPORT select e;
             if (id != "!!")
             {
@@ -145,20 +141,6 @@ namespace MySuperMarket.Controllers
             var list2 = list.Select(n => new { SPONSOR_ID = n.SPONSOR_ID, SPONSOR_NAME = n.SPONSOR.SPONSOR_NAME, INCOME_ID = n.INCOME_ID, MONEY = n.MONEY, SUPPORT_DATE = n.SUPPORT_DATE });
             return Json(new { code = 0, msg = "", count = 1000, data = list2 });
         }
-
-
-        // [HttpPost]
-        //public bool test(string para01,string para02)
-        // {
-        //   string id = para01;
-        //   string income_id = para02;
-        //   SUPPORT sUPPORT = db.SUPPORT.Find(id,income_id);
-        //   if (sUPPORT != null)
-        //   {
-        //       return true;
-        //   }
-        //   return false;
-        //}
 
         [HttpPost]
         public string test(string para01, string para02)
@@ -191,7 +173,6 @@ namespace MySuperMarket.Controllers
             string income_id = para02;
             string spo_money = para03;
 
-            //var list2 = db.INCOME.Where(n => n.INCOME_ID == income_id).Select(n => new { INCOME_DATE = n.INCOME_DATE });
             INCOME list2 = db.INCOME.Find(income_id);
             int money;
             int.TryParse(spo_money, out money);
@@ -204,7 +185,7 @@ namespace MySuperMarket.Controllers
             newSupport.MONEY = money;
             newSupport.SUPPORT_DATE = list2.INCOME_DATE;
 
-            
+
 
             if (sUPPORT == null)
             {
@@ -226,19 +207,9 @@ namespace MySuperMarket.Controllers
 
             int money;
             int.TryParse(spo_money, out money);
-            /*
-            if (id == null)
-            {
-                return Json(null);
-            }
-            */
+            
             SUPPORT sUPPORT = db.SUPPORT.Find(id);
-            /*
-            if (eMPLOYEE == null)
-            {
-                //return Json(null);
-            }
-            */
+            
             sUPPORT.SPONSOR_ID = id;
             sUPPORT.MONEY = money;
             sUPPORT.SUPPORT_DATE = Convert.ToDateTime(date);
