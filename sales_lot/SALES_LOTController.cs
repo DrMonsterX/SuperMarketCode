@@ -115,14 +115,12 @@ namespace MySuperMarket.Controllers
             //return Json(new { code = 0, msg = "", count = 1000, data = list }, JsonRequestBehavior.AllowGet);
         }
         
-        public JsonResult creatRecord(string para01, string para02, string para03, string para04)
+        public JsonResult creatRecord(string para01, string para02, string para03)
         {
             var b_id = para01;
             int num;
             int.TryParse(para02, out num);
-            int money;
-            int.TryParse(para03, out money);
-            var date = Convert.ToDateTime(para04);
+            var date = Convert.ToDateTime(para03);
 
             SALES_LOT sALES_LOT = new SALES_LOT();
 
@@ -135,7 +133,7 @@ namespace MySuperMarket.Controllers
             sALES_LOT.PRODUCT.PRODUCT_ID = pRODUCT.PRODUCT_ID;
             sALES_LOT.PRODUCT.PRODUCT_ATTRIBUTE.PRODUCT_NAME = pRODUCT_ATTRIBUTE.PRODUCT_NAME;
             sALES_LOT.LOT_NUMBER = num;
-            sALES_LOT.MONEY = money;
+            sALES_LOT.MONEY = num*pRODUCT_ATTRIBUTE.SELL_PRICE*pRODUCT.DISCOUNT;
             sALES_LOT.LOT_DATE = date;
 
             db.SALES_LOT.Add(sALES_LOT);

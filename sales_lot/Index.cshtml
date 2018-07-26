@@ -177,14 +177,14 @@
                                lay-verify="required" required />
                     </div>
                 </div>
-                <div class="layui-form-item">
+                <!--div class="layui-form-item">
                     <label class="layui-form-label">销售金额</label>
                     <div class="layui-input-inline">
                         <input name="money" placeholder="请输入销售金额" type="text"
                                class="layui-input"
                                lay-verify="required" required />
                     </div>
-                </div>
+                </div-->
                 <div class="layui-form-item">
                     <label class="layui-form-label">交易时间</label>
                     <div class="layui-input-inline">
@@ -410,13 +410,12 @@
         form.on('submit(sale-add-form-submit)', function (data) {
             var elem1 = data.field.batch_id;
             var elem2 = data.field.number;
-            var elem3 = data.field.money;
-            var elem4 = data.field.test2;
-            alert('/SALES_LOT/CreatRecord/' + elem1 + '/' + elem2 + '/' + elem3 + '/' + elem4);
+            var elem3 = data.field.test2;
+            alert('/SALES_LOT/CreatRecord/' + elem1 + '/' + elem2 + '/' + elem3);
             //重载表格
             table.render({
                 elem: '#test'
-                , url: '/SALES_LOT/CreatRecord/' + elem1 + '/' + elem2 + '/' + elem3 + '/' + elem4 //数据接口
+                , url: '/SALES_LOT/CreatRecord/' + elem1 + '/' + elem2 + '/' + elem3  //数据接口
                 , method: "post"
                 , cellMinWidth: 80
                 , cols: [[
