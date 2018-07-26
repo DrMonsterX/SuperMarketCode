@@ -1,430 +1,439 @@
 ﻿@model IEnumerable<MySuperMarket.Models.SUPPLIER>
 
-@{
+    @{
     ViewBag.Title = "Index";
-}
+    }
 
-@{
+    @{
     Layout = null;
-}
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>超市管理系统 v0.1</title>
-    <link rel="stylesheet" href="/Content/assets/libs/layui/css/layui.css">
-</head>
-<body class="layui-layout-body">
-    <div class="layui-layout layui-layout-admin">
-        <div class="layui-header">
-            <div class="layui-logo" style="color:white">
-                <b>超市管理系统 v0.1</b>
-            </div>
-            <!-- 头部区域（可配合layui已有的水平导航） -->
-            <ul class="layui-nav layui-layout-left" style="margin-top: 20px">
-                <span class="layui-breadcrumb">
-                    <a href="">欢迎</a>
-                    <a href="">供应链管理</a>
-                    <a href="">供货商信息</a>
-                </span>
-            </ul>
-            <ul class="layui-nav layui-layout-right">
-                <li class="layui-nav-item">
-                    <a href="javascript:;">
-                        <img src="/Content/assets/image/avatar.PNG" class="layui-nav-img">
-                        管理员
-                    </a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="">基本资料</a></dd>
-                        <dd><a href="">安全设置</a></dd>
-                    </dl>
-                </li>
-                <li class="layui-nav-item"><a href="">退出登录</a></li>
-            </ul>
-        </div>
-        <!-- 导航栏区域 -->
-        <div class="layui-side layui-bg-black">
-            <div class="layui-side-scroll">
-                <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-                <ul class="layui-nav layui-nav-tree" lay-filter="test">
+    }
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <title>超市管理系统 v0.1</title>
+        <link rel="stylesheet" href="/Content/assets/libs/layui/css/layui.css">
+    </head>
+    <body class="layui-layout-body">
+        <div class="layui-layout layui-layout-admin">
+            <div class="layui-header">
+                <div class="layui-logo" style="color:white">
+                    <b>超市管理系统 v0.1</b>
+                </div>
+                <!-- 头部区域（可配合layui已有的水平导航） -->
+                <ul class="layui-nav layui-layout-left" style="margin-top: 20px">
+                    <span class="layui-breadcrumb">
+                        <a href="">欢迎</a>
+                        <a href="">供应链管理</a>
+                        <a href="">供货商信息</a>
+                    </span>
+                </ul>
+                <ul class="layui-nav layui-layout-right">
                     <li class="layui-nav-item">
-                        <a class="" href="javascript:;">销售管理</a>
+                        <a href="javascript:;">
+                            <img src="/Content/assets/image/avatar.PNG" class="layui-nav-img">
+                            管理员
+                        </a>
                         <dl class="layui-nav-child">
-                            <dd><a href="/SALES_LOT/Index">今日销售</a></dd>
-                            <dd><a href="/SALES_LOT/Create">销售报表</a></dd>
-                            <dd><a href="/PRODUCT_ATTRIBUTE/Index">商品信息管理</a></dd>
-                            <dd><a href="/INCOMEs/Index">收支管理</a></dd>
+                            <dd><a href="">基本资料</a></dd>
+                            <dd><a href="">安全设置</a></dd>
                         </dl>
                     </li>
-                    <li class="layui-nav-item">
-                        <a href="javascript:;">货架管理</a>
-                        <dl class="layui-nav-child">
-                            <dd><a href="/SHELves/Index">货架分区</a></dd>
-                            <dd><a href="/PRODUCTs/Put">商品摆放</a></dd>
-                        </dl>
-                    </li>
-                    <li class="layui-nav-item">
-                        <a class="" href="javascript:;">库存管理</a>
-                        <dl class="layui-nav-child">
-                            <dd><a href="/STOCKs/Index">进货记录</a></dd>
-                            <dd><a href="/PRODUCTs/Index">库存记录</a></dd>
-                        </dl>
-                    </li>
-                    <li class="layui-nav-item layui-nav-itemed">
-                        <a class="" href="javascript:;">供应链管理</a>
-                        <dl class="layui-nav-child">
-                            <dd><a href="/PLANs/Index">进货计划</a></dd>
-                            <dd class="layui-this"><a href="/SUPPLIERs/Index">供货商信息</a></dd>
-                        </dl>
-                    </li>
-                    <li class="layui-nav-item">
-                        <a class="" href="javascript:;">赞助商管理</a>
-                        <dl class="layui-nav-child">
-                            <dd><a href="/SUPPORTs/Index">赞助记录</a></dd>
-                            <dd><a href="/SPONSORs/Index">赞助商信息</a></dd>
-                        </dl>
-                    </li>
-                    <li class="layui-nav-item">
-                        <a class="" href="javascript:;">员工管理</a>
-                        <dl class="layui-nav-child">
-                            <dd><a href="/EMPLOYEEs/Index">员工记录</a></dd>
-                            <dd><a href="/SALARies/Index">工资管理</a></dd>
-                        </dl>
-                    </li>
-                    <li class="layui-nav-item ">
-                        <a class="" href="javascript:;">促销管理</a>
-                        <dl class="layui-nav-child">
-                            <dd><a href="/VIPs/Index">会员信息</a></dd>
-                            <dd><a href="/PRODUCTs/Create">折扣管理</a></dd>
-                        </dl>
-                    </li>
+                    <li class="layui-nav-item"><a href="">退出登录</a></li>
                 </ul>
             </div>
-        </div>
-        <div class="layui-body" style="padding: 0px 20px 20px 20px; background-color: #F2F2F2;">
-            <!-- 内容主体区域 -->
-            <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+            <!-- 导航栏区域 -->
+            <div class="layui-side layui-bg-black">
+                <div class="layui-side-scroll">
+                    <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+                    <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                        <li class="layui-nav-item">
+                            <a class="" href="javascript:;">销售管理</a>
+                            <dl class="layui-nav-child">
+                                <dd><a href="/SALES_LOT/Index">今日销售</a></dd>
+                                <dd><a href="/SALES_LOT/Create">销售报表</a></dd>
+                                <dd><a href="/PRODUCT_ATTRIBUTE/Index">商品信息管理</a></dd>
+                                <dd><a href="/INCOMEs/Index">收支管理</a></dd>
+                            </dl>
+                        </li>
+                        <li class="layui-nav-item">
+                            <a href="javascript:;">货架管理</a>
+                            <dl class="layui-nav-child">
+                                <dd><a href="/SHELves/Index">货架分区</a></dd>
+                                <dd><a href="/PRODUCTs/Put">商品摆放</a></dd>
+                            </dl>
+                        </li>
+                        <li class="layui-nav-item">
+                            <a class="" href="javascript:;">库存管理</a>
+                            <dl class="layui-nav-child">
+                                <dd><a href="/STOCKs/Index">进货记录</a></dd>
+                                <dd><a href="/PRODUCTs/Index">库存记录</a></dd>
+                            </dl>
+                        </li>
+                        <li class="layui-nav-item layui-nav-itemed">
+                            <a class="" href="javascript:;">供应链管理</a>
+                            <dl class="layui-nav-child">
+                                <dd><a href="/PLANs/Index">进货计划</a></dd>
+                                <dd class="layui-this"><a href="/SUPPLIERs/Index">供货商信息</a></dd>
+                            </dl>
+                        </li>
+                        <li class="layui-nav-item">
+                            <a class="" href="javascript:;">赞助商管理</a>
+                            <dl class="layui-nav-child">
+                                <dd><a href="/SUPPORTs/Index">赞助记录</a></dd>
+                                <dd><a href="/SPONSORs/Index">赞助商信息</a></dd>
+                            </dl>
+                        </li>
+                        <li class="layui-nav-item">
+                            <a class="" href="javascript:;">员工管理</a>
+                            <dl class="layui-nav-child">
+                                <dd><a href="/EMPLOYEEs/Index">员工记录</a></dd>
+                                <dd><a href="/SALARies/Index">工资管理</a></dd>
+                            </dl>
+                        </li>
+                        <li class="layui-nav-item ">
+                            <a class="" href="javascript:;">促销管理</a>
+                            <dl class="layui-nav-child">
+                                <dd><a href="/VIPs/Index">会员信息</a></dd>
+                                <dd><a href="/PRODUCTs/Create">折扣管理</a></dd>
+                            </dl>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="layui-body" style="padding: 0px 20px 20px 20px; background-color: #F2F2F2;">
+                <!-- 内容主体区域 -->
+                <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
 
-                <div class="layui-tab-content" style="margin-top: 10px">
-                    <div class="layui-tab-item layui-show">
-                        <!--第一个界面-->
+                    <div class="layui-tab-content" style="margin-top: 10px">
+                        <div class="layui-tab-item layui-show">
+                            <!--第一个界面-->
 
-                        <div class="layui-col-md12">
-                            <div class="layui-card">
-                                <div class="layui-card-header" style="padding: 8px 20px">
-                                    <i class="layui-icon layui-icon-user" style="font-size: 18px; font-weight: bold">
-                                        供货商信息管理
-                                    </i>
-                                </div>
-                                <div class="layui-card-body">
-                                    <form class="layui-form layui-form-pane" action="" style="padding-top: 6px">
-                                        <div class="layui-form-item">
-                                            <div class="layui-inline">
-                                                <label class="layui-form-label">键值类型</label>
-                                                <div class="layui-input-inline">
-                                                    <select id="type" lay-filter="type">
-                                                        <option value="">-请选择-</option>
-                                                        <option value="0">供货商ID</option>
-                                                        <option value="1">供货商名称</option>
-                                                        <option value="2">联系方式</option>
-                                                    </select>
+                            <div class="layui-col-md12">
+                                <div class="layui-card">
+                                    <div class="layui-card-header" style="padding: 8px 20px">
+                                        <i class="layui-icon layui-icon-user" style="font-size: 18px; font-weight: bold">
+                                            供货商信息管理
+                                        </i>
+                                    </div>
+                                    <div class="layui-card-body">
+                                        <form class="layui-form layui-form-pane" action="" style="padding-top: 6px">
+                                            <div class="layui-form-item">
+                                                <div class="layui-inline">
+                                                    <label class="layui-form-label">键值类型</label>
+                                                    <div class="layui-input-inline">
+                                                        <select id="type" lay-filter="type">
+                                                            <option value="">-请选择-</option>
+                                                            <option value="0">供货商ID</option>
+                                                            <option value="1">供货商名称</option>
+                                                            <option value="2">联系方式</option>
+                                                        </select>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="layui-inline">
-                                                <label class="layui-form-label">输入键值</label>
-                                                <div class="layui-input-inline">
-                                                    <input name="title" autocomplete="off" placeholder="请输入" class="layui-input" type="text">
+                                                <div class="layui-inline">
+                                                    <label class="layui-form-label">输入键值</label>
+                                                    <div class="layui-input-inline">
+                                                        <input name="title" autocomplete="off" placeholder="请输入" class="layui-input" type="text">
+                                                    </div>
                                                 </div>
+                                                <button type="button" id="supplier-btn-search" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i>搜索</button>
+                                                <button type="button" id="supplier-btn-add" class="layui-btn icon-btn"><i class="layui-icon">&#xe654;</i>添加</button>
                                             </div>
-                                            <button type="button" id="supplier-btn-search" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i>搜索</button>
-                                            <button type="button" id="supplier-btn-add" class="layui-btn icon-btn"><i class="layui-icon">&#xe654;</i>添加</button>
-                                        </div>
-                                    </form>
-                                    <!-- 主体表格部分 -->
-                                    <!-- 声明一个隐藏的表格，通过render函数进行数据载入 -->
-                                    <table class="layui-hide" id="supplier_info_table" lay-filter="supplier_info_table"></table>
+                                        </form>
+                                        <!-- 主体表格部分 -->
+                                        <!-- 声明一个隐藏的表格，通过render函数进行数据载入 -->
+                                        <table class="layui-hide" id="supplier_info_table" lay-filter="supplier_info_table"></table>
 
 
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="layui-footer">
-            <!-- 底部固定区域 -->
+            <div class="layui-footer">
+                <!-- 底部固定区域 -->
 
-        </div>
-    </div>
-    <script src="/Content/assets/libs/layui/layui.js"></script>
-    <script type="text/html" id="supplier-add-model">
-        <!--添加弹出框-->
-        <form id="supplier-add-form" lay-filter="supplier-add-form" class="layui-form model-form">
-            <div style="margin: 20px;">
-                <div class="layui-form-item">
-                    <label class="layui-form-label">供货商ID</label>
-                    <div class="layui-input-inline">
-                        <input name="SUPPLIER_ID" placeholder="请输入供货商ID" type="text" class="layui-input"
-                               lay-verify="required" required />
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">供货商名称</label>
-                    <div class="layui-input-inline">
-                        <input name="SUPPLIER_NAME" placeholder="请输入供货商名称" type="text" class="layui-input"
-                               lay-verify="required" required />
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">联系方式</label>
-                    <div class="layui-input-inline">
-                        <input name="PHONE_NUMBER" placeholder="请输入联系方式" type="text" class="layui-input"
-                               lay-verify="required" required />
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <div class="layui-input-block">
-                        <button class="layui-btn layui-btn-primary close" onclick="layer.closeAll()" type="button">取消</button>
-                        <button class="layui-btn layui-btn-normal" lay-filter="supplier-add-form-submit" lay-submit>添加</button>
-                    </div>
-                </div>
             </div>
-        </form>
-    </script>
-    <script type="text/html" id="supplier-model">
-        <!--修改弹出框-->
-        <form id="supplier-update-form" lay-filter="supplier-update-form" class="layui-form model-form">
-            <div style="margin: 20px;">
-                <div class="layui-form-item">
-                    <label class="layui-form-label">供货商ID</label>
-                    <div class="layui-input-inline">
-                        <input name="SUPPLIER_ID" placeholder="请输入供货商ID" type="text" class="layui-input"
-                               lay-verify="required" required  disabled/>
+        </div>
+        <script src="/Content/assets/libs/layui/layui.js"></script>
+        <script type="text/html" id="supplier-add-model">
+            <!--添加弹出框-->
+            <form id="supplier-add-form" lay-filter="supplier-add-form" class="layui-form model-form">
+                <div style="margin: 20px;">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">供货商ID</label>
+                        <div class="layui-input-inline">
+                            <input name="SUPPLIER_ID" placeholder="请输入供货商ID" type="number" class="layui-input"
+                                   lay-verify="required|number1" required />
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">供货商名称</label>
+                        <div class="layui-input-inline">
+                            <input name="SUPPLIER_NAME" placeholder="请输入供货商名称" type="text" class="layui-input"
+                                   lay-verify="required" required />
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">联系方式</label>
+                        <div class="layui-input-inline">
+                            <input name="PHONE_NUMBER" placeholder="请输入联系方式" type="tel" class="layui-input"
+                                   lay-verify="required|phone" required />
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <button class="layui-btn layui-btn-primary close" onclick="layer.closeAll()" type="button">取消</button>
+                            <button class="layui-btn layui-btn-normal" lay-filter="supplier-add-form-submit" lay-submit>添加</button>
+                        </div>
                     </div>
                 </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">供货商名称</label>
-                    <div class="layui-input-inline">
-                        <input name="SUPPLIER_NAME" placeholder="请输入供货商名称" type="text" class="layui-input"
-                               lay-verify="required" required />
+            </form>
+        </script>
+        <script type="text/html" id="supplier-model">
+            <!--修改弹出框-->
+            <form id="supplier-update-form" lay-filter="supplier-update-form" class="layui-form model-form">
+                <div style="margin: 20px;">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">供货商ID</label>
+                        <div class="layui-input-inline">
+                            <input name="SUPPLIER_ID" placeholder="请输入供货商ID" type="number" class="layui-input"
+                                   lay-verify="required|number" required disabled />
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">供货商名称</label>
+                        <div class="layui-input-inline">
+                            <input name="SUPPLIER_NAME" placeholder="请输入供货商名称" type="text" class="layui-input"
+                                   lay-verify="required" required />
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">联系方式</label>
+                        <div class="layui-input-inline">
+                            <input name="PHONE_NUMBER" placeholder="请输入联系方式" type="tel" class="layui-input"
+                                   lay-verify="required|phone" required />
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <button class="layui-btn layui-btn-primary close" onclick="layer.closeAll()" type="button">取消</button>
+                            <button class="layui-btn layui-btn-normal" lay-filter="supplier-update-form-submit" lay-submit>保存</button>
+                        </div>
                     </div>
                 </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">联系方式</label>
-                    <div class="layui-input-inline">
-                        <input name="PHONE_NUMBER" placeholder="请输入联系方式" type="text" class="layui-input"
-                               lay-verify="required" required />
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <div class="layui-input-block">
-                        <button class="layui-btn layui-btn-primary close" onclick="layer.closeAll()" type="button">取消</button>
-                        <button class="layui-btn layui-btn-normal" lay-filter="supplier-update-form-submit" lay-submit>保存</button>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </script>
-    <script>
-        //JavaScript代码区域
-        layui.use(['element', 'layer'], function () {
-            var element = layui.element, layer = layui.layer;
+            </form>
+        </script>
+        <script>
+            //JavaScript代码区域
+            layui.use(['element', 'layer'], function () {
+                var element = layui.element, layer = layui.layer;
 
-        });</script>
-    <script type="text/html" id="staff-table-bar">
-        <a class="layui-btn layui-btn-xs" lay-event="edit">修改</a>
-        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-    </script>
-    <script>
-        layui.use(['form', 'table'], function () {
-            var table = layui.table;
-            var $ = layui.jquery;
-            var form = layui.form;
-            var layer = layui.layer;
+            });</script>
+        <script type="text/html" id="staff-table-bar">
+            <a class="layui-btn layui-btn-xs" lay-event="edit">修改</a>
+            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+        </script>
+        <script>
+            layui.use(['form', 'table'], function () {
+                var table = layui.table;
+                var $ = layui.jquery;
+                var form = layui.form;
+                var layer = layui.layer;
 
-            table.render({
-                elem: '#supplier_info_table'
-                , url: '/SUPPLIERs/getJson/' //数据接口
-                , method: "Post"
-                , cellMinWidth: 120
-                //全局定义常规单元格的最小宽度，layui 2.2.1 新增
-                //width 支持：数字、百分比和不填写。
-                //你还可以通过 minWidth 参数局部定义当前单元格的最小宽度，layui 2.2.1 新增
-                , cols: [[
-                    { type: 'numbers' },
-                    { field: 'SUPPLIER_ID', title: '供货商ID', sort: true },
-                    { field: 'SUPPLIER_NAME', sort: true, title: '供货商名称' },
-                    { field: 'PHONE_NUMBER', sort: true, title: '联系方式' },
-                    { align: 'CENTER', toolbar: '#staff-table-bar', title: '操作' }
-                ]]
+                table.render({
+                    elem: '#supplier_info_table'
+                    , url: '/SUPPLIERs/getJson/' //数据接口
+                    , method: "Post"
+                    , cellMinWidth: 120
+                    //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+                    //width 支持：数字、百分比和不填写。
+                    //你还可以通过 minWidth 参数局部定义当前单元格的最小宽度，layui 2.2.1 新增
+                    , cols: [[
+                        { type: 'numbers' },
+                        { field: 'SUPPLIER_ID', title: '供货商ID', sort: true },
+                        { field: 'SUPPLIER_NAME', sort: true, title: '供货商名称' },
+                        { field: 'PHONE_NUMBER', sort: true, title: '联系方式' },
+                        { align: 'CENTER', toolbar: '#staff-table-bar', title: '操作' }
+                    ]]
 
-            });
-            //添加按钮点击事件
-            $(document).on('click', '#supplier-btn-add', function (data) {
-                layer.open({
-                    type: 1,
-                    title: '添加供货商',
-                    area: '400px',
-                    offset: 'auto',
-                    content: $('#supplier-add-model').html(),
-                    success: function () {
-                        form.val('supplier-add-form', data);
-                    }
                 });
-            });
-            // 工具条点击事件
-            table.on('tool(supplier_info_table)', function (obj) {
-                var data = obj.data;
-                if (obj.event === 'edit') { //修改
-
+                //添加按钮点击事件
+                $(document).on('click', '#supplier-btn-add', function (data) {
                     layer.open({
                         type: 1,
-                        title: '供货商信息修改',
+                        title: '添加供货商',
                         area: '400px',
                         offset: 'auto',
-                        content: $('#supplier-model').html(),
+                        content: $('#supplier-add-model').html(),
                         success: function () {
-                            form.val('supplier-update-form', data);
+                            form.val('supplier-add-form', data);
                         }
                     });
-                } else if (obj.event === 'del') { //删除
-                    layer.confirm('确定要删除吗？', { title: '提示' }, function (index) {
-                        obj.del();
-                        //alert(data.VIP_ID);
-                        $.post('/SUPPLIERs/Delete/' + data.SUPPLIER_ID);
-                        //向服务端发送删除指令
-                        layer.close(index);
-                    });
-                }
-            });
-        });</script>
-    <script src="~/Scripts/jquery-1.10.2.js"></script>
-
-    <script type="text/javascript">
-        //搜索按钮响应事件
-        $(document).ready(function () {
-
-            $("#supplier-btn-search").click(function () {
-                var type = $("#type").val();
-                var val = $(" input[ name='title' ] ").val();
-
-                layui.use(['table', 'element'], function () {
-
-                    var table = layui.table;
-                    var element = layui.element;
-                    var $ = layui.jquery;
-
-                    var linkString = '/SUPPLIERs/search01/' + type + '/' + val;
-                    //alert(type);
-
-                    table.render({
-                        elem: '#supplier_info_table'
-                        , url: linkString //数据接口
-                        , method: "post"
-                        , cellMinWidth: 120
-                        //全局定义常规单元格的最小宽度，layui 2.2.1 新增
-                        //width 支持：数字、百分比和不填写。
-                        //你还可以通过 minWidth 参数局部定义当前单元格的最小宽度，layui 2.2.1 新增
-                        , cols: [[
-                            { type: 'numbers' },
-                            { field: 'SUPPLIER_ID', title: '供货商ID', sort: true },
-                            { field: 'SUPPLIER_NAME', sort: true, title: '供货商名称' },
-                            { field: 'PHONE_NUMBER', sort: true, title: '联系方式' },
-                            { align: 'CENTER', toolbar: '#staff-table-bar', title: '操作' }
-                        ]]
-
-                    });
                 });
-            });
-        });
+                // 工具条点击事件
+                table.on('tool(supplier_info_table)', function (obj) {
+                    var data = obj.data;
+                    if (obj.event === 'edit') { //修改
 
-    </script>
-    <script type="text/javascript">
-        layui.use(['form', 'table'], function () {
-            var table = layui.table;
-            var $ = layui.jquery;
-            var form = layui.form;
-
-
-            //添加弹窗提交按钮点击事件
-            form.on('submit(supplier-add-form-submit)', function (data) {
-                var elem1 = data.field.SUPPLIER_ID;
-                var elem2 = data.field.SUPPLIER_NAME;
-                var elem3 = data.field.PHONE_NUMBER;
-
-                $.post('/SUPPLIERs/test/' + elem1, function (data) {
-                    var IsExist = data;
-                    if (IsExist == "True") {
-                        layer.alert('供货商ID已存在', {
-                            btn: ['确定']
-                            , yes: function (index) {
-                                //layer.close(index);
-                                layer.closeAll();
+                        layer.open({
+                            type: 1,
+                            title: '供货商信息修改',
+                            area: '400px',
+                            offset: 'auto',
+                            content: $('#supplier-model').html(),
+                            success: function () {
+                                form.val('supplier-update-form', data);
                             }
                         });
-
-                    }
-                    else {
-
-                        layui.use(['table', 'element'], function () {
-                            var table = layui.table;
-                            var $ = layui.jquery;
-                            // alert()
-                            table.render({
-                                elem: '#supplier_info_table'
-                                , url: '/SUPPLIERs/Create01/' + elem1 + '/' + elem2 + '/' + elem3 //数据接口
-                                , method: "post"
-                                , cellMinWidth: 120
-                                , cols: [[
-                                    { type: 'numbers' },
-                                    { field: 'SUPPLIER_ID', title: '供货商ID', sort: true },
-                                    { field: 'SUPPLIER_NAME', sort: true, title: '供货商名称' },
-                                    { field: 'PHONE_NUMBER', sort: true, title: '联系方式' },
-                                    { align: 'CENTER', toolbar: '#staff-table-bar', title: '操作' }
-                                ]]
-                            });
+                    } else if (obj.event === 'del') { //删除
+                        layer.confirm('确定要删除吗？', { title: '提示' }, function (index) {
+                            obj.del();
+                            //alert(data.VIP_ID);
+                            $.post('/SUPPLIERs/Delete/' + data.SUPPLIER_ID);
+                            //向服务端发送删除指令
+                            layer.close(index);
                         });
-                        layer.closeAll();
-
                     }
-                })
-                return false;
-            });
+                });
+            });</script>
+        <script src="~/Scripts/jquery-1.10.2.js"></script>
 
-            //修改弹窗提交按钮点击事件
-            form.on('submit(supplier-update-form-submit)', function (data) {
-                var elem1 = data.field.SUPPLIER_ID;
-                var elem2 = data.field.SUPPLIER_NAME;
-                var elem3 = data.field.PHONE_NUMBER;
-                // alert(elem1);
+        <script type="text/javascript">
+            //搜索按钮响应事件
+            $(document).ready(function () {
 
-                layui.use(['table', 'element'], function () {
-                    var table = layui.table;
-                    var $ = layui.jquery;
+                $("#supplier-btn-search").click(function () {
+                    var type = $("#type").val();
+                    var val = $(" input[ name='title' ] ").val();
 
-                    table.render({
-                        elem: '#supplier_info_table'
-                        , url: '/SUPPLIERs/Edit/' + elem1 + '/' + elem2 + '/' + elem3//数据接口
-                        , method: "post"
-                        , cellMinWidth: 120
-                        , cols: [[
-                            { type: 'numbers' },
-                            { field: 'SUPPLIER_ID', title: '供货商ID', sort: true },
-                            { field: 'SUPPLIER_NAME', sort: true, title: '供货商名称' },
-                            { field: 'PHONE_NUMBER', sort: true, title: '联系方式' },
-                            { align: 'CENTER', toolbar: '#staff-table-bar', title: '操作' }
-                        ]]
+                    layui.use(['table', 'element'], function () {
+
+                        var table = layui.table;
+                        var element = layui.element;
+                        var $ = layui.jquery;
+
+                        var linkString = '/SUPPLIERs/search01/' + type + '/' + val;
+                        //alert(type);
+
+                        table.render({
+                            elem: '#supplier_info_table'
+                            , url: linkString //数据接口
+                            , method: "post"
+                            , cellMinWidth: 120
+                            //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+                            //width 支持：数字、百分比和不填写。
+                            //你还可以通过 minWidth 参数局部定义当前单元格的最小宽度，layui 2.2.1 新增
+                            , cols: [[
+                                { type: 'numbers' },
+                                { field: 'SUPPLIER_ID', title: '供货商ID', sort: true },
+                                { field: 'SUPPLIER_NAME', sort: true, title: '供货商名称' },
+                                { field: 'PHONE_NUMBER', sort: true, title: '联系方式' },
+                                { align: 'CENTER', toolbar: '#staff-table-bar', title: '操作' }
+                            ]]
+
+                        });
                     });
                 });
-
-                //return false;
             });
 
+        </script>
+        <script type="text/javascript">
+            layui.use(['form', 'table'], function () {
+                var table = layui.table;
+                var $ = layui.jquery;
+                var form = layui.form;
 
-        });
-    </script>
-</body>
+                //自定义验证规则
+                form.verify({
+                    number1: function (value) {
+                        if (value.length != 5) {
+                            return '供货商ID必须为5位';
+                        }
+                    }
+                });
+
+
+                //添加弹窗提交按钮点击事件
+                form.on('submit(supplier-add-form-submit)', function (data) {
+                    var elem1 = data.field.SUPPLIER_ID;
+                    var elem2 = data.field.SUPPLIER_NAME;
+                    var elem3 = data.field.PHONE_NUMBER;
+
+                    $.post('/SUPPLIERs/test/' + elem1, function (data) {
+                        var IsExist = data;
+                        if (IsExist == "True") {
+                            layer.alert('供货商ID已存在', {
+                                btn: ['确定']
+                                , yes: function (index) {
+                                    //layer.close(index);
+                                    layer.closeAll();
+                                }
+                            });
+
+                        }
+                        else {
+
+                            layui.use(['table', 'element'], function () {
+                                var table = layui.table;
+                                var $ = layui.jquery;
+                                // alert()
+                                table.render({
+                                    elem: '#supplier_info_table'
+                                    , url: '/SUPPLIERs/Create01/' + elem1 + '/' + elem2 + '/' + elem3 //数据接口
+                                    , method: "post"
+                                    , cellMinWidth: 120
+                                    , cols: [[
+                                        { type: 'numbers' },
+                                        { field: 'SUPPLIER_ID', title: '供货商ID', sort: true },
+                                        { field: 'SUPPLIER_NAME', sort: true, title: '供货商名称' },
+                                        { field: 'PHONE_NUMBER', sort: true, title: '联系方式' },
+                                        { align: 'CENTER', toolbar: '#staff-table-bar', title: '操作' }
+                                    ]]
+                                });
+                            });
+                            layer.closeAll();
+
+                        }
+                    })
+                    return false;
+                });
+
+                //修改弹窗提交按钮点击事件
+                form.on('submit(supplier-update-form-submit)', function (data) {
+                    var elem1 = data.field.SUPPLIER_ID;
+                    var elem2 = data.field.SUPPLIER_NAME;
+                    var elem3 = data.field.PHONE_NUMBER;
+                    // alert(elem1);
+
+                    layui.use(['table', 'element'], function () {
+                        var table = layui.table;
+                        var $ = layui.jquery;
+
+                        table.render({
+                            elem: '#supplier_info_table'
+                            , url: '/SUPPLIERs/Edit/' + elem1 + '/' + elem2 + '/' + elem3//数据接口
+                            , method: "post"
+                            , cellMinWidth: 120
+                            , cols: [[
+                                { type: 'numbers' },
+                                { field: 'SUPPLIER_ID', title: '供货商ID', sort: true },
+                                { field: 'SUPPLIER_NAME', sort: true, title: '供货商名称' },
+                                { field: 'PHONE_NUMBER', sort: true, title: '联系方式' },
+                                { align: 'CENTER', toolbar: '#staff-table-bar', title: '操作' }
+                            ]]
+                        });
+                    });
+
+                    //return false;
+                });
+
+
+            });
+        </script>
+    </body>
 </html>
