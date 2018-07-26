@@ -246,17 +246,11 @@ namespace MySuperMarket.Controllers
             newStock.STOCK_DATE = x;
             newStock.PLAN_ID = plan_id;
 
-
-            
-
-
             if (sTOCK == null)
             {
                 db.STOCK.Add(newStock);
                 db.SaveChanges();
             }
-
-
 
             var list = db.STOCK.Select(n => new { STOCK_ID = n.STOCK_ID, BATCH_ID = n.PRODUCT.BATCH_ID, PRODUCT_ID = n.PRODUCT.PRODUCT_ID, PRODUCT_NAME = n.PRODUCT.PRODUCT_ATTRIBUTE.PRODUCT_NAME, PLAN_ID = n.PLAN_ID, EXPENSE_ID = n.EXPENSE_ID, STOCK_NUM = n.STOCK_NUM, STOCK_DATE = n.STOCK_DATE });
             return Json(new { code = 0, msg = "", count = 1000, data = list }, JsonRequestBehavior.AllowGet);
