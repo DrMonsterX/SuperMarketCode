@@ -1,0 +1,482 @@
+﻿@model IEnumerable<MySuperMarket.Models.SALARY>
+
+@{
+    ViewBag.Title = "Index";
+}
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>超市管理系统 v0.1</title>
+    <link rel="stylesheet" href="/Content/assets/libs/layui/css/layui.css">
+</head>
+<body class="layui-layout-body">
+    <div class="layui-layout layui-layout-admin">
+        <div class="layui-header">
+            <div class="layui-logo" style="color:white">
+                <b>超市管理系统 v0.1</b>
+            </div>
+            <!-- 头部区域（可配合layui已有的水平导航） -->
+            <ul class="layui-nav layui-layout-left" style="margin-top: 20px">
+                <span class="layui-breadcrumb">
+                    <a href="">欢迎</a>
+                    <a href="">员工管理</a>
+                    <a href="">工资管理</a>
+                </span>
+            </ul>
+            <ul class="layui-nav layui-layout-right">
+                <li class="layui-nav-item">
+                    <a href="javascript:;">
+                        <img src="/Content/assets/image/avatar.PNG" class="layui-nav-img">
+                        管理员
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">基本资料</a></dd>
+                        <dd><a href="">安全设置</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item"><a href="">退出登录</a></li>
+            </ul>
+        </div>
+        <!-- 导航栏区域 -->
+        <div class="layui-side layui-bg-black">
+            <div class="layui-side-scroll">
+                <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+                <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                    <li class="layui-nav-item">
+                        <a class="" href="javascript:;">销售管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="/SALES_LOT/Index">今日销售</a></dd>
+                            <dd><a href="/SALES_LOT/Create">销售报表</a></dd>
+                            <dd><a href="/PRODUCT_ATTRIBUTE/Index">商品信息管理</a></dd>
+                            <dd><a href="/INCOMEs/Index">收支管理</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="javascript:;">货架管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="/SHELves/Index">货架分区</a></dd>
+                            <dd><a href="/PRODUCTs/Put">商品摆放</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a class="" href="javascript:;">库存管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="/STOCKs/Index">进货记录</a></dd>
+                            <dd><a href="/PRODUCTs/Index">库存记录</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a class="" href="javascript:;">供应链管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="/PLANs/Index">进货计划</a></dd>
+                            <dd><a href="/SUPPLIERs/Index">供货商信息</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a class="" href="javascript:;">赞助商管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="/SUPPORTs/Index">赞助记录</a></dd>
+                            <dd><a href="/SPONSORs/Index">赞助商信息</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a class="" href="javascript:;">员工管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="/EMPLOYEEs/Index">员工记录</a></dd>
+                            <dd class="layui-this"><a href="/SALARies/Index">工资管理</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item ">
+                        <a class="" href="javascript:;">促销管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="/VIPs/Index">会员信息</a></dd>
+                            <dd><a href="/PRODUCTs/Create">折扣管理</a></dd>
+                        </dl>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="layui-body" style="padding: 0px 20px 20px 20px; background-color: #F2F2F2;">
+            <!-- 内容主体区域 -->
+            <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+                <div class="layui-tab-content" style="margin-top: 10px">
+                    <div class="layui-tab-item layui-show">
+                        <!--第一个界面-->
+                        <div class="layui-col-md12">
+                            <div class="layui-card">
+                                <div class="layui-card-header" style="padding: 8px 20px">
+                                    <i class="layui-icon layui-icon-rmb" style="font-size: 18px; font-weight: bold">
+                                        员工工资管理
+                                    </i>
+                                </div>
+                                <div class="layui-card-body">
+                                    <form class="layui-form layui-form-pane" action="" style="padding-top: 6px">
+                                        <div class="layui-form-item">
+                                            <div class="layui-inline">
+                                                <label class="layui-form-label">键值类型</label>
+                                                <div class="layui-input-inline">
+                                                    <select id="type" lay-filter="type">
+                                                        <option value="">-请选择-</option>
+                                                        <option value="0">ID</option>
+                                                        <option value="1">姓名</option>
+                                                        <option value="2">日期</option>
+                                                        <option value="3">工资</option>
+                                                        <option value="4">支出表ID</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="layui-inline">
+                                                <label class="layui-form-label">输入键值</label>
+                                                <div class="layui-input-inline">
+                                                    <input name="title" autocomplete="off" placeholder="请输入" class="layui-input" type="text">
+                                                </div>
+                                            </div>
+                                            <button type="button" id="salary-search" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i>搜索</button>
+                                            <button type="button" id="salary-Hsearch" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i>高级搜索</button>
+                                            <button type="button" id="salary-add" class="layui-btn icon-btn"><i class="layui-icon">&#xe654;</i>添加</button>
+                                        </div>
+                                    </form>
+                                    <table class="layui-hide" id="salary_table" lay-filter="salary_table"></table>                                                                      
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-footer">
+            <!-- 底部固定区域 -->
+        </div>
+    </div>
+    <script src="/Content/assets/libs/layui/layui.js"></script>
+    <!--高级搜索弹出框-->
+    <script type="text/html" id="salary-sup-search-modle">        
+        <form id="salary-sup-search-form" lay-filter="salary-sup-search-form" class="layui-form model-form">
+            <div style="margin: 20px;">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">ID</label>
+                    <div class="layui-input-inline">
+                        <input name="EMPLOYEE_ID" placeholder="请输入ID" type="text" class="layui-input"/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">姓名</label>
+                    <div class="layui-input-inline">
+                        <input name="EMPLOYEE_NAME" placeholder="请输入姓名" type="text" class="layui-input" />
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">工资</label>
+                    <div class="layui-input-inline" style="width: 82px;">
+                        <input type="text" name="SALARY_MIN" placeholder="最小" autocomplete="off" class="layui-input">
+                    </div>
+                    <div class="layui-form-mid">-</div>
+                    <div class="layui-input-inline" style="width: 82px;">
+                        <input type="text" name="SALARY_MAX" placeholder="最大" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">日期</label>
+                    <div class="layui-input-inline">
+                        <input name="DATE" placeholder=" 年-月-日 " type="text" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">支出表ID</label>
+                    <div class="layui-input-inline">
+                        <input name="EXPENSE_ID" placeholder="请输入支出表ID" type="text" class="layui-input" />
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn layui-btn-primary close" type="button" onclick="layer.closeAll()">取消</button>
+                        <button class="layui-btn layui-btn-normal" lay-filter="salary-sup-search-form-submit"type="button" lay-submit>查询</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </script>
+    <!--添加弹出框-->
+    <script type="text/html" id="salary-add-modle">
+        <form id="salary-add-form" lay-filter="salary-add-form" class="layui-form model-form">
+            <div style="margin: 20px;">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">ID</label>
+                    <div class="layui-input-inline">
+                        <input name="EMPLOYEE_ID" placeholder="请输入ID" type="text" class="layui-input"
+                               lay-verify="required" required />
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">支出表ID</label>
+                    <div class="layui-input-inline">
+                        <input name="EXPENSE_ID" placeholder="请输入ID" type="text" class="layui-input"
+                               lay-verify="required" required />
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">日期</label>
+                    <div class="layui-input-inline">
+                        <input name="DATE" placeholder=" 年-月-日 " type="text" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn layui-btn-primary close" type="button" onclick="layer.closeAll()">取消</button>
+                        <button class="layui-btn layui-btn-normal" lay-filter="salary-add-form-submit" lay-submit>添加</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </script>
+        <script>
+            //JavaScript代码区域
+            layui.use(['element', 'layer'], function () {
+                var element = layui.element, layer = layui.layer;
+
+            });</script>
+        <script type="text/javascript">
+            function change(time) {
+                var date = new Date(parseInt(time.replace("/Date(", "").replace(")/", ""), 10));
+                var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+                var currentDate = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+                var Hour = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
+                var minutes = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+                return date.getFullYear() + "-" + month + "-" + currentDate;
+            }
+
+        </script>
+        <script>
+            
+            layui.use(['form', 'table'], function () {
+                var table = layui.table;
+                var $ = layui.jquery;
+                var form = layui.form;
+
+                /*alert("!!");
+                $.post('/SALES_LOT/bestSale/2018-01-01/2018-12-31', function (data) {
+                    alert(data);
+                });
+                */
+
+                table.render({
+                    elem: '#salary_table'
+                    , url: '/SALARies/getJson/' //数据接口
+                    , method: "post"
+                          , cellMinWidth: 120
+                    //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+                    //width 支持：数字、百分比和不填写。
+                    //你还可以通过 minWidth 参数局部定义当前单元格的最小宽度，layui 2.2.1 新增
+                          , cols: [[
+                          { type: 'numbers' },
+                          { field: 'EMPLOYEE_ID', title: 'ID', sort: true },                         
+                          { field: 'EMPLOYEE_NAME', sort: true, title: '姓名' },
+                          { field: 'SALARY_DATE', sort: true, title: '日期', templet: '<div>{{ change(d.SALARY_DATE)}}</div>' },
+                          { field: 'SALARY', sort: true, title: '工资' },
+                          { field: 'EXPENSE_ID', title: '支出表ID', sort: true }
+                          ]]
+                });
+                // 高级搜索按钮点击事件
+                $(document).on('click', '#salary-Hsearch', function (data) {
+                    layer.open({
+                        type: 1,
+                        title: '高级搜索',
+                        area: '400px',
+                        offset: 'auto',
+                        content: $('#salary-sup-search-modle').html(),
+                        success: function () {
+                            form.val('salary-sup-search-form', data);
+                        }
+                    });
+                });
+                //添加按钮点击事件
+                $(document).on('click', '#salary-add', function (data) {
+                    layer.open({
+                        type: 1,
+                        title: '添加工资发放记录',
+                        area: '400px',
+                        offset: 'auto',
+                        content: $('#salary-add-modle').html(),
+                        success: function () {
+                            form.val('salary-add-form', data);
+                        }
+                    });
+                });
+
+            });
+
+
+
+        </script>
+        <script src="~/Scripts/jquery-1.10.2.js"></script>
+
+        <script type="text/javascript">
+            //搜索按钮响应事件
+            $(document).ready(function () {
+
+                $("#salary-search").click(function () {
+                    var type = $("#type").val();
+                    var val = $(" input[ name='title' ] ").val();
+                    //alert(type + val);
+
+                    layui.use(['table', 'element'], function () {
+
+                        var table = layui.table;
+                        var element = layui.element;
+                        var $ = layui.jquery;
+
+                        var linkString = '/SALARies/search01/' + type + '/' + val;
+                        //alert(linkString);
+
+                        table.render({
+                            elem: '#salary_table'
+                            , url: linkString //数据接口
+                            , method: "post"
+                            , cellMinWidth: 120
+                            //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+                            //width 支持：数字、百分比和不填写。
+                            //你还可以通过 minWidth 参数局部定义当前单元格的最小宽度，layui 2.2.1 新增
+                            , cols: [[
+                            { type: 'numbers' },
+                            { field: 'EMPLOYEE_ID', title: 'ID', sort: true },
+                            { field: 'EMPLOYEE_NAME', sort: true, title: '姓名' },
+                            { field: 'SALARY_DATE', sort: true, title: '日期', templet: '<div>{{ change(d.SALARY_DATE)}}</div>' },
+                            { field: 'SALARY', sort: true, title: '工资' },
+                            { field: 'EXPENSE_ID', title: '支出表ID', sort: true }
+                            ]]
+                        });
+                    });
+                });
+            });
+
+        </script>
+        <script type="text/javascript">
+            layui.use(['form', 'table'], function () {
+                var table = layui.table;
+                var $ = layui.jquery;
+                var form = layui.form;
+
+                //添加弹窗提交按钮点击事件
+                form.on('submit(salary-add-form-submit)', function (data) {
+                    var elem1 = data.field.EMPLOYEE_ID;
+                    var elem2 = data.field.EXPENSE_ID;
+                    var elem3 = data.field.DATE;
+
+                    var linkString = '/SALARies/Create/' + elem1 + '/' + elem2 + '/' + elem3;
+                    //alert(elem1 + '/' + elem2 );
+
+                   
+                    $.post('/SALARies/test/' + elem1 + '/' + elem2 + '/' + elem3, function (data) {
+                        //alert('999');
+                        var IsExist = data;
+                        if (IsExist == "1") {
+                            layer.alert('符合会员ID和支出ID的信息已存在，添加失败', {
+                                btn: ['确定']
+                              , yes: function (index) {
+                                  
+                                  layer.closeAll();
+                              }
+                            });
+                        }
+                        else if (IsExist == "2") {
+                            layer.alert('找不到符合条件的支出表ID', {
+                                btn: ['确定']
+                              , yes: function (index) {
+
+                                  layer.closeAll();
+                              }
+                            });
+                        }
+                        else if(IsExist=="3"){
+                            layer.alert('找不到符合条件的雇员ID', {
+                                btn: ['确定']
+                              , yes: function (index) {
+
+                                  layer.closeAll();
+                              }
+                            });
+                        }
+                        else if (IsExist == "4") {
+                            //alert('122');
+                            table.render({
+                                elem: '#salary_table'
+                                   , url: '/SALARies/Create/' + elem1 + '/' + elem2 + '/' + elem3 //数据接口
+                                   , method: "post"
+                                   , cellMinWidth: 120
+                                //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+                                //width 支持：数字、百分比和不填写。
+                                //你还可以通过 minWidth 参数局部定义当前单元格的最小宽度，layui 2.2.1 新增
+                                   , cols: [[
+                                   { type: 'numbers' },
+                                   { field: 'EMPLOYEE_ID', title: 'ID', sort: true },
+                                   { field: 'EMPLOYEE_NAME', sort: true, title: '姓名' },
+                                   { field: 'SALARY_DATE', sort: true, title: '日期', templet: '<div>{{ change(d.SALARY_DATE)}}</div>' },
+                                   { field: 'SALARY', sort: true, title: '工资' },
+                                   { field: 'EXPENSE_ID', title: '支出表ID', sort: true }
+                                   ]]
+
+                            });
+                            layer.closeAll();
+                        }
+                    });
+                    
+                    return false;
+                });
+                
+                //高级搜索提交按钮事件
+                form.on('submit(salary-sup-search-form-submit)', function (data) {
+                    var elem1 = data.field.EMPLOYEE_ID;
+                    var elem2 = data.field.EMPLOYEE_NAME;                    
+                    var elem3 = data.field.SALARY_MIN;
+                    var elem4 = data.field.SALARY_MAX;
+                    var elem5 = data.field.DATE;
+                    var elem6 = data.field.EXPENSE_ID;
+
+                    if (elem1 == "") elem1 = "!!";
+                    if (elem2 == "") elem2 = "!!";
+                    if (elem3 == "") elem3 = "!!";
+                    if (elem4 == "") elem4 = "!!";
+                    if (elem5 == "") elem5 = "!!";
+                    if (elem6 == "") elem6 = "!!";
+
+                    alert(elem1 + '/' + elem2 + '/' + elem3 + '/' + elem4 + '/' + elem5 + '/' + elem6);
+
+                    var linkString = '/SALARies/advancedSearch/' + elem1 + '/' + elem2 + '/' + elem3 + '/' + elem4 + '/' + elem5 + '/' + elem6;
+
+                    layui.use(['table', 'element'], function () {
+                        var table = layui.table;
+                        var $ = layui.jquery;
+
+                        table.render({
+                            elem: '#salary_table'
+                           , url: linkString //数据接口
+                           , method: "post"
+                           , cellMinWidth: 120
+                            //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+                            //width 支持：数字、百分比和不填写。
+                            //你还可以通过 minWidth 参数局部定义当前单元格的最小宽度，layui 2.2.1 新增
+                           , cols: [[
+                           { type: 'numbers' },
+                           { field: 'EMPLOYEE_ID', title: 'ID', sort: true },
+                           { field: 'EMPLOYEE_NAME', sort: true, title: '姓名' },
+                           { field: 'SALARY_DATE', sort: true, title: '日期', templet: '<div>{{ change(d.SALARY_DATE)}}</div>' },
+                           { field: 'SALARY', sort: true, title: '工资' },
+                           { field: 'EXPENSE_ID', title: '支出表ID', sort: true }
+                           ]]
+
+                        });
+                        layer.closeAll();
+                    });
+
+                    
+                });
+            });
+        </script>
+</body>
+</html>

@@ -1,0 +1,481 @@
+﻿@model IEnumerable<MySuperMarket.Models.SALES_LOT>
+
+@{
+    ViewBag.Title = "Index";
+}
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>超市管理系统 v0.1</title>
+    <link rel="stylesheet" href="/Content/assets/libs/layui/css/layui.css">
+</head>
+<body class="layui-layout-body">
+    <div class="layui-layout layui-layout-admin">
+        <div class="layui-header">
+            <div class="layui-logo" style="color:white">
+                <b>超市管理系统 v0.1</b>
+            </div>
+            <!-- 头部区域（可配合layui已有的水平导航） -->
+            <ul class="layui-nav layui-layout-left" style="margin-top: 20px">
+                <span class="layui-breadcrumb">
+                    <a href="">欢迎</a>
+                    <a href="">销售管理</a>
+                    <a href="">今日销售</a>
+                </span>
+            </ul>
+            <ul class="layui-nav layui-layout-right">
+                <li class="layui-nav-item">
+                    <a href="javascript:;">
+                        <img src="/Content/assets/image/avatar.PNG" class="layui-nav-img">
+                        管理员
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">基本资料</a></dd>
+                        <dd><a href="">安全设置</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item"><a href="">退出登录</a></li>
+            </ul>
+        </div>
+        <!-- 导航栏区域 -->
+        <div class="layui-side layui-bg-black">
+            <div class="layui-side-scroll">
+                <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+                <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a class="" href="javascript:;">销售管理</a>
+                        <dl class="layui-nav-child">
+                            <dd class="layui-this"><a href="/SALES_LOT/Index">今日销售</a></dd>
+                            <dd><a href="/SALES_LOT/Create">销售报表</a></dd>
+                            <dd><a href="/PRODUCT_ATTRIBUTE/Index">商品信息管理</a></dd>
+                            <dd><a href="/INCOMEs/Index">收支管理</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="javascript:;">货架管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="/SHELves/Index">货架分区</a></dd>
+                            <dd><a href="/PRODUCTs/Put">商品摆放</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a class="" href="javascript:;">库存管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="/STOCKs/Index">进货记录</a></dd>
+                            <dd><a href="/PRODUCTs/Index">库存记录</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a class="" href="javascript:;">供应链管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="/PLANs/Index">进货计划</a></dd>
+                            <dd><a href="/SUPPLIERs/Index">供货商信息</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a class="" href="javascript:;">赞助商管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="/SUPPORTs/Index">赞助记录</a></dd>
+                            <dd><a href="/SPONSORs/Index">赞助商信息</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a class="" href="javascript:;">员工管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="/EMPLOYEEs/Index">员工记录</a></dd>
+                            <dd><a href="/SALARies/Index">工资管理</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a class="" href="javascript:;">促销管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="/VIPs/Index">会员信息</a></dd>
+                            <dd><a href="/PRODUCTs/Create">折扣管理</a></dd>
+                        </dl>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="layui-body" style="padding: 20px; background-color: #F2F2F2;">
+            <!-- 内容主体区域 -->
+            <div class="layui-col-md12">
+                <div class="layui-card">
+                    <div class="layui-card-header" id="dateBin"
+                         style="font-size: 18px; font-weight: bold; padding: 8px 20px"></div>
+                    <div class="layui-card-body" style="padding: 20px">
+                        <div>
+                            <!--日期搜索 & 高级搜索-->
+                            <div style="padding: 0px">
+                                <label>年月选择：</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" class="layui-input" id="test1">
+                                </div>
+                                <button id="sale-btn-search" class="layui-btn icon-btn"
+                                        style="margin-left:15px; width: 90px">
+                                    <i class="layui-icon">&#xe615;</i>搜索
+                                </button>
+                                <button type="button" id="sale-btn-sup-search" class="layui-btn icon-btn"
+                                        style="margin-left:15px; width: 90px; background: #1E9FFF">
+                                    高级搜索
+                                </button>
+                            </div>
+                            <!--商品编码搜索 & 添加-->
+                            <br>
+                            <div style="padding: 0px">
+                                <label>商品批号：</label>
+                                <div class="layui-inline">
+                                    <input class="layui-input" placeholder="590118062301" id="test3">
+                                </div>
+                                <button id="sale-btn-search2" class="layui-btn icon-btn"
+                                        style="margin-left:15px; width: 90px">
+                                    <i class="layui-icon">&#xe615;</i>搜索
+                                </button>
+                                <button type="button" id="sale-btn-add" class="layui-btn icon-btn"
+                                        style="margin-left:15px; width: 90px">
+                                    <i class="layui-icon">&#xe654;</i>
+                                    添加
+                                </button>
+                            </div>
+                            <div style="font-size: 18px; font-weight: bold; padding: 35px 0px 8px 0px">
+                                <p id="table_logo_time">销售报表</p>
+                            </div>
+                            <!--数据表格-->
+                            <table class="layui-hide" id="test"></table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-footer">
+                <!-- 底部固定区域 -->
+            </div>
+        </div>
+    </div>
+    <script src="/Content/assets/libs/layui/layui.js"></script>
+    <!--添加弹出框-->
+    <script type="text/html" id="sale-add-form-model">
+        <form id="sale-add-form" lay-filter="sale-search-form" class="layui-form">
+            <div style="margin: 20px;">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">商品批号</label>
+                    <div class="layui-input-inline">
+                        <input name="batch_id" placeholder="请输入商品批号" type="text"
+                               class="layui-input"
+                               lay-verify="required" required />
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">销售数量</label>
+                    <div class="layui-input-inline">
+                        <input name="number" placeholder="请输入销售数量" type="text"
+                               class="layui-input"
+                               lay-verify="required" required />
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">销售金额</label>
+                    <div class="layui-input-inline">
+                        <input name="money" placeholder="请输入销售金额" type="text"
+                               class="layui-input"
+                               lay-verify="required" required />
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">交易时间</label>
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input" name="test2" placeholder="2018-07-27"
+                               lay-verify="required" required>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn layui-btn-primary close" type="button"
+                                onclick="layer.closeAll()">
+                            取消
+                        </button>
+                        <button class="layui-btn" lay-filter="sale-add-form-submit" lay-submit type="button">
+                            添加
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </script>
+    <!--高级搜索弹出框-->
+    <script type="text/html" id="sale-add-form-model2">
+        <form id="sale-search-form2" lay-filter="sale-search-form2" class="layui-form model-form">
+            <div style="margin: 20px 120px 20px 120px;">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">商品批号</label>
+                    <div class="layui-input-inline">
+                        <input name="batch_id" placeholder="请输入商品批号" type="text" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">商品编码</label>
+                    <div class="layui-input-inline">
+                        <input name="product_id" placeholder="请输入商品编码" type="text"
+                               class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">商品名称</label>
+                    <div class="layui-input-inline">
+                        <input name="product_name" placeholder="请输入商品名称" type="text"
+                               class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">销售数量</label>
+                    <div class="layui-input-inline" style="width: 82px;">
+                        <input type="text" name="quantity_min" placeholder="最小"
+                               autocomplete="off" class="layui-input">
+                    </div>
+                    <div class="layui-form-mid">-</div>
+                    <div class="layui-input-inline" style="width: 82px;">
+                        <input type="text" name="quantity_max" placeholder="最大"
+                               autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">销售金额</label>
+                    <div class="layui-input-inline" style="width: 82px;">
+                        <input type="text" name="price_min" placeholder="￥"
+                               autocomplete="off" class="layui-input">
+                    </div>
+                    <div class="layui-form-mid">-</div>
+                    <div class="layui-input-inline" style="width: 82px;">
+                        <input type="text" name="price_max" placeholder="￥"
+                               autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">交易时间</label>
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input" id="search-time-range"
+                               name="search_time_range" placeholder="2018-07-27">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn layui-btn-primary close"
+                                type="button" onclick="layer.closeAll()">
+                            取消
+                        </button>
+                        <button class="layui-btn layui-btn-normal"
+                                type="button" lay-filter="sale-search-form-submit002" lay-submit>
+                            查询
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </script>
+    <!-- 修改时间 -->
+    <script type="text/javascript">
+        function change(time) {
+            var date = new Date(parseInt(time.replace("/Date(", "").replace(")/", ""), 10));
+            var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+            var currentDate = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+            var Hour = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
+            var minutes = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+            return date.getFullYear() + "-" + month + "-" + currentDate;
+        }
+    </script>
+    <script>
+    //JavaScript代码区域
+    layui.use(['element', 'layer', 'laydate', 'table', 'form'], function () {
+        var element = layui.element, layer = layui.layer, laydate = layui.laydate, table = layui.table;
+        var $ = layui.jquery, form = layui.form;
+
+        //显示今日日期
+        laydate.render({
+            elem: '#dateBin',
+            format: '今日日期：yyyy 年 M 月 dd 日',
+            value: new Date()
+
+        });
+        //日期搜索
+        laydate.render({
+            elem: '#test1',
+            format: 'yyyy-MM-dd',
+            value: new Date()
+        });
+        //添加里面的日期选择
+        laydate.render({
+            elem: '#test2',
+            format: 'yyyy-MM-dd',
+            value: new Date()
+        });
+        //日期选择器2
+        laydate.render({
+            elem: '#search-time-range'
+            ,range: true
+        });
+        /*小卡片
+        $.post('/SALES_LOTe/bstSale/2018-01-01/2018-12-31', function (data) {
+            alert("!");
+            document.getElementById("table_logo_time").innerHTML = data;
+        });*/
+        //表格重载
+        table.render({
+            elem: '#test'
+            , url: '/SALES_LOT/getJson/' //数据接口
+            , method: "post"
+            , cellMinWidth: 80
+            , cols: [[
+                {type: 'numbers'}
+                , {field: 'BATCH_ID', title: '商品批号', sort: true}
+                , {field: 'PRODUCT_ID', title: '商品编码', sort: true}
+                , {field: 'PRODUCT_NAME', title: '商品名称'}
+                , {field: 'LOT_NUMBER', title: '销售数量', sort: true}
+                , {field: 'MONEY', title: '销售金额', sort: true}
+                , {field: 'LOT_DATE', title: '交易日期', templet: '<div>{{ change(d.LOT_DATE)}}</div>'}
+            ]]
+            //, page: true
+        });
+        //搜索按钮点击事件-01
+        $(document).on('click', '#sale-btn-search', function () {
+            alert($("#test1").val());
+            table.render({
+                elem: '#test'
+                , url: '/SALES_LOT/search01/' + $("#test1").val() //数据接口
+                , method: "post"
+                , cellMinWidth: 80
+                , cols: [[
+                    {type: 'numbers'}
+                    , {field: 'BATCH_ID', title: '商品批号', sort: true}
+                    , {field: 'PRODUCT_ID', title: '商品编码', sort: true}
+                    , {field: 'PRODUCT_NAME', title: '商品名称'}
+                    , {field: 'LOT_NUMBER', title: '销售数量', sort: true}
+                    , {field: 'MONEY', title: '销售金额', sort: true}
+                    , {field: 'LOT_DATE', title: '交易日期', templet: '<div>{{ change(d.LOT_DATE)}}</div>'}
+                ]]
+                //, page: true
+            });
+        });
+        //按编号搜索按钮点击事件-02
+        $(document).on('click', '#sale-btn-search2', function () {
+            alert($("#test3").val());
+            table.render({
+                elem: '#test'
+                , url: '/SALES_LOT/search02/' + $("#test3").val() //数据接口
+                , method: "post"
+                , cellMinWidth: 80
+                , cols: [[
+                    {type: 'numbers'}
+                    , {field: 'BATCH_ID', title: '商品批号', sort: true}
+                    , {field: 'PRODUCT_ID', title: '商品编码', sort: true}
+                    , {field: 'PRODUCT_NAME', title: '商品名称'}
+                    , {field: 'LOT_NUMBER', title: '销售数量', sort: true}
+                    , {field: 'MONEY', title: '销售金额', sort: true}
+                    , {field: 'LOT_DATE', title: '交易日期', templet: '<div>{{ change(d.LOT_DATE)}}</div>'}
+                ]]
+                //, page: true
+            });
+        });
+        //高级搜索按钮点击事件-03
+        $(document).on('click', '#sale-btn-sup-search', function () {
+            layer.open({
+                type: 1,
+                title: '高级搜索',
+                area: '400pxs',
+                offset: 'auto',
+                content: $('#sale-add-form-model2').html()
+
+            });
+        });
+        //添加按钮点击事件-04
+        $(document).on('click', '#sale-btn-add', function () {
+            layer.open({
+                type: 1,
+                title: '添加交易记录',
+                area: '400px',
+                offset: 'auto',
+                content: $('#sale-add-form-model').html()
+            });
+        });
+        //这个是干嘛的?
+        $('.demoTable .layui-btn').on('click', function () {
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+        //表单提交（2个）
+        //添加
+        form.on('submit(sale-add-form-submit)', function (data) {
+            var elem1 = data.field.batch_id;
+            var elem2 = data.field.number;
+            var elem3 = data.field.money;
+            var elem4 = data.field.test2;
+            alert('/SALES_LOT/CreatRecord/' + elem1 + '/' + elem2 + '/' + elem3 + '/' + elem4);
+            //重载表格
+            table.render({
+                elem: '#test'
+                , url: '/SALES_LOT/CreatRecord/' + elem1 + '/' + elem2 + '/' + elem3 + '/' + elem4 //数据接口
+                , method: "post"
+                , cellMinWidth: 80
+                , cols: [[
+                    {type: 'numbers'}
+                    , {field: 'BATCH_ID', title: '商品批号', sort: true}
+                    , {field: 'PRODUCT_ID', title: '商品编码', sort: true}
+                    , {field: 'PRODUCT_NAME', title: '商品名称'}
+                    , {field: 'LOT_NUMBER', title: '销售数量', sort: true}
+                    , {field: 'MONEY', title: '销售金额', sort: true}
+                    , {field: 'LOT_DATE', title: '交易日期', templet: '<div>{{ change(d.LOT_DATE)}}</div>'}
+                ]]
+                //, page: true
+            });
+            layer.closeAll();
+            //return false;
+        });
+        //高级搜索
+        form.on('submit(sale-search-form-submit002)', function (data) {
+            //layer.alert(JSON.stringify(data.field), {title: '最终的提交信息'});
+            var elem1 = data.field.batch_id;
+            var elem2 = data.field.product_id;
+            var elem3 = data.field.product_name;
+            var elem4 = data.field.quantity_min;
+            var elem5 = data.field.quantity_max;
+            var elem6 = data.field.price_min;
+            var elem7 = data.field.price_max;
+            var elem8 = data.field.search_time_range;
+
+            if (elem1 == "") elem1 = "!!";
+            if (elem2 == "") elem2 = "!!";
+            if (elem3 == "") elem3 = "!!";
+            if (elem4 == "") elem4 = "!!";
+            if (elem5 == "") elem5 = "!!";
+            if (elem6 == "") elem6 = "!!";
+            if (elem7 == "") elem7 = "!!";
+            if (elem8 == "") elem8 = "!!";
+
+            //重载表格
+            alert('/SALES_LOT/advancedSearch/' + elem1 +'/'+ elem2 +'/'+ elem3 +'/'+ elem4 +'/'+ elem5 +'/'+ elem6 +'/'+ elem7 +'/'+ elem8);
+            table.render({
+                elem: '#test'
+                , url: '/SALES_LOT/advancedSearch/' + elem1 +'/'+ elem2 +'/'+ elem3 +'/'+ elem4 +'/'+ elem5 +'/'+ elem6 +'/'+ elem7 +'/'+ elem8 //数据接口
+                , method: "post"
+                , cellMinWidth: 80
+                , cols: [[
+                    {type: 'numbers'}
+                    , {field: 'BATCH_ID', title: '商品批号', sort: true}
+                    , {field: 'PRODUCT_ID', title: '商品编码', sort: true}
+                    , {field: 'PRODUCT_NAME', title: '商品名称'}
+                    , {field: 'LOT_NUMBER', title: '销售数量', sort: true}
+                    , {field: 'MONEY', title: '销售金额', sort: true}
+                    , {field: 'LOT_DATE', title: '交易日期', templet: '<div>{{ change(d.LOT_DATE)}}</div>'}
+                ]]
+                //, page: true
+            });
+            layer.closeAll();
+            //return false;
+        });
+    });
+    </script>
+</body>
+</html>

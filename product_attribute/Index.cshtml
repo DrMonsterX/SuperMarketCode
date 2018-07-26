@@ -1,0 +1,636 @@
+﻿@model IEnumerable<MySuperMarket.Models.PRODUCT_ATTRIBUTE>
+
+@{
+    ViewBag.Title = "Index";
+}
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>超市管理系统 v0.1</title>
+    <link rel="stylesheet" href="/Content/assets/libs/layui/css/layui.css">
+</head>
+<body class="layui-layout-body">
+    <div class="layui-layout layui-layout-admin">
+        <div class="layui-header">
+            <div class="layui-logo" style="color:white">
+                <b>超市管理系统 v0.1</b>
+            </div>
+            <!-- 头部区域（可配合layui已有的水平导航）-->
+            <ul class="layui-nav layui-layout-left" style="margin-top: 20px">
+                <span class="layui-breadcrumb">
+                    <a href="">欢迎</a>
+                    <a href="">销售管理</a>
+                    <a href="">商品信息管理</a>
+                </span>
+            </ul>
+            <ul class="layui-nav layui-layout-right">
+                <li class="layui-nav-item">
+                    <a href="javascript:;">
+                        <img src="/Content/assets/image/avatar.PNG" class="layui-nav-img">
+                        管理员
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">基本资料</a></dd>
+                        <dd><a href="">安全设置</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item"><a href="">退出登录</a></li>
+            </ul>
+        </div>
+        <!-- 导航栏区域 -->
+        <div class="layui-side layui-bg-black">
+            <div class="layui-side-scroll">
+                <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+                <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a class="" href="javascript:;">销售管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="/SALES_LOT/Index">今日销售</a></dd>
+                            <dd><a href="/SALES_LOT/Create">销售报表</a></dd>
+                            <dd class="layui-this"><a href="/PRODUCT_ATTRIBUTE/Index">商品信息管理</a></dd>
+                            <dd><a href="/INCOMEs/Index">收支管理</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="javascript:;">货架管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="/SHELves/Index">货架分区</a></dd>
+                            <dd><a href="/PRODUCTs/Put">商品摆放</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a class="" href="javascript:;">库存管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="/STOCKs/Index">进货记录</a></dd>
+                            <dd><a href="/PRODUCTs/Index">库存记录</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a class="" href="javascript:;">供应链管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="/PLANs/Index">进货计划</a></dd>
+                            <dd><a href="/SUPPLIERs/Index">供货商信息</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a class="" href="javascript:;">赞助商管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="/SUPPORTs/Index">赞助记录</a></dd>
+                            <dd><a href="/SPONSORs/Index">赞助商信息</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a class="" href="javascript:;">员工管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="/EMPLOYEEs/Index">员工记录</a></dd>
+                            <dd><a href="/SALARies/Index">工资管理</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item ">
+                        <a class="" href="javascript:;">促销管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="/VIPs/Index">会员信息</a></dd>
+                            <dd><a href="/PRODUCTs/Create">折扣管理</a></dd>
+                        </dl>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="layui-body" style="padding: 20px; background-color: #F2F2F2;">
+            <!-- 内容主体区域 -->
+            <div class="layui-row layui-col-space15">
+                <!-- 小卡片01 -->
+                <div class="layui-col-md6">
+                    <div class="layui-card">
+                        <div class="layui-card-header">超市拥有商品总计</div>
+                        <div class="layui-card-body">
+                            <div class="layui-inline">
+                                <label>
+                                    <i class="layui-icon layui-icon-home"
+                                       style="font-size: 24px; font-weight: bold">&ensp;2099</i>
+                                </label>
+                                <span style="font-size: 14px"> 类</span>
+                                <span style="font-size: 14px">
+                                    &ensp;&ensp;食品类&ensp;&ensp;|&ensp;&ensp;酒水类&ensp;&ensp;|&ensp;&ensp;工具类
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 小卡片01 -->
+                <div class="layui-col-md6">
+                    <div class="layui-card">
+                        <div class="layui-card-header">本月新增商品</div>
+                        <div class="layui-card-body">
+                            <label>
+                                <i class="layui-icon layui-icon-add-circle"
+                                   style="font-size: 24px; font-weight: bold">&ensp;29</i>
+                                <span style="font-size: 14px"> 类</span>
+                                <span style="font-size: 14px">
+                                    &ensp;&ensp;食品类&ensp;&ensp;|&ensp;&ensp;酒水类&ensp;&ensp;|&ensp;&ensp;工具类
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <!-- 主体部分 -->
+                <div class="layui-col-md12">
+                    <div class="layui-card">
+                        <div class="layui-card-header" style="padding: 8px 20px">
+                            <i class="layui-icon layui-icon-cart-simple"
+                               s">
+                                商品信息管理
+                            </i>
+                        </div>
+                        <div class="layui-card-body">
+                            <form class="layui-form layui-form-pane" action="" style="padding-top: 6px">
+                                <div class="layui-form-item">
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">键值类型</label>
+                                        <div class="layui-input-inline">
+                                            <select id="search-type" lay-filter="aihao">
+                                                <option value="">-请选择-</option>
+                                                <option value="0">商品编码</option>
+                                                <option value="1">商品名称</option>
+                                                <option value="2">供货商ID</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">输入键值</label>
+                                        <div class="layui-input-inline">
+                                            <input name="title" autocomplete="off" placeholder="请输入"
+                                                   class="layui-input" type="text">
+                                        </div>
+                                    </div>
+                                    <button id="info-btn-search" class="layui-btn icon-btn" type="button">
+                                        <i class="layui-icon">&#xe615;</i>搜索
+                                    </button>
+                                    <button type="button" id="info-btn-Hsearch" class="layui-btn icon-btn">
+                                        <i class="layui-icon">&#xe615;</i> 高级搜索
+                                    </button>
+                                    <button type="button" id="info-btn-add" class="layui-btn icon-btn">
+                                        <i class="layui-icon">&#xe654;</i>添加
+                                    </button>
+                                </div>
+                            </form>
+                            <!-- 主体表格部分 -->
+                            <table class="layui-hide" id="info_table"
+                                   lay-filter="info_table"></table>
+                            <!--高级搜索弹出框-->
+                            <!--原来在这里-->
+                            <!--添加弹出框-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-footer">
+                <!-- 底部固定区域 -->
+            </div>
+        </div>
+    </div>
+    <script src="/Content/assets/libs/layui/layui.js"></script>
+    <!--修改弹出框-->
+    <script type="text/html" id="info-record-model">
+        <form id="info-update-form" lay-filter="info-update-form" class="layui-form model-form">
+            <div style="margin: 20px;">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">商品编码</label>
+                    <div class="layui-input-inline">
+                        <input name="PRODUCT_ID" placeholder="请输入商品编码" type="text"
+                               class="layui-input"
+                               lay-verify="required" disabled />
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">商品名称</label>
+                    <div class="layui-input-inline">
+                        <input name="PRODUCT_NAME" placeholder="请输入商品名称" type="text"
+                               class="layui-input"
+                               lay-verify="required" required />
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">供货商ID</label>
+                    <div class="layui-input-inline">
+                        <input name="SUPPLIER_ID" placeholder="请输入供货商ID" type="text"
+                               class="layui-input"
+                               lay-verify="required" required />
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">进货价格</label>
+                    <div class="layui-input-inline">
+                        <input name="PURCHASE_PRICE" placeholder="请输入进货价格" type="text"
+                               class="layui-input"
+                               lay-verify="required" required />
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">标准售价</label>
+                    <div class="layui-input-inline">
+                        <input name="SELL_PRICE" placeholder="请输入标准售价" type="text"
+                               class="layui-input"
+                               lay-verify="required" required />
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">保质期</label>
+                    <div class="layui-input-inline">
+                        <input name="EXP" placeholder="请输入保质期" type="text"
+                               class="layui-input"
+                               lay-verify="required" required />
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">商品总数</label>
+                    <div class="layui-input-inline">
+                        <input name="TOTAL" placeholder="请输入商品总数" type="text"
+                               class="layui-input"
+                               lay-verify="required" required />
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn layui-btn-primary close" type="button"
+                                onclick="layer.closeAll()">
+                            取消
+                        </button>
+                        <button class="layui-btn layui-btn-normal"
+                                lay-filter="update-submit" lay-submit type="button">
+                            保存
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </script>
+    <!--高级搜索弹出框-->
+    <script type="text/html" id="info-record-model2">
+        <form id="info-record-form" lay-filter="info-record-form" class="layui-form">
+            <div style="margin: 20px;">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">供货商ID</label>
+                    <div class="layui-input-inline">
+                        <input name="SUPPLIER_ID" placeholder="请输入供货商ID" type="text"
+                               class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">进货价格</label>
+                    <div class="layui-input-inline" style="width: 82px;">
+                        <input type="text" name="PURCHASE_PRICE_MIN" placeholder="最小"
+                               autocomplete="off"
+                               class="layui-input">
+                    </div>
+                    <div class="layui-form-mid">-</div>
+                    <div class="layui-input-inline" style="width: 82px;">
+                        <input type="text" name="PURCHASE_PRICE_MAX" placeholder="最大"
+                               autocomplete="off"
+                               class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">标准售价</label>
+                    <div class="layui-input-inline" style="width: 82px;">
+                        <input type="text" name="SELL_PRICE_MIN" placeholder="最小"
+                               autocomplete="off"
+                               class="layui-input">
+                    </div>
+                    <div class="layui-form-mid">-</div>
+                    <div class="layui-input-inline" style="width: 82px;">
+                        <input type="text" name="SELL_PRICE_MAX" placeholder="最大"
+                               autocomplete="off"
+                               class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">保质期</label>
+                    <div class="layui-input-inline" style="width: 82px;">
+                        <input type="text" name="EXP_MIN" placeholder="最小"
+                               autocomplete="off"
+                               class="layui-input">
+                    </div>
+                    <div class="layui-form-mid">-</div>
+                    <div class="layui-input-inline" style="width: 82px;">
+                        <input type="text" name="EXP_MAX" placeholder="最大"
+                               autocomplete="off"
+                               class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">商品总数</label>
+                    <div class="layui-input-inline" style="width: 82px;">
+                        <input type="text" name="TOTAL_MIN" placeholder="最小"
+                               autocomplete="off"
+                               class="layui-input">
+                    </div>
+                    <div class="layui-form-mid">-</div>
+                    <div class="layui-input-inline" style="width: 82px;">
+                        <input type="text" name="TOTAL_MAX" placeholder="最大"
+                               autocomplete="off"
+                               class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn layui-btn-primary close" type="button"
+                                onclick="layer.closeAll()">
+                            取消
+                        </button>
+                        <button class="layui-btn layui-btn-normal"
+                                lay-filter="advanced-search-submit" lay-submit type="button">
+                            查询
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </script>
+    <!--添加弹出框-->
+    <script type="text/html" id="info-record-model3">
+        <form id="info-add-form" lay-filter="info-add-form" class="layui-form">
+            <div style="margin: 20px;">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">商品编码</label>
+                    <div class="layui-input-inline">
+                        <input name="PRODUCT_ID" placeholder="请输入商品编码" type="text"
+                               class="layui-input"
+                               lay-verify="required" required />
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">商品名称</label>
+                    <div class="layui-input-inline">
+                        <input name="PRODUCT_NAME" placeholder="请输入商品名称" type="text"
+                               class="layui-input"
+                               lay-verify="required" required />
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">供货商ID</label>
+                    <div class="layui-input-inline">
+                        <input name="SUPPLIER_ID" placeholder="请输入供货商ID" type="text"
+                               class="layui-input"
+                               lay-verify="required" required />
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">进货价格</label>
+                    <div class="layui-input-inline">
+                        <input name="PURCHASE_PRICE" placeholder="请输入进货价格" type="text"
+                               class="layui-input"
+                               lay-verify="required" required />
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">标准售价</label>
+                    <div class="layui-input-inline">
+                        <input name="SELL_PRICE" placeholder="请输入标准售价" type="text"
+                               class="layui-input"
+                               lay-verify="required" required />
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">保质期</label>
+                    <div class="layui-input-inline">
+                        <input name="EXP" placeholder="请输入保质期" type="text"
+                               class="layui-input"
+                               lay-verify="required" required />
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">商品总数</label>
+                    <div class="layui-input-inline">
+                        <input name="TOTAL" placeholder="请输入商品总数" type="text"
+                               class="layui-input"
+                               lay-verify="required" required />
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn layui-btn-primary close" type="button"
+                                onclick="layer.closeAll()">
+                            取消
+                        </button>
+                        <button class="layui-btn layui-btn-normal"
+                                lay-filter="add-submit" lay-submit type="button">
+                            添加
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </script>
+    <!-- 增添工具条按钮 -->
+    <script type="text/html" id="staff-table-bar">
+        <a class="layui-btn layui-btn-xs" lay-event="edit">修改</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    </script>
+    <script>
+        layui.use(['form', 'table', 'element', 'layer'], function () {
+            var table = layui.table, element = layui.element, layer = layui.layer, form = layui.form;
+            var $ = layui.jquery;
+            //初始化表格
+            table.render({
+                elem: '#info_table'
+                , url: '/PRODUCT_ATTRIBUTE/getJson/' //数据接口
+                , method: "post"
+                , cellMinWidth: 120
+                , cols: [[
+                    { field: 'PRODUCT_ID', title: '商品编码', sort: true }
+                    , { field: 'PRODUCT_NAME', title: '商品名', sort: true }
+                    , { field: 'SUPPLIER_ID', title: '供货商ID', sort: true }
+                    , { field: 'PURCHASE_PRICE', title: '进货价格', sort: true }
+                    , { field: 'SELL_PRICE', title: '标准售价', sort: true }
+                    , { field: 'EXP', title: '保质期', sort: true }
+                    , { field: 'TOTAL', title: '商品总数', sort: true }
+                    , { align: 'center', toolbar: '#staff-table-bar', title: '操作' }
+                ]],
+                data: [{
+                    "PRODUCT_ID": "001",
+                    "SUPPLIER_ID": "002",
+                    "PRODUCT_NAME": "123",
+                    "PURCHASE_PRICE": "100",
+                    "SELL_PRICE": "120",
+                    "EXP": "800",
+                    "TOTAL": "12"
+                }]
+            });
+            // 搜索
+            $(document).on('click', '#info-btn-search', function () {
+                //alert($("#search-type").val() + '/' + $("input[name='title']").val());
+                table.render({
+                    elem: '#info_table'
+                    , url: '/PRODUCT_ATTRIBUTE/search01/' + $("#search-type").val() + '/' + $("input[name='title']").val() //数据接口
+                    , method: "post"
+                    , cellMinWidth: 120
+                    , cols: [[
+                        { field: 'PRODUCT_ID', title: '商品编码', sort: true }
+                        , { field: 'PRODUCT_NAME', title: '商品名', sort: true }
+                        , { field: 'SUPPLIER_ID', title: '供货商ID', sort: true }
+                        , { field: 'PURCHASE_PRICE', title: '进货价格', sort: true }
+                        , { field: 'SELL_PRICE', title: '标准售价', sort: true }
+                        , { field: 'EXP', title: '保质期', sort: true }
+                        , { field: 'TOTAL', title: '商品总数', sort: true }
+                        , { align: 'center', toolbar: '#staff-table-bar', title: '操作' }
+                    ]]
+                });
+            });
+            // 高级搜索
+            $(document).on('click', '#info-btn-Hsearch', function () {
+                layer.open({
+                    type: 1,
+                    title: '高级搜索',
+                    area: '400px',
+                    offset: 'auto',
+                    content: $('#info-record-model2').html()
+                });
+            });
+            //添加
+            $(document).on('click', '#info-btn-add', function () {
+                layer.open({
+                    type: 1,
+                    title: '添加商品',
+                    area: '400px',
+                    offset: 'auto',
+                    content: $('#info-record-model3').html()
+                });
+            });
+            // 工具条点击事件
+            table.on('tool(info_table)', function (obj) {
+                var data = obj.data;
+                if (obj.event === 'edit') { //修改
+                    layer.open({
+                        type: 1,
+                        title: '商品信息修改',
+                        area: '400px',
+                        offset: 'auto',
+                        content: $('#info-record-model').html(),
+                        success: function () {
+                            form.val('info-update-form', data);
+                        }
+                    });
+                } else if (obj.event === 'del') { //删除
+                    layer.confirm('确定要删除吗？', { title: '提示' }, function (index) {
+                        $.post('/PRODUCT_ATTRIBUTE/Delete/' + data.PRODUCT_ID);
+                        obj.del();
+                        layer.close(index);
+                    });
+                }
+            });
+            //提交按钮监听
+            //
+            //高级搜索提交
+            form.on('submit(advanced-search-submit)', function (data) {
+                var elem1 = data.field.SUPPLIER_ID;
+                var elem2 = data.field.PURCHASE_PRICE_MIN;
+                var elem3 = data.field.PURCHASE_PRICE_MAX;
+                var elem4 = data.field.SELL_PRICE_MIN;
+                var elem5 = data.field.SELL_PRICE_MAX;
+                var elem6 = data.field.EXP_MIN;
+                var elem7 = data.field.EXP_MAX;
+                var elem8 = data.field.TOTAL_MIN;
+                var elem9 = data.field.TOTAL_MAX;
+
+                if (elem1 == "") elem1 = "!!";
+                if (elem2 == "") elem2 = "!!";
+                if (elem3 == "") elem3 = "!!";
+                if (elem4 == "") elem4 = "!!";
+                if (elem5 == "") elem5 = "!!";
+                if (elem6 == "") elem6 = "!!";
+                if (elem7 == "") elem7 = "!!";
+                if (elem8 == "") elem8 = "!!";
+                if (elem9 == "") elem9 = "!!";
+
+                alert('/PRODUCT_ATTRIBUTE/advancedSearch/' + elem1 + '/' + elem2 + '/' + elem3 + '/' + elem4 + '/' + elem5 + '/' + elem6 + '/' + elem7 + '/' + elem8 + '/' + elem9);
+                //重载表格
+                table.render({
+                    elem: '#info_table'
+                    , url: '/PRODUCT_ATTRIBUTE/advancedSearch/' + elem1 + '/' + elem2 + '/' + elem3 + '/' + elem4 + '/' + elem5 + '/' + elem6 + '/' + elem7 + '/' + elem8 + '/' + elem9 //数据接口
+                    , method: "post"
+                    , cellMinWidth: 120
+                    , cols: [[
+                        { field: 'PRODUCT_ID', title: '商品编码', sort: true }
+                        , { field: 'PRODUCT_NAME', title: '商品名', sort: true }
+                        , { field: 'SUPPLIER_ID', title: '供货商ID', sort: true }
+                        , { field: 'PURCHASE_PRICE', title: '进货价格', sort: true }
+                        , { field: 'SELL_PRICE', title: '标准售价', sort: true }
+                        , { field: 'EXP', title: '保质期', sort: true }
+                        , { field: 'TOTAL', title: '商品总数', sort: true }
+                        , { align: 'center', toolbar: '#staff-table-bar', title: '操作' }
+                    ]]
+                });
+                layer.closeAll();
+                // return false
+            });
+            //增添提交
+            form.on('submit(add-submit)', function (data) {
+                var elem1 = data.field.PRODUCT_ID;
+                var elem2 = data.field.PRODUCT_NAME;
+                var elem3 = data.field.SUPPLIER_ID;
+                var elem4 = data.field.PURCHASE_PRICE;
+                var elem5 = data.field.SELL_PRICE;
+                var elem6 = data.field.EXP;
+                var elem7 = data.field.TOTAL;
+                alert('/PRODUCT_ATTRIBUTE/addSubmit/' + elem1 + '/' + elem2 + '/' + elem3 + '/' + elem4 + '/' + elem5 + '/' + elem6 + '/' + elem7);
+                //重载表格
+                table.render({
+                    elem: '#info_table'
+                    , url: '/PRODUCT_ATTRIBUTE/addSubmit/' + elem1 + '/' + elem2 + '/' + elem3 + '/' + elem4 + '/' + elem5 + '/' + elem6 + '/' + elem7  //数据接口
+                    , method: "post"
+                    , cellMinWidth: 120
+                    , cols: [[
+                        { field: 'PRODUCT_ID', title: '商品编码', sort: true }
+                        , { field: 'PRODUCT_NAME', title: '商品名', sort: true }
+                        , { field: 'SUPPLIER_ID', title: '供货商ID', sort: true }
+                        , { field: 'PURCHASE_PRICE', title: '进货价格', sort: true }
+                        , { field: 'SELL_PRICE', title: '标准售价', sort: true }
+                        , { field: 'EXP', title: '保质期', sort: true }
+                        , { field: 'TOTAL', title: '商品总数', sort: true }
+                        , { align: 'center', toolbar: '#staff-table-bar', title: '操作' }
+                    ]]
+                });
+                layer.closeAll();
+                // return false
+            });
+            //修改
+            form.on('submit(update-submit)', function (data) {
+                var elem1 = data.field.PRODUCT_ID;
+                var elem2 = data.field.PRODUCT_NAME;
+                var elem3 = data.field.SUPPLIER_ID;
+                var elem4 = data.field.PURCHASE_PRICE;
+                var elem5 = data.field.SELL_PRICE;
+                var elem6 = data.field.EXP;
+                var elem7 = data.field.TOTAL;
+                alert('/PRODUCT_ATTRIBUTE/editRecord/' + elem1 + '/' + elem2 + '/' + elem3 + '/' + elem4 + '/' + elem5 + '/' + elem6 + '/' + elem7);
+                //重载表格
+                table.render({
+                    elem: '#info_table'
+                    , url: '/PRODUCT_ATTRIBUTE/editRecord/' + elem1 + '/' + elem2 + '/' + elem3 + '/' + elem4 + '/' + elem5 + '/' + elem6 + '/' + elem7  //数据接口
+                    , method: "post"
+                    , cellMinWidth: 120
+                    , cols: [[
+                        { field: 'PRODUCT_ID', title: '商品编码', sort: true }
+                        , { field: 'PRODUCT_NAME', title: '商品名', sort: true }
+                        , { field: 'SUPPLIER_ID', title: '供货商ID', sort: true }
+                        , { field: 'PURCHASE_PRICE', title: '进货价格', sort: true }
+                        , { field: 'SELL_PRICE', title: '标准售价', sort: true }
+                        , { field: 'EXP', title: '保质期', sort: true }
+                        , { field: 'TOTAL', title: '商品总数', sort: true }
+                        , { align: 'center', toolbar: '#staff-table-bar', title: '操作' }
+                    ]]
+                });
+                layer.closeAll();
+                // return false
+            });
+        });
+    </script>
+</body>
+</html>

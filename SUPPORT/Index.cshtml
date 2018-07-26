@@ -1,0 +1,479 @@
+﻿@model IEnumerable<MySuperMarket.Models.SUPPORT>
+
+@{
+    ViewBag.Title = "Index";
+}
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>超市管理系统 v0.1</title>
+    <link rel="stylesheet" href="/Content/assets/libs/layui/css/layui.css">
+</head>
+
+<body class="layui-layout-body">
+    <div class="layui-layout layui-layout-admin">
+        <div class="layui-header">
+            <div class="layui-logo" style="color:white">
+                <b>超市管理系统 v0.1</b>
+            </div>
+            <!-- 头部区域（可配合layui已有的水平导航） -->
+            <ul class="layui-nav layui-layout-left" style="margin-top: 20px">
+                <span class="layui-breadcrumb">
+                    <a href="">欢迎</a>
+                    <a href="">赞助商管理</a>
+                    <a href="">赞助记录</a>
+                </span>
+            </ul>
+            <ul class="layui-nav layui-layout-right">
+                <li class="layui-nav-item">
+                    <a href="javascript:;">
+                        <img src="/Content/assets/image/avatar.PNG" class="layui-nav-img">
+                        管理员
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">基本资料</a></dd>
+                        <dd><a href="">安全设置</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item"><a href="">退出登录</a></li>
+            </ul>
+        </div>
+        <!-- 导航栏区域 -->
+        <div class="layui-side layui-bg-black">
+            <div class="layui-side-scroll">
+                <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+                <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                    <li class="layui-nav-item">
+                        <a class="" href="javascript:;">销售管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="/SALES_LOT/Index">今日销售</a></dd>
+                            <dd><a href="/SALES_LOT/Create">销售报表</a></dd>
+                            <dd><a href="/PRODUCT_ATTRIBUTE/Index">商品信息管理</a></dd>
+                            <dd><a href="/INCOMEs/Index">收支管理</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="javascript:;">货架管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="/SHELves/Index">货架分区</a></dd>
+                            <dd><a href="/PRODUCTs/Put">商品摆放</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a class="" href="javascript:;">库存管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="/STOCKs/Index">进货记录</a></dd>
+                            <dd><a href="/PRODUCTs/Index">库存记录</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a class="" href="javascript:;">供应链管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="/PLANs/Index">进货计划</a></dd>
+                            <dd><a href="/SUPPLIERs/Index">供货商信息</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a class="" href="javascript:;">赞助商管理</a>
+                        <dl class="layui-nav-child">
+                            <dd class="layui-this"><a href="/SUPPORTs/Index">赞助记录</a></dd>
+                            <dd><a href="/SPONSORs/Index">赞助商信息</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a class="" href="javascript:;">员工管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="/EMPLOYEEs/Index">员工记录</a></dd>
+                            <dd><a href="/SALARies/Index">工资管理</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a class="" href="javascript:;">促销管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="/VIPs/Index">会员信息</a></dd>
+                            <dd><a href="/PRODUCTs/Create">折扣管理</a></dd>
+                        </dl>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="layui-body" style="padding: 0px 20px 20px 20px; background-color: #F2F2F2;">
+            <!-- 内容主体区域 -->
+            <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+                <div class="layui-tab-content" style="margin-top: 10px">
+                    <div class="layui-tab-item layui-show">
+                        <!--第一个界面-->
+                        <div class="layui-col-md12">
+                            <div class="layui-card">
+                                <div class="layui-card-header" style="padding: 8px 20px">
+                                    <i class="layui-icon layui-icon-form" style="font-size: 18px; font-weight: bold">
+                                        赞助记录管理
+                                    </i>
+                                </div>
+                                <div class="layui-card-body">
+                                    <form class="layui-form layui-form-pane" action="" style="padding-top: 6px">
+                                        <div class="layui-form-item">
+                                            <div class="layui-inline">
+                                                <label class="layui-form-label">键值类型</label>
+                                                <div class="layui-input-inline">
+                                                    <select id="type" lay-filter="type">
+                                                        <option value="">-请选择-</option>
+                                                        <option value="0">赞助商ID</option>
+                                                        <option value="1">赞助商名称</option>
+                                                        <option value="2">金额</option>
+                                                        <option value="3">日期</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="layui-inline">
+                                                <label class="layui-form-label">输入键值</label>
+                                                <div class="layui-input-inline">
+                                                    <input name="title" autocomplete="off" placeholder="请输入" class="layui-input" type="text">
+                                                </div>
+                                            </div>
+                                            <button type="button" id="support-record-search" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i>搜索</button>
+                                            <button type="button" id="support-record-Hsearch" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i>高级搜索</button>
+                                            <button type="button" id="support-record-add" class="layui-btn icon-btn"><i class="layui-icon">&#xe654;</i>添加</button>
+                                        </div>
+                                    </form>
+                                    <!-- 主体表格部分 -->
+                                    <!-- 声明一个隐藏的表格，通过render函数进行数据载入 -->
+                                    <table class="layui-hide" id="support_record_table" lay-filter="support_record_table"></table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-footer">
+            <!-- 底部固定区域 -->
+        </div>
+    </div>
+    <script src="/Content/assets/libs/layui/layui.js"></script>
+    <script type="text/html" id="support-search-model">
+        <!--高级搜索弹出框-->
+        <form id="support-record-form" lay-filter="support-record-form" class="layui-form model-form">
+            <div style="margin: 20px;">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">赞助商ID</label>
+                    <div class="layui-input-inline">
+                        <input name="SPONSOR_ID" placeholder="请输入赞助商ID" type="text" class="layui-input" />
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">赞助商名称</label>
+                    <div class="layui-input-inline">
+                        <input name="SPONSOR_NAME" placeholder="请输入赞助商名称" type="text" class="layui-input" />
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">收入表ID</label>
+                    <div class="layui-input-inline">
+                        <input name="INCOME_ID" placeholder="请输入收入表ID" type="text" class="layui-input" />
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">金额</label>
+                    <div class="layui-input-inline" style="width: 82px;">
+                        <input type="text" name="MONEY_MIN" placeholder="最小" autocomplete="off" class="layui-input">
+                    </div>
+                    <div class="layui-form-mid">-</div>
+                    <div class="layui-input-inline" style="width: 82px;">
+                        <input type="text" name="MONEY_MAX" placeholder="最大" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">日期</label>
+                    <div class="layui-input-inline">
+                        <input name="SUPPORT_DATE" type="text" class="layui-input" placeholder=" 年-月-日 ">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn layui-btn-primary close" onclick="layer.closeAll()" type="button">取消</button>
+                        <button class="layui-btn layui-btn-normal"  type="button" lay-filter="support-search-form-submit" lay-submit>查询</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </script>
+    <script type="text/html" id="support-add-model">
+        <!--添加弹出框-->
+        <form id="support-record-add-form" lay-filter="support-record-add-form" class="layui-form model-form">
+            <div style="margin: 20px;">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">赞助商ID</label>
+                    <div class="layui-input-inline">
+                        <input name="SPONSOR_ID" placeholder="请输入赞助商ID" type="text" class="layui-input"
+                               lay-verify="required" required />
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">收入表ID</label>
+                    <div class="layui-input-inline">
+                        <input name="INCOME_ID" placeholder="请输入收入表ID" type="text" class="layui-input" lay-verify="required" required/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">金额</label>
+                    <div class="layui-input-inline">
+                        <input name="MONEY" placeholder="请输入金额" type="text" class="layui-input"
+                               lay-verify="required" required />
+                    </div>
+                </div>
+               
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn layui-btn-primary close" onclick="layer.closeAll()" type="button">取消</button>
+                        <button class="layui-btn layui-btn-normal" lay-filter="support-add-form-submit" lay-submit>添加</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </script>
+    
+    <script>
+        //JavaScript代码区域
+        layui.use(['element', 'layer'], function () {
+            var element = layui.element, layer = layui.layer;
+
+        });
+    </script>
+
+    
+    <script type="text/javascript">
+        function change(time) {
+            var date = new Date(parseInt(time.replace("/Date(", "").replace(")/", ""), 10));
+            var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+            var currentDate = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+            var Hour = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
+            var minutes = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+            return date.getFullYear() + "-" + month + "-" + currentDate;
+        }
+
+    </script>
+    <script>
+        layui.use(['form', 'table'], function () {
+            var table = layui.table;
+            var $ = layui.jquery;
+            var form = layui.form;
+            table.render({
+                elem: '#support_record_table'
+                , url: '/SUPPORTs/getJson/' //数据接口
+                , method: "post"
+                , cellMinWidth: 120
+                //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+                //width 支持：数字、百分比和不填写。
+                //你还可以通过 minWidth 参数局部定义当前单元格的最小宽度，layui 2.2.1 新增
+                , cols: [[
+                    { type: 'numbers' },
+                    { field: 'SPONSOR_ID', title: '赞助商ID', sort: true },
+                    { field: 'SPONSOR_NAME', sort: true, title: '赞助商名称' },
+                    { field: 'INCOME_ID', sort: true, title: '收入表ID' },
+                    { field: 'MONEY', sort: true, title: '金额' },
+                    { field: 'SUPPORT_DATE', sort: true, title: '日期', templet: '<div>{{ change(d.SUPPORT_DATE)}}</div>'},
+                    
+                ]]
+
+            });
+            // 高级搜索按钮点击事件
+            $(document).on('click', '#support-record-Hsearch', function (data) {
+                layer.open({
+                    type: 1,
+                    title: '高级搜索',
+                    area: '400px',
+                    offset: 'auto',
+                    content: $('#support-search-model').html(),
+                    success: function () {
+                        form.val('support-record-form', data);
+                    }
+                });
+            });
+            //添加
+            $(document).on('click', '#support-record-add', function (data) {
+                layer.open({
+                    type: 1,
+                    title: '添加赞助记录',
+                    area: '400px',
+                    offset: 'auto',
+                    content: $('#support-add-model').html(),
+                    success: function () {
+                        form.val('support-record-add-form', data);
+                    }
+                });
+            });
+
+            
+        });
+    </script>
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+
+    <script type="text/javascript">
+        //搜索按钮响应事件
+        $(document).ready(function () {
+
+            $("#support-record-search").click(function () {
+                var type = $("#type").val();
+                var val = $(" input[ name='title' ] ").val();
+
+                layui.use(['table', 'element'], function () {
+
+                    var table = layui.table;
+                    var element = layui.element;
+                    var $ = layui.jquery;
+
+                    var linkString = '/SUPPORTs/search01/' + type + '/' + val;
+                    //alert(type);
+
+                    table.render({
+                        elem: '#support_record_table'
+                        , url: linkString //数据接口
+                        , method: "post"
+                        , cellMinWidth: 120
+                        //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+                        //width 支持：数字、百分比和不填写。
+                        //你还可以通过 minWidth 参数局部定义当前单元格的最小宽度，layui 2.2.1 新增
+                        , cols: [[
+                            { type: 'numbers' },
+                            { field: 'SPONSOR_ID', title: '赞助商ID', sort: true },
+                            { field: 'SPONSOR_NAME', sort: true, title: '赞助商名称' },
+                            { field: 'INCOME_ID', sort: true, title: '收入表ID' },
+                            { field: 'MONEY', sort: true, title: '金额' },
+                            { field: 'SUPPORT_DATE', sort: true, title: '日期', templet: '<div>{{ change(d.SUPPORT_DATE)}}</div>' },
+                            
+                        ]]
+
+                    });
+                });
+            });
+        });
+
+    </script>
+    <script type="text/javascript">
+        layui.use(['form', 'table'], function () {
+            var table = layui.table;
+            var $ = layui.jquery;
+            var form = layui.form;
+
+
+            //添加弹窗提交按钮点击事件
+            form.on('submit(support-add-form-submit)', function (data) {
+                var elem1 = data.field.SPONSOR_ID;
+                var elem2 = data.field.INCOME_ID;
+                var elem3 = data.field.MONEY;
+
+                $.post('/SUPPORTs/test/' + elem1 + '/' +  elem2, function (data) {
+                    var IsExist = data;
+                    if (IsExist == "1") {
+                        layer.alert('符合赞助商ID和收入ID的信息已存在，添加失败', {
+                            btn: ['确定']
+                            , yes: function (index) {
+
+                                layer.closeAll();
+                            }
+                        });
+                    }
+                    else if (IsExist == "2") {
+                        layer.alert('找不到符合条件的赞助商ID', {
+                            btn: ['确定']
+                            , yes: function (index) {
+
+                                layer.closeAll();
+                            }
+                        });
+                    }
+                    else if (IsExist == "3") {
+                        layer.alert('找不到符合条件的收入表ID', {
+                            btn: ['确定']
+                            , yes: function (index) {
+
+                                layer.closeAll();
+                            }
+                        });
+                    }
+                    else if (IsExist == "4") {
+
+                        layui.use(['table', 'element'], function () {
+                            var table = layui.table;
+                            var $ = layui.jquery;
+                            //alert(elem2);
+                            table.render({
+                                elem: '#support_record_table'
+                                , url: '/SUPPORTs/Create01/' + elem1 + '/' + elem2 + '/' + elem3 //数据接口
+                                , method: "post"
+                                , cellMinWidth: 120
+                                , cols: [[
+                                    { type: 'numbers' },
+                                    { field: 'SPONSOR_ID', title: '赞助商ID', sort: true },
+                                    { field: 'SPONSOR_NAME', sort: true, title: '赞助商名称' },
+                                    { field: 'INCOME_ID', sort: true, title: '收入表ID' },
+                                    { field: 'MONEY', sort: true, title: '金额' },
+                                    { field: 'SUPPORT_DATE', sort: true, title: '日期', templet: '<div>{{ change(d.SUPPORT_DATE)}}</div>' },
+                                    
+                                ]]
+                            });
+                        });
+                        layer.closeAll();
+
+
+                    }
+                })
+                return false;
+            });
+
+           
+            //高级搜索提交按钮事件
+            form.on('submit(support-search-form-submit)', function (data) {
+                var elem1 = data.field.SPONSOR_ID;
+                var elem2 = data.field.SPONSOR_NAME;
+                var elem3 = data.field.INCOME_ID;
+                var elem4 = data.field.MONEY_MIN;
+                var elem5 = data.field.MONEY_MAX;
+                var elem6 = data.field.SUPPORT_DATE;
+
+
+                if (elem1 == "") elem1 = "!!";
+                if (elem2 == "") elem2 = "!!";
+                if (elem3 == "") elem3 = "!!";
+                if (elem4 == "") elem4 = "!!";
+                if (elem5 == "") elem5 = "!!";
+                if (elem6 == "") elem6 = "!!";
+
+
+                layui.use(['table', 'element'], function () {
+                    var table = layui.table;
+                    var $ = layui.jquery;
+                   // alert(elem1);
+                    table.render({
+                        elem: '#support_record_table'
+                        , url: '/SUPPORTs/advancedSearch/' + elem1 + '/' + elem2 + '/' + elem3 + '/' + elem4 + '/' + elem5 + '/' + elem6  //数据接口
+                        , method: "post"
+                        , cellMinWidth: 120
+                        , cols: [[
+                            { type: 'numbers' },
+                            { field: 'SPONSOR_ID', title: '赞助商ID', sort: true },
+                            { field: 'SPONSOR_NAME', sort: true, title: '赞助商名称' },
+                            { field: 'INCOME_ID', sort: true, title: '收入表ID' },
+                            { field: 'MONEY', sort: true, title: '金额' },
+                            { field: 'SUPPORT_DATE', sort: true, title: '日期', templet: '<div>{{ change(d.SUPPORT_DATE)}}</div>' },
+                            
+                        ]]
+                    });
+                    layer.closeAll();
+                });
+
+                //return false;
+            });
+
+        });
+    </script>
+</body>
+
+</html>

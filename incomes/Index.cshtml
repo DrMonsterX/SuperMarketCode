@@ -1,0 +1,624 @@
+﻿@model IEnumerable<MySuperMarket.Models.INCOME>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>超市管理系统 v0.1</title>
+    <link rel="stylesheet" href="/Content/assets/libs/layui/css/layui.css">
+</head>
+<body class="layui-layout-body">
+    <div class="layui-layout layui-layout-admin">
+        <div class="layui-header">
+            <div class="layui-logo" style="color:white">
+                <b>超市管理系统 v0.1</b>
+            </div>
+            <!-- 头部区域（可配合layui已有的水平导航） -->
+            <ul class="layui-nav layui-layout-left" style="margin-top: 20px">
+                <span class="layui-breadcrumb">
+                    <a href="">欢迎</a>
+                    <a href="">销售管理</a>
+                    <a href="">收支管理</a>
+                </span>
+            </ul>
+            <ul class="layui-nav layui-layout-right">
+                <li class="layui-nav-item">
+                    <a href="javascript:;">
+                        <img src="/Content/assets/image/avatar.PNG" class="layui-nav-img">
+                        管理员
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">基本资料</a></dd>
+                        <dd><a href="">安全设置</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item"><a href="">退出登录</a></li>
+            </ul>
+        </div>
+        <!-- 导航栏区域 -->
+        <div class="layui-side layui-bg-black">
+            <div class="layui-side-scroll">
+                <!-- 左侧导航区域 -->
+                <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a class="" href="javascript:;">销售管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="/SALES_LOT/Index">今日销售</a></dd>
+                            <dd><a href="/SALES_LOT/Create">销售报表</a></dd>
+                            <dd><a href="/PRODUCT_ATTRIBUTE/Index">商品信息管理</a></dd>
+                            <dd class="layui-this"><a href="/INCOMEs/Index">收支管理</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="javascript:;">货架管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="/SHELves/Index">货架分区</a></dd>
+                            <dd><a href="/PRODUCTs/Put">商品摆放</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a class="" href="javascript:;">库存管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="/STOCKs/Index">进货记录</a></dd>
+                            <dd><a href="/PRODUCTs/Index">库存记录</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a class="" href="javascript:;">供应链管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="/PLANs/Index">进货计划</a></dd>
+                            <dd><a href="/SUPPLIERs/Index">供货商信息</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a class="" href="javascript:;">赞助商管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="/SUPPORTs/Index">赞助记录</a></dd>
+                            <dd><a href="/SPONSORs/Index">赞助商信息</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a class="" href="javascript:;">员工管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="/EMPLOYEEs/Index">员工记录</a></dd>
+                            <dd><a href="/SALARies/Index">工资管理</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item ">
+                        <a class="" href="javascript:;">促销管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="/VIPs/Index">会员信息</a></dd>
+                            <dd><a href="/PRODUCTs/Create">折扣管理</a></dd>
+                        </dl>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="layui-body" style="background-color: #F2F2F2;padding: 0px 20px 20px 20px">
+            <!-- 内容主体区域 -->
+            <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+                <ul class="layui-tab-title">
+                    <li class="layui-this">收入</li>
+                    <li>支出</li>
+                </ul>
+                <div class="layui-tab-content" style="margin-top: 10px">
+                    <!-- 第一个Tab内容 -->
+                    <div class="layui-tab-item layui-show">
+                        <div class="layui-row layui-col-space15">
+                            <div class="layui-col-md4">
+                                <div class="layui-card">
+                                    <div class="layui-card-header">本季度销售收入</div>
+                                    <div class="layui-card-body">
+                                        <label>
+                                            <i class="layui-icon layui-icon-rmb"
+                                               style="font-size: 24px; font-weight: bold; color: #F9D15D"></i>
+                                            <span style="font-size: 24px; font-weight: bold">
+                                                &ensp;<span id="card-01-left">加载中...</span>
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-col-md4">
+                                <div class="layui-card">
+                                    <div class="layui-card-header">本季度总收入</div>
+                                    <div class="layui-card-body">
+                                        <label>
+                                            <i class="layui-icon layui-icon-rmb"
+                                               style="font-size: 24px; font-weight: bold;color: #F9D15D"></i>
+                                            <span style="font-size: 24px; font-weight: bold">
+                                                &ensp;<span id="card-01-center">加载中...</span>
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-col-md4">
+                                <div class="layui-card">
+                                    <div class="layui-card-header">本季度赞助收入</div>
+                                    <div class="layui-card-body">
+                                        <label>
+                                            <i class="layui-icon layui-icon-rmb"
+                                               style="font-size: 24px; font-weight: bold;color: #F9D15D"></i>
+                                            <span style="font-size: 24px; font-weight: bold">
+                                                &ensp;<span id="card-01-right">加载中...</span>
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 主体表格部分 -->
+                            <div class="layui-col-md12">
+                                <div class="layui-card">
+                                    <div class="layui-card-header"
+                                         style="padding: 8px 20px; font-size: 18px; font-weight: bold">
+                                        当前季度：2018年
+                                    </div>
+                                    <div class="layui-card-body">
+                                        <div class="layui-inline" style="padding: 10px 0px 10px 5px">
+                                            <!--年选择器-->
+                                            <label>年份选择：</label>
+                                            <div class="layui-input-inline">
+                                                <input type="text" class="layui-input" id="year_test"
+                                                       placeholder="2018">
+                                            </div>
+                                            <button id="user-btn-search" class="layui-btn icon-btn"
+                                                    style="margin-left: 15px">
+                                                <i class="layui-icon">&#xe615;</i>搜索
+                                            </button>
+                                            <button type="button" id="income-btn-sup-search"
+                                                    class="layui-btn layui-btn-normal"
+                                                    style="margin-left: 15px">
+                                                高级搜索
+                                            </button>
+                                        </div>
+                                        <!--收入表-->
+                                        <table class="layui-hide" id="income_table"></table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 第二个Tab内容 -->
+                    <div class="layui-tab-item">
+                        <div class="layui-tab-item layui-show">
+                            <div class="layui-row layui-col-space15">
+                                <div class="layui-col-md4">
+                                    <div class="layui-card">
+                                        <div class="layui-card-header">
+                                            本季度进货支出
+                                        </div>
+                                        <div class="layui-card-body">
+                                            <label>
+                                                <i class="layui-icon layui-icon-rmb"
+                                                   style="font-size: 24px; font-weight: bold;color: #F9D15D"></i>
+                                                <span style="font-size: 24px; font-weight: bold">
+                                                    &ensp;<span id="card-02-left">加载中...</span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="layui-col-md4">
+                                    <div class="layui-card">
+                                        <div class="layui-card-header">本季度总支出</div>
+                                        <div class="layui-card-body">
+                                            <label>
+                                                <i class="layui-icon layui-icon-rmb"
+                                                   style="font-size: 24px; font-weight: bold;color: #F9D15D"></i>
+                                                <span style="font-size: 24px; font-weight: bold">
+                                                    &ensp;<span id="card-02-center">加载中...</span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="layui-col-md4">
+                                    <div class="layui-card">
+                                        <div class="layui-card-header">
+                                            本季度员工工资支出
+                                        </div>
+                                        <div class="layui-card-body">
+                                            <label>
+                                                <i class="layui-icon layui-icon-rmb"
+                                                   style="font-size: 24px; font-weight: bold;color: #F9D15D"></i>
+                                                <span style="font-size: 24px; font-weight: bold">
+                                                    &ensp;<span id="card-02-right">加载中...</span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- 主体表格部分 -->
+                                <div class="layui-col-md12">
+                                    <div class="layui-card">
+                                        <div class="layui-card-header"
+                                             style="padding: 8px 20px; font-size: 18px; font-weight: bold">
+                                            当前季度：2018年
+                                        </div>
+                                        <div class="layui-card-body">
+                                            <div class="layui-inline" style="padding: 10px 0px 10px 5px">
+                                                <!--年选择器-->
+                                                <label>年份选择：</label>
+                                                <div class="layui-input-inline">
+                                                    <input type="text" class="layui-input" id="year_test2"
+                                                           placeholder="2018">
+                                                </div>
+                                                <button id="user-btn-search3" class="layui-btn icon-btn"
+                                                        style="margin-left: 15px">
+                                                    <i class="layui-icon">&#xe615;</i>搜索
+                                                </button>
+                                                <button type="button" id="expense-btn-sup-search"
+                                                        class="layui-btn layui-btn-normal"
+                                                        style="margin-left: 15px">
+                                                    高级搜索
+                                                </button>
+                                            </div>
+                                            <!--支出表-->
+                                            <table class="layui-hide" id="expense_table"></table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-footer">
+            <!-- 底部固定区域 -->
+        </div>
+    </div>
+    <!-- 收入高级搜索弹出框 -->
+    <script type="text/html" id="income-model">
+        <form id="income-search-form" lay-filter="income-search-form" class="layui-form model-form">
+            <div style="margin:40px 50px 40px 50px">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">收入类型</label>
+                    <div class="layui-input-inline">
+                        <select id="s001" name="s001" lay-verify="required">
+                            <option value="">请输入收入类型</option>
+                            <option value="0">销售</option>
+                            <option value="1">赞助</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">收入金额</label>
+                    <div class="layui-input-inline" style="width: 82px;">
+                        <input type="text" name="price_min" placeholder="￥" autocomplete="off" class="layui-input">
+                    </div>
+                    <div class="layui-form-mid">-</div>
+                    <div class="layui-input-inline" style="width: 82px;">
+                        <input type="text" name="price_max" placeholder="￥" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">年份选择</label>
+                        <div class="layui-input-inline">
+                            <input type="text" class="layui-input" id="year_search" name="year_search"
+                                   placeholder="2017-2018">
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn layui-btn-primary close" type="button"
+                                onclick="layer.closeAll()">
+                            取消
+                        </button>
+                        <button class="layui-btn layui-btn-normal"
+                                lay-filter="income-search-form-submit" lay-submit type="button">
+                            查询
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </script>
+    <!-- 支出高级搜索弹出框 -->
+    <script type="text/html" id="expense-model">
+        <form id="expense-search-form" lay-filter="expense-search-form" class="layui-form model-form">
+            <div style="margin:40px 50px 40px 50px">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">支出类型</label>
+                    <div class="layui-input-inline">
+                        <select id="s002" name="s002" lay-verify="required">
+                            <option value="">请输入支出类型</option>
+                            <option value="0">进货</option>
+                            <option value="1">发工资</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">支出金额</label>
+                    <div class="layui-input-inline" style="width: 82px;">
+                        <input type="text" name="price_min" placeholder="￥" autocomplete="off" class="layui-input">
+                    </div>
+                    <div class="layui-form-mid">-</div>
+                    <div class="layui-input-inline" style="width: 82px;">
+                        <input type="text" name="price_max" placeholder="￥" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">年份选择</label>
+                        <div class="layui-input-inline">
+                            <input type="text" class="layui-input" id="year_search2" name="year_search2"
+                                   placeholder="2017-2018">
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn layui-btn-primary close" type="button"
+                                onclick="layer.closeAll()">
+                            取消
+                        </button>
+                        <button class="layui-btn layui-btn-normal"
+                                lay-filter="expense-search-form-submit" lay-submit type="button">
+                            查询
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </script>
+    <script src="/Content/assets/libs/layui/layui.js"></script>
+    <!-- 添加工具条按钮 -->
+    <script type="text/html" id="staff-table-bar">
+        <a class="layui-btn layui-btn-xs" lay-event="edit">修改</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    </script>
+    <!-- 修改时间 -->
+    <script type="text/javascript">
+        function change(time) {
+            var date = new Date(parseInt(time.replace("/Date(", "").replace(")/", ""), 10));
+            var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+            var currentDate = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+            var Hour = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
+            var minutes = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+            return date.getFullYear() + "-" + month + "-" + currentDate;
+        }
+    </script>
+    <script>
+    layui.use(['element', 'layer', 'table', 'laydate', 'form'], function () {
+
+        var table = layui.table, element = layui.element, layer = layui.layer;
+        var $ = layui.jquery, form = layui.form, laydate = layui.laydate;
+        //收入年选择器,限定可选日期
+        var ins22 = laydate.render({
+            elem: '#year_test'
+            , type: 'year'
+            , range: true
+            , min: '2008-01-01'
+            , max: '2018-12-31'
+        });
+        //支出年选择器
+        var ins23 = laydate.render({
+            elem: '#year_test2'
+            , type: 'year'
+            , range: true
+            , min: '2008-01-01'
+            , max: '2018-12-31'
+        });
+        //小卡片
+        $.post('/INCOMEs/totIncome/2018-07-01/2018-09-30/销售', function (data) {
+            //alert(data);
+            document.getElementById("card-01-left").innerHTML = data;
+        });
+        $.post('/INCOMEs/totIncome/2018-07-01/2018-09-30/总和', function (data) {
+            //alert(data);
+            document.getElementById("card-01-center").innerHTML = data;
+        });
+        $.post('/INCOMEs/totIncome/2018-07-01/2018-09-30/赞助', function (data) {
+            //alert(data);
+            document.getElementById("card-01-right").innerHTML = data;
+        });
+        $.post('/EXPENSEs/totExpense/2018-07-01/2018-09-30/工资', function (data) {
+            //alert(data);
+            document.getElementById("card-02-left").innerHTML = data;
+        });
+        $.post('/EXPENSEs/totExpense/2018-07-01/2018-09-30/总和', function (data) {
+            //alert(data);
+            document.getElementById("card-02-center").innerHTML = data;
+        });
+        $.post('/EXPENSEs/totExpense/2018-07-01/2018-09-30/进货', function (data) {
+            //alert(data);
+            document.getElementById("card-02-right").innerHTML = data;
+        });
+        //初始化表格
+        table.render({
+            elem: '#income_table'
+            , url: '/INCOMEs/getJson/' //数据接口
+            , method: "post"
+            , cellMinWidth: 160
+            , cols: [[
+                {field: 'INCOME_ID', title: '收入ID', width: '300'}
+                , {
+                    field: 'INCOME_DATE',
+                    title: '日期',
+                    sort: true,
+                    width: '300',
+                    templet: '<div>{{ change(d.INCOME_DATE)}}</div>'
+                }
+                , {field: 'MONEY', title: '收入金额', width: '300'}
+                , {field: 'TYPE', title: '类别', width: '300'}
+            ]]
+        });
+        //读取支出表格数据
+        table.render({
+            elem: '#expense_table'
+            , url: '/EXPENSEs/getJson/' //数据接口
+            , method: "post"
+            , cellMinWidth: 160
+            , cols: [[
+                {field: 'EXPENSE_ID', title: '支出ID', width: '300'}
+                , {
+                    field: 'EXPENSE_DATE',
+                    title: '日期',
+                    sort: true,
+                    width: '300',
+                    templet: '<div>{{ change(d.EXPENSE_DATE)}}</div>'
+                }
+                , {field: 'MONEY', title: '支出金额', width: '300'}
+                , {field: 'TYPE', title: '类别', width: '300'}
+            ]]
+
+        });
+        //收入页面搜索
+        $(document).on('click', '#user-btn-search', function () {
+            var search_result = "!!";
+            if ($("#year_test2").val() != "") search_result = $("#year_test2").val();
+            table.render({
+                elem: '#income_table'
+                , url: '/INCOMEs/search01/' + search_result  //数据接口
+                , method: "post"
+                , cellMinWidth: 160
+                , cols: [[
+                    {field: 'INCOME_ID', title: '收入ID', width: '300'}
+                    , {
+                        field: 'INCOME_DATE',
+                        title: '日期',
+                        sort: true,
+                        width: '300',
+                        templet: '<div>{{ change(d.INCOME_DATE)}}</div>'
+                    }
+                    , {field: 'MONEY', title: '收入金额', width: '300'}
+                    , {field: 'TYPE', title: '类别', width: '300'}
+                ]]
+            });
+            layer.closeAll();
+        });
+        //支出页面搜索
+        $(document).on('click', '#user-btn-search3', function () {
+            
+            var search_result = "!!";
+            if ($("#year_test2").val() != "") search_result = $("#year_test2").val();
+            table.render({
+                elem: '#expense_table'
+                , url: '/EXPENSEs/search01/' + search_result //数据接口
+                , method: "post"
+                , cellMinWidth: 160
+                , cols: [[
+                    {field: 'EXPENSE_ID', title: '支出ID', width: '300'}
+                    , {
+                        field: 'EXPENSE_DATE',
+                        title: '日期',
+                        sort: true,
+                        width: '300',
+                        templet: '<div>{{ change(d.EXPENSE_DATE)}}</div>'
+                    }
+                    , {field: 'MONEY', title: '支出金额', width: '300'}
+                    , {field: 'TYPE', title: '类别', width: '300'}
+                ]]
+            });
+            layer.closeAll();
+        });
+        //收入高级搜索按钮点击事件
+        $(document).on('click', '#income-btn-sup-search', function () {
+            layer.open({
+                type: 1,
+                title: '高级搜索',
+                area: '450px',
+                offset: 'auto',
+                content: $('#income-model').html()
+            });
+            form.render();
+        });
+        //支出高级搜索按钮点击事件
+        $(document).on('click', '#expense-btn-sup-search', function () {
+            layer.open({
+                type: 1,
+                title: '高级搜索',
+                area: '450px',
+                offset: 'auto',
+                content: $('#expense-model').html()
+            });
+            form.render();
+        });
+        //高级搜索提交
+        //收入的高级搜索
+        form.on('submit(income-search-form-submit)', function (data) {
+            var elem1 = data.field.s001;
+            var elem2 = data.field.price_min;
+            var elem3 = data.field.price_max;
+            var elem4 = data.field.year_search;
+
+            if (elem1 == "") elem1 = "!!";
+            if (elem2 == "") elem2 = "!!";
+            if (elem3 == "") elem3 = "!!";
+            if (elem4 == "") elem4 = "!!";
+
+            alert('/INCOMEs/advancedSearch/' + elem1 + '/' + elem2 + '/' + elem3 + '/' + elem4);
+            //重载表格
+            table.render({
+                elem: '#income_table'
+                , url: '/INCOMEs/advancedSearch/' + elem1 + '/' + elem2 + '/' + elem3 + '/' + elem4  //数据接口
+                , method: "post"
+                , cellMinWidth: 160
+                , cols: [[
+                    {field: 'INCOME_ID', title: '收入ID', width: '300'}
+                    , {
+                        field: 'INCOME_DATE',
+                        title: '日期',
+                        sort: true,
+                        width: '300',
+                        templet: '<div>{{ change(d.INCOME_DATE)}}</div>'
+                    }
+                    , {field: 'MONEY', title: '收入金额', width: '300'}
+                    , {field: 'TYPE', title: '类别', width: '300'}
+                ]]
+            });
+            layer.closeAll();
+            // return false
+        });
+        //支出的高级搜索
+        form.on('submit(expense-search-form-submit)', function (data) {
+            var elem1 = data.field.s002;
+            var elem2 = data.field.price_min;
+            var elem3 = data.field.price_max;
+            var elem4 = data.field.year_search2;
+
+            if (elem1 == "") elem1 = "!!";
+            if (elem2 == "") elem2 = "!!";
+            if (elem3 == "") elem3 = "!!";
+            if (elem4 == "") elem4 = "!!";
+
+            alert('/EXPENSEs/advancedSearch/' + elem1 + '/' + elem2 + '/' + elem3 + '/' + elem4);
+            //重载表格
+            table.render({
+                elem: '#expense_table'
+                , url: '/EXPENSEs/advancedSearch/' + elem1 + '/' + elem2 + '/' + elem3 + '/' + elem4  //数据接口
+                , method: "post"
+                , cellMinWidth: 160
+                , cols: [[
+                    {field: 'EXPENSE_ID', title: '支出ID', width: '300'}
+                    , {
+                        field: 'EXPENSE_DATE',
+                        title: '日期',
+                        sort: true,
+                        width: '300',
+                        templet: '<div>{{ change(d.EXPENSE_DATE)}}</div>'
+                    }
+                    , {field: 'MONEY', title: '支出金额', width: '300'}
+                    , {field: 'TYPE', title: '类别', width: '300'}
+                ]]
+            });
+            layer.closeAll();
+            // return false
+        });
+    });
+    </script>
+</body>
+</html>

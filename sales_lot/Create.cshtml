@@ -1,0 +1,237 @@
+﻿@model IEnumerable<MySuperMarket.Models.SALES_LOT>
+
+    @{
+        ViewBag.Title = "Index";
+    }
+    @{
+        Layout = null;
+    }
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <title>超市管理系统 v0.1</title>
+        <link rel="stylesheet" href="/Content/assets/libs/layui/css/layui.css">
+    </head>
+    <body class="layui-layout-body">
+        <div class="layui-layout layui-layout-admin">
+            <div class="layui-header">
+                <div class="layui-logo" style="color:white">
+                    <b>超市管理系统 v0.1</b>
+                </div>
+                <!-- 头部区域 -->
+                <ul class="layui-nav layui-layout-left" style="margin-top: 20px">
+                    <span class="layui-breadcrumb">
+                        <a href="">欢迎</a>
+                        <a href="">销售管理</a>
+                        <a href="">销售报表</a>
+                    </span>
+                </ul>
+                <ul class="layui-nav layui-layout-right">
+                    <li class="layui-nav-item">
+                        <a href="javascript:;">
+                            <img src="/Content/assets/image/avatar.PNG" class="layui-nav-img">
+                            管理员
+                        </a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="">基本资料</a></dd>
+                            <dd><a href="">安全设置</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item"><a href="">退出登录</a></li>
+                </ul>
+            </div>
+            <!-- 导航栏区域 -->
+            <div class="layui-side layui-bg-black">
+                <div class="layui-side-scroll">
+                    <!-- 左侧导航区域 -->
+                    <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                        <li class="layui-nav-item layui-nav-itemed">
+                            <a class="" href="javascript:;">销售管理</a>
+                            <dl class="layui-nav-child">
+                                <dd><a href="/SALES_LOT/Index">今日销售</a></dd>
+                                <dd class="layui-this"><a href="/SALES_LOT/Create">销售报表</a></dd>
+                                <dd><a href="/PRODUCT_ATTRIBUTE/Index">商品信息管理</a></dd>
+                                <dd><a href="/INCOMEs/Index">收支管理</a></dd>
+                            </dl>
+                        </li>
+                        <li class="layui-nav-item">
+                            <a href="javascript:;">货架管理</a>
+                            <dl class="layui-nav-child">
+                                <dd><a href="/SHELves/Index">货架分区</a></dd>
+                                <dd><a href="/PRODUCTs/Put">商品摆放</a></dd>
+                            </dl>
+                        </li>
+                        <li class="layui-nav-item">
+                            <a class="" href="javascript:;">库存管理</a>
+                            <dl class="layui-nav-child">
+                                <dd><a href="/STOCKs/Index">进货记录</a></dd>
+                                <dd><a href="/PRODUCTs/Index">库存记录</a></dd>
+                            </dl>
+                        </li>
+                        <li class="layui-nav-item">
+                            <a class="" href="javascript:;">供应链管理</a>
+                            <dl class="layui-nav-child">
+                                <dd><a href="/PLANs/Index">进货计划</a></dd>
+                                <dd><a href="/SUPPLIERs/Index">供货商信息</a></dd>
+                            </dl>
+                        </li>
+                        <li class="layui-nav-item">
+                            <a class="" href="javascript:;">赞助商管理</a>
+                            <dl class="layui-nav-child">
+                                <dd><a href="/SUPPORTs/Index">赞助记录</a></dd>
+                                <dd><a href="/SPONSORs/Index">赞助商信息</a></dd>
+                            </dl>
+                        </li>
+                        <li class="layui-nav-item">
+                            <a class="" href="javascript:;">员工管理</a>
+                            <dl class="layui-nav-child">
+                                <dd><a href="/EMPLOYEEs/Index">员工记录</a></dd>
+                                <dd><a href="/SALARies/Index">工资管理</a></dd>
+                            </dl>
+                        </li>
+                        <li class="layui-nav-item ">
+                            <a class="" href="javascript:;">促销管理</a>
+                            <dl class="layui-nav-child">
+                                <dd><a href="/VIPs/Index">会员信息</a></dd>
+                                <dd><a href="/PRODUCTs/Create">折扣管理</a></dd>
+                            </dl>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="layui-body" style="padding: 20px; background-color: #F2F2F2;">
+                <!-- 内容主体区域 -->
+                <div class="layui-row layui-col-space15">
+                    <!-- 小卡片01 -->
+                    <div class="layui-col-md3">
+                        <div class="layui-card">
+                            <div class="layui-card-header">第一季度销售 Top</div>
+                            <div class="layui-card-body">
+                                <label>
+                                    <i class="layui-icon layui-icon-note"
+                                       style="font-size: 24px; font-weight: bold"># 1</i>
+                                </label>
+                                &ensp;&ensp;<span id="card01-content">农夫山泉</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 小卡片02 -->
+                    <div class="layui-col-md3">
+                        <div class="layui-card">
+                            <div class="layui-card-header">第二季度销售 Top</div>
+                            <div class="layui-card-body">
+                                <label>
+                                    <i class="layui-icon layui-icon-note"
+                                       style="font-size: 24px; font-weight: bold"># 2</i>
+                                </label>
+                                &ensp;&ensp;<span id="card02-content">菠萝面包</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 小卡片03 -->
+                    <div class="layui-col-md3">
+                        <div class="layui-card">
+                            <div class="layui-card-header">第三季度销售 Top</div>
+                            <div class="layui-card-body">
+                                <label>
+                                    <i class="layui-icon layui-icon-note"
+                                       style="font-size: 24px; font-weight: bold"># 3</i>
+                                </label>
+                                &ensp;&ensp;<span id="card03-content">农夫果园</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 小卡片04 -->
+                    <div class="layui-col-md3">
+                        <div class="layui-card">
+                            <div class="layui-card-header">第四季度销售 Top</div>
+                            <div class="layui-card-body">
+                                <label>
+                                    <i class="layui-icon layui-icon-note"
+                                       style="font-size: 24px; font-weight: bold"># 4</i>
+                                </label>
+                                &ensp;&ensp;<span id="card04-content">好丽友派</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 主体表格部分 -->
+                    <div class="layui-col-md12">
+                        <div class="layui-card">
+                            <div class="layui-card-header"
+                                 style="padding: 8px 20px; font-size: 18px; font-weight: bold">
+                                按月销售报表
+                            </div>
+                            <div class="layui-card-body">
+                                <table class="layui-hide" id="sale_table" lay-filter="sale_table"></table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-footer">
+                <!-- 底部固定区域 -->
+            </div>
+        </div>
+        <script src="/Content/assets/libs/layui/layui.js"></script>
+        <script>
+            /*小卡片
+            $.post('/SALES_LOT/bestSale/2018-01-01/2018-12-31', function () {
+                alert("!");
+                //document.getElementById("card01-content").innerHTML = data;
+            });*/
+
+           
+            layui.use(['form', 'table'], function () {
+                var table = layui.table;
+                var $ = layui.jquery;
+                var form = layui.form;
+
+                $.post('/SALES_LOT/bestSale/2018-01-01/2018-03-31', function (data) {
+                    //layer.alert("!");
+                    document.getElementById("card01-content").innerHTML = data;
+                });
+                $.post('/SALES_LOT/bestSale/2018-04-01/2018-06-30', function (data) {
+                    document.getElementById("card02-content").innerHTML = data;
+                });
+                $.post('/SALES_LOT/bestSale/2018-07-01/2018-09-30', function (data) {
+                    document.getElementById("card03-content").innerHTML = data;
+                });
+                $.post('/SALES_LOT/bestSale/2018-10-01/2018-12-31', function (data) {
+                    document.getElementById("card04-content").innerHTML = data;
+                });
+                
+                //初始化表格
+                table.render({
+                    elem: '#sale_table'
+                    , url: '/SALES_LOT/getJosnMonthly/' //数据接口
+                    , method: "post"
+                    , cellMinWidth: 160
+                    , cols: [[
+                        { field: 'PRODUCT_ID', title: '商品编码', sort: true }
+                        , { field: 'PRODUCT_NAME', title: '商品名称', sort: true }
+                        , { field: 'TOTAL_MONEY', title: '月总金额', sort: true }
+                        , { field: 'TOTAL_NUMBER', title: '月总销量', sort: true }
+                        , { field: 'MONTH', title: '月份', sort: true }
+                    ]]
+                });
+                /*控制顶部四个小卡片
+                $.post('SALES_LOT/bestSaleSpring/',function(data){
+                    document.getElementById("card01-content").innerHTML=data;
+                });
+                $.post('SALES_LOT/bestSaleSummer/',function(data){
+                    document.getElementById("card01-content").innerHTML=data;
+                });
+                $.post('SALES_LOT/bestSaleSAutumn/',function(data){
+                    document.getElementById("card01-content").innerHTML=data;
+                });
+                $.post('SALES_LOT/bestSaleWinter/',function(data){
+                    document.getElementById("card01-content").innerHTML=data;
+                });*/
+                
+            });
+        </script>
+    </body>
+</html>

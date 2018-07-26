@@ -1,0 +1,544 @@
+﻿@model IEnumerable<MySuperMarket.Models.PRODUCT>
+@{
+    ViewBag.Title = "Index2";
+}
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>超市管理系统 v0.1</title>
+    <link rel="stylesheet" href="/Content/assets/libs/layui/css/layui.css">
+</head>
+
+<body class="layui-layout-body">
+    <div class="layui-layout layui-layout-admin">
+        <div class="layui-header">
+            <div class="layui-logo" style="color:white">
+                <b>超市管理系统 v0.1</b>
+            </div>
+            <!-- 头部区域（可配合layui已有的水平导航） -->
+            <ul class="layui-nav layui-layout-left" style="margin-top: 20px">
+                <span class="layui-breadcrumb">
+                    <a href="">欢迎</a>
+                    <a href="">促销管理</a>
+                    <a href="">折扣管理</a>
+                </span>
+            </ul>
+            <ul class="layui-nav layui-layout-right">
+                <li class="layui-nav-item">
+                    <a href="javascript:;">
+                        <img src="/Content/assets/image/avatar.PNG" class="layui-nav-img">
+                        管理员
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">基本资料</a></dd>
+                        <dd><a href="">安全设置</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item"><a href="">退出登录</a></li>
+            </ul>
+        </div>
+        <!-- 导航栏区域 -->
+        <div class="layui-side layui-bg-black">
+            <div class="layui-side-scroll">
+                <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+                <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                    <li class="layui-nav-item">
+                        <a class="" href="javascript:;">销售管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="/SALES_LOT/Index">今日销售</a></dd>
+                            <dd><a href="/SALES_LOT/Create">销售报表</a></dd>
+                            <dd><a href="/PRODUCT_ATTRIBUTE/Index">商品信息管理</a></dd>
+                            <dd><a href="/INCOMEs/Index">收支管理</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="javascript:;">货架管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="/SHELves/Index">货架分区</a></dd>
+                            <dd><a href="/PRODUCTs/Put">商品摆放</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a class="" href="javascript:;">库存管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="/STOCKs/Index">进货记录</a></dd>
+                            <dd><a href="/PRODUCTs/Index">库存记录</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a class="" href="javascript:;">供应链管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="/PLANs/Index">进货计划</a></dd>
+                            <dd><a href="/SUPPLIERs/Index">供货商信息</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a class="" href="javascript:;">赞助商管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="/SUPPORTs/Index">赞助记录</a></dd>
+                            <dd><a href="/SPONSORs/Index">赞助商信息</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a class="" href="javascript:;">员工管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="/EMPLOYEEs/Index">员工记录</a></dd>
+                            <dd><a href="/SALARies/Index">工资管理</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a class="" href="javascript:;">促销管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="/VIPs/Index">会员信息</a></dd>
+                            <dd class="layui-this"><a href="/PRODUCTs/Create">折扣管理</a></dd>
+                        </dl>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="layui-body" style="padding: 0px 20px 20px 20px; background-color: #F2F2F2;">
+            <!-- 内容主体区域 -->
+            <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+                <ul class="layui-tab-title">
+                    <li class="layui-this">商品折扣管理</li>
+                    <li>将过期商品折扣管理</li>
+                </ul>
+
+                <div class="layui-tab-content" style="margin-top: 10px">
+                    <div class="layui-tab-item layui-show">
+                        <div class="layui-col-md12">
+                            <div class="layui-card">
+                                <div class="layui-card-header" style="padding: 8px 20px">
+                                    <i class="layui-icon layui-icon-dollar" style="font-size: 18px; font-weight: bold">
+                                        商品折扣总览
+                                    </i>
+                                </div>
+                                <div class="layui-card-body">
+                                    <form class="layui-form layui-form-pane" action="" style="padding-top: 6px">
+                                        <div class="layui-form-item">
+                                            <div class="layui-inline">
+                                                <label class="layui-form-label">键值类型</label>
+                                                <div class="layui-input-inline">
+                                                    <select id="type" lay-filter="type">
+                                                        <option value="">-请选择-</option>
+                                                        <option value="0">商品批号</option>
+                                                        <option value="1">商品编码</option>
+                                                        <option value="2">商品名称</option>
+                                                        <option value="3">折扣</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="layui-inline">
+                                                <label class="layui-form-label">输入键值</label>
+                                                <div class="layui-input-inline">
+                                                    <input name="title" autocomplete="off" placeholder="请输入" class="layui-input" type="text">
+                                                </div>
+                                            </div>
+                                            <button id="discount-search" class="layui-btn icon-btn" type="button"><i class="layui-icon">&#xe615;</i>搜索</button>
+                                        </div>
+                                    </form>
+                                    <!-- 主体表格部分 -->
+                                    <!-- 声明一个隐藏的表格，通过render函数进行数据载入 -->
+                                    <table class="layui-hide" id="discount_table" lay-filter="discount_table"></table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="layui-tab-item">
+                        <!--第二个界面-->
+                        <div class="layui-col-md12">
+                            <div class="layui-card">
+                                <div class="layui-card-header" style="padding: 8px 20px">
+                                    <i class="layui-icon layui-icon-dollar" style="font-size: 18px; font-weight: bold">
+                                        将过期商品折扣管理
+                                    </i>
+                                </div>
+
+                                <div class="layui-card-body">
+                                    <form class="layui-form layui-form-pane" action="" style="padding-top: 6px">
+                                        <div class="layui-form-item">
+                                            <div class="layui-inline">
+                                                <label class="layui-form-label">键值类型</label>
+                                                <div class="layui-input-inline">
+                                                    <select id="type2" lay-filter="aihao">
+                                                        <option value="">-请选择-</option>
+                                                        <option value="0">商品批号</option>
+                                                        <option value="1">商品编码</option>
+                                                        <option value="2">商品名称</option>
+                                                        <option value="3">保质期余期</option>
+                                                        <option value="4">折扣</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="layui-inline">
+                                                <label class="layui-form-label">输入键值</label>
+                                                <div class="layui-input-inline">
+                                                    <input name="title2" autocomplete="off" placeholder="请输入" class="layui-input" type="text">
+                                                </div>
+                                            </div>
+                                            <button id="discount2-search" class="layui-btn icon-btn" type="button"><i class="layui-icon">&#xe615;</i>搜索</button>
+
+                                        </div>
+                                    </form>
+                                    <!-- 主体表格部分 -->
+                                    <!-- 声明一个隐藏的表格，通过render函数进行数据载入 -->
+                                    <table class="layui-hide" id="discount2_table" lay-filter="discount2_table"></table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-footer">
+            <!-- 底部固定区域 -->
+
+        </div>
+    </div>
+    <script src="/Content/assets/libs/layui/layui.js"></script>
+    <script type="text/html" id="discount-model">
+        <!--修改弹出框-->
+        <form id="discount-update-form" lay-filter="discount-update-form" class="layui-form model-form">
+            <div style="margin: 20px;">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">商品编码</label>
+                    <div class="layui-input-inline">
+                        <input name="PRODUCT_ID" placeholder="请输入商品编号" type="text" class="layui-input"
+                               lay-verify="required" required />
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">折扣（%）</label>
+                    <div class="layui-input-inline">
+                        <input name="discount" placeholder="请输入折扣（百分比）" type="text" class="layui-input"
+                               lay-verify="required" required />
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn layui-btn-primary close" type="button" onclick="layer.closeAll()">取消</button>
+                        <button class="layui-btn layui-btn-normal" lay-filter="discount-update-form-submit" lay-submit>保存</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </script>
+    <script type="text/html" id="discount2-model">
+        <!--修改弹出框-->
+        <form id="discount2-update-form" lay-filter="discount2-update-form" class="layui-form model-form">
+            <div style="margin: 20px;">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">商品批号</label>
+                    <div class="layui-input-inline">
+                        <input name="BATCH_ID" placeholder="请输入商品批号" type="text" class="layui-input"
+                               lay-verify="required" required />
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">折扣（%）</label>
+                    <div class="layui-input-inline">
+                        <input name="discount" placeholder="请输入折扣（百分比）" type="text" class="layui-input"
+                               lay-verify="required" required />
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn layui-btn-primary close" type="button" onclick="layer.closeAll()">取消</button>
+                        <button class="layui-btn layui-btn-normal" lay-filter="discount2-update-form-submit" lay-submit>保存</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </script>
+    <script>
+        //JavaScript代码区域
+        layui.use(['element', 'layer'], function () {
+            var element = layui.element, layer = layui.layer;
+
+        });
+    </script>
+    <script type="text/html" id="staff-table-bar">
+        <a class="layui-btn layui-btn-xs" lay-event="edit">修改</a>
+    </script>
+    <script type="text/html" id="product-table-bar">
+        <a class="layui-btn layui-btn-xs" lay-event="edit">修改</a>
+    </script>
+    <script>
+        layui.use(['form', 'table'], function () {
+            var table = layui.table;
+            var $ = layui.jquery;
+            var form = layui.form;
+            table.render({
+                elem: '#discount_table'
+                , url: '/PRODUCTs/getJson2/' //数据接口
+                , method: "post"
+                , cellMinWidth: 160
+ 
+                //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+                //width 支持：数字、百分比和不填写。
+                //你还可以通过 minWidth 参数局部定义当前单元格的最小宽度，layui 2.2.1 新增
+                , cols: [[
+                    { type: 'numbers' },
+                    { field: 'BATCH_ID', sort: true, title: '商品批号' },
+                    { field: 'PRODUCT_ID', sort: true, title: '商品编码' },
+                    { field: 'PRODUCT_NAME', sort: true, title: '商品名称' },
+                    { field: 'DISCOUNT', sort: true, title: '折扣' },
+                    { align: 'center', toolbar: '#staff-table-bar', title: '操作' }
+                ]]
+
+            });
+
+            // 工具条点击事件
+            table.on('tool(discount_table)', function (obj) {
+                var data = obj.data;
+                if (obj.event === 'edit') { //修改
+
+                    layer.open({
+                        type: 1,
+                        title: '商品折扣修改',
+                        area: '400px',
+                        offset: 'auto',
+                        content: $('#discount-model').html(),
+                        success: function () {
+                            form.val('discount-update-form', data);
+                        }
+
+                    });
+                }
+            });
+        });
+    </script>
+    <!--Card1-->
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+
+    <script type="text/javascript">
+            //搜索按钮响应事件
+            $(document).ready(function () {
+
+                $("#discount-search").click(function () {
+                    var type = $("#type").val();
+                    var val = $(" input[ name='title' ] ").val();
+                    alert(type + val);
+
+                    var linkString = '/PRODUCTs/searchAllDiscount/' + type + '/' + val;
+
+                    layui.use(['table', 'element'], function () {
+
+                        var table = layui.table;
+                        var element = layui.element;
+                        var $ = layui.jquery;
+
+                        //alert(linkString);
+                        table.render({
+                            elem: '#discount_table'
+                            , url: linkString //数据接口
+                            , method: "post"
+                            , cellMinWidth: 160
+                                        //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+                                        //width 支持：数字、百分比和不填写。
+                                        //你还可以通过 minWidth 参数局部定义当前单元格的最小宽度，layui 2.2.1 新增
+                            , cols: [[
+                                { type: 'numbers' },
+                                { field: 'BATCH_ID', sort: true, title: '商品批号' },
+                                { field: 'PRODUCT_ID', sort: true, title: '商品编码' },
+                                { field: 'PRODUCT_NAME', sort: true, title: '商品名称' },
+                                { field: 'DISCOUNT', sort: true, title: '折扣' },
+                                { align: 'center', toolbar: '#staff-table-bar', title: '操作' }
+                            ]]
+
+                        });
+                    });
+                });
+            });
+            layui.use(['form', 'table'], function () {
+                var table = layui.table;
+                var $ = layui.jquery;
+                var form = layui.form;
+
+                //修改弹窗提交按钮点击事件
+                form.on('submit(discount-update-form-submit)', function (data) {
+                    var elem1 = data.field.PRODUCT_ID;
+                    var elem2 = data.field.discount;
+
+                    alert(elem1 + '/' + elem2);
+
+                    var linkString = '/PRODUCTs/EditAllDiscount/' + elem1 + '/' + elem2;
+
+                    table.render({
+                        elem: '#discount_table'
+                            , url: linkString //数据接口
+                            , method: "post"
+                            , cellMinWidth: 160
+                            //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+                            //width 支持：数字、百分比和不填写。
+                            //你还可以通过 minWidth 参数局部定义当前单元格的最小宽度，layui 2.2.1 新增
+                            , cols: [[
+                                { type: 'numbers' },
+                                { field: 'BATCH_ID', sort: true, title: '商品批号' },
+                                { field: 'PRODUCT_ID', sort: true, title: '商品编码' },
+                                { field: 'PRODUCT_NAME', sort: true, title: '商品名称' },
+                                { field: 'DISCOUNT', sort: true, title: '折扣' },
+                                { align: 'center', toolbar: '#staff-table-bar', title: '操作' }
+                            ]]
+
+                    });
+
+                });
+            });
+    </script>
+
+    <script type="text/javascript">
+        function change(time) {
+            var date = new Date(parseInt(time.replace("/Date(", "").replace(")/", ""), 10));
+            var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+            var currentDate = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+            var Hour = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
+            var minutes = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+            return date.getFullYear() + "-" + month + "-" + currentDate;
+        }
+
+    </script>
+    <script>
+        layui.use(['form', 'table'], function(){
+            var table = layui.table;
+            var $ = layui.jquery;
+            var form = layui.form;
+            table.render({
+            elem: '#discount2_table'
+            , url: '/PRODUCTs/getJson3/' //数据接口
+            , method: "post"
+            ,cellMinWidth: 140
+            //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+            //width 支持：数字、百分比和不填写。
+            //你还可以通过 minWidth 参数局部定义当前单元格的最小宽度，layui 2.2.1 新增
+            ,cols: [[
+            {type: 'numbers'},
+            {field: 'BATCH_ID', sort: true, title: '商品批号'},
+            {field: 'PRODUCT_ID', sort: true, title: '商品编码'},
+            {field: 'PRODUCT_NAME', sort: true, width:150,title: '商品名称'},
+            {field: 'PRODUCT_DATE', sort: true, title: '生产日期', templet: '<div>{{ change(d.PRODUCT_DATE)}}</div>'},
+            {field: 'EXP', sort: true, title: '保质期余期'},
+            {field: 'DISCOUNT', sort: true, title: '折扣'},
+            { align: 'center', toolbar: '#product-table-bar', title: '操作' }
+            ]]
+
+            });
+
+            // 工具条点击事件
+            table.on('tool(discount2_table)', function (obj) {
+                var data = obj.data;
+                if (obj.event === 'edit') { //修改
+
+                    layer.open({
+                        type: 1,
+                        title: '商品折扣修改',
+                        area: '400px',
+                        offset: 'auto',
+                        content: $('#discount2-model').html(),
+                        success: function () {
+                            form.val('discount2-update-form', data);
+                        }
+
+                    });
+                }
+            });
+        });
+    </script>
+    <!--Card2-->
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+
+    <script type="text/javascript">
+            //搜索按钮响应事件
+            $(document).ready(function () {
+
+                $("#discount2-search").click(function () {
+                    var type = $("#type2").val();
+                    var val = $(" input[ name='title2' ] ").val();
+                    alert(type + val);
+
+                    var linkString = '/PRODUCTs/searchBatchDiscount/' + type + '/' + val;
+
+                    layui.use(['table', 'element'], function () {
+
+                        var table = layui.table;
+                        var element = layui.element;
+                        var $ = layui.jquery;
+
+                        //alert(linkString);
+                        table.render({
+                            elem: '#discount2_table'
+                            , url: linkString //数据接口
+                            , method: "post"
+                            , cellMinWidth: 140
+                             //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+                             //width 支持：数字、百分比和不填写。
+                             //你还可以通过 minWidth 参数局部定义当前单元格的最小宽度，layui 2.2.1 新增
+                            , cols: [[
+                            { type: 'numbers' },
+                            { field: 'BATCH_ID', sort: true, title: '商品批号' },
+                            { field: 'PRODUCT_ID', sort: true, title: '商品编码' },
+                            { field: 'PRODUCT_NAME', sort: true, title: '商品名称' },
+                            { field: 'PRODUCT_DATE', sort: true, title: '生产日期', templet: '<div>{{ change(d.PRODUCT_DATE)}}</div>' },
+                            { field: 'EXP', sort: true, title: '保质期余期' },
+                            { field: 'DISCOUNT', sort: true, title: '折扣' },
+                            { align: 'center', toolbar: '#staff-table-bar', title: '操作' }
+                            ]]
+                        });
+
+                    });
+                });
+            });
+            layui.use(['form', 'table'], function () {
+                var table = layui.table;
+                var $ = layui.jquery;
+                var form = layui.form;
+
+                //修改弹窗提交按钮点击事件
+                form.on('submit(discount2-update-form-submit)', function (data) {
+                    var elem1 = data.field.BATCH_ID;
+                    var elem2 = data.field.discount;
+
+                    alert(elem1 + '/' + elem2);
+
+                    var linkString = '/PRODUCTs/EditBatchDiscount/' + elem1 + '/' + elem2;
+
+                    table.render({
+                        elem: '#discount2_table'
+                            , url: linkString //数据接口
+                            , method: "post"
+                            , cellMinWidth: 140
+                            //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+                            //width 支持：数字、百分比和不填写。
+                            //你还可以通过 minWidth 参数局部定义当前单元格的最小宽度，layui 2.2.1 新增
+                            , cols: [[
+                            { type: 'numbers' },
+                            { field: 'BATCH_ID', sort: true, title: '商品批号' },
+                            { field: 'PRODUCT_ID', sort: true, title: '商品编码' },
+                            { field: 'PRODUCT_NAME', sort: true, title: '商品名称' },
+                            { field: 'PRODUCT_DATE', sort: true, title: '生产日期', templet: '<div>{{ change(d.PRODUCT_DATE)}}</div>' },
+                            { field: 'EXP', sort: true, title: '保质期余期' },
+                            { field: 'DISCOUNT', sort: true, title: '折扣' },
+                            { align: 'center', toolbar: '#staff-table-bar', title: '操作' }
+                            ]]
+                    });
+
+                });
+            });
+
+    </script>
+</body>
+
+</html>
+

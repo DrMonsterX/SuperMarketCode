@@ -1,0 +1,407 @@
+﻿@model IEnumerable<MySuperMarket.Models.SHELF>
+
+@{
+    ViewBag.Title = "Index";
+}
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <title>超市管理系统 v0.1</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/Content/assets/libs/layui/css/layui.css" media="all">
+</head>
+<body class="layui-layout-body">
+    <div class="layui-layout layui-layout-admin">
+        <div class="layui-header">
+            <div class="layui-logo" style="color:white">
+                <b>超市管理系统 v0.1</b>
+            </div>
+            <!-- 头部区域（可配合layui已有的水平导航） -->
+            <ul class="layui-nav layui-layout-left" style="margin-top: 20px">
+                <span class="layui-breadcrumb">
+                    <a href="">欢迎</a>
+                    <a href="">货架管理</a>
+                    <a href="">货架分区</a>
+                </span>
+            </ul>
+            <ul class="layui-nav layui-layout-right">
+                <li class="layui-nav-item">
+                    <a href="javascript:;">
+                        <img src="/Content/assets/image/avatar.PNG" class="layui-nav-img">
+                        管理员
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">基本资料</a></dd>
+                        <dd><a href="">安全设置</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item"><a href="">退出登录</a></li>
+            </ul>
+        </div>
+        <!-- 导航栏区域 -->
+        <div class="layui-side layui-bg-black">
+            <div class="layui-side-scroll">
+                <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+                <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                    <li class="layui-nav-item">
+                        <a class="" href="javascript:;">销售管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="01_today_sale.html">今日销售</a></dd>
+                            <dd><a href="02_sale_record.html">销售报表</a></dd>
+                            <dd><a href="03_info_manage.html">商品信息管理</a></dd>
+                            <dd><a href="04_income_expenses_manage.html">收支管理</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a href="javascript:;">货架管理</a>
+                        <dl class="layui-nav-child">
+                            <dd class="layui-this"><a href="05_shelves_partiton.html">货架分区</a></dd>
+                            <dd><a href="05.1_product_display.html">商品摆放</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a class="" href="javascript:;">库存管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="06_stock_record.html">进货记录</a></dd>
+                            <dd><a href="07_inventory_check.html">库存核查</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a class="" href="javascript:;">供应链管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="08_supply_record.html">进货计划</a></dd>
+                            <dd><a href="09_supplier_info.html">供货商信息</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a class="" href="javascript:;">赞助商管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="10_sponsor_record.html">赞助记录</a></dd>
+                            <dd><a href="11_sponsor_info.html">赞助商信息</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a class="" href="javascript:;">员工管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="12_employee_record.html">员工记录</a></dd>
+                            <dd><a href="13_salary_manage.html">工资管理</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a class="" href="javascript:;">促销管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="14_vip_info.html">会员信息</a></dd>
+                            <dd><a href="15_discount_manage.html">折扣管理</a></dd>
+                        </dl>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="layui-body" style="padding: 0px 20px 20px 20px; background-color: #F2F2F2;">
+            <!-- 内容主体区域 -->
+            <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+                <div class="layui-tab-content" style="margin-top: 10px">
+                    <div class="layui-tab-item layui-show">
+                        <!--第一个界面-->
+                        <div class="layui-col-md12">
+                            <div class="layui-card">
+                                <div class="layui-card-header" style="padding: 8px 20px">
+                                    <i class="layui-icon layui-icon-template-1" style="font-size: 18px; font-weight: bold"> 货架分区管理</i>
+                                </div>
+                                <div class="layui-card-body">
+                                    <form class="layui-form layui-form-pane" action="" style="padding-top: 6px">
+                                        <div class="layui-form-item">
+                                            <div class="layui-inline">
+                                                <label class="layui-form-label">键值类型</label>
+                                                <div class="layui-input-inline">
+                                                    <select id="type" lay-filter="type">
+                                                        <option value="">-请选择-</option>
+                                                        <option value="0">货架编号</option>
+                                                        <option value="1">区域</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="layui-inline">
+                                                <label class="layui-form-label">输入键值</label>
+                                                <div class="layui-input-inline">
+                                                    <input name="title" autocomplete="off" placeholder="请输入" class="layui-input" type="text">
+                                                </div>
+                                            </div>
+                                            <button type="button" id="shelf-btn-search" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i>搜索</button>
+                                            <button type="button" id="shelf-btn-add" class="layui-btn icon-btn"><i class="layui-icon">&#xe654;</i>添加</button>
+                                        </div>
+                                    </form>
+                                    <!-- 主体表格部分 -->
+                                    <!-- 声明一个隐藏的表格，通过render函数进行数据载入 -->
+                                    <table class="layui-hide" id="shelf_info_table" lay-filter="shelf_info_table"></table>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-footer">
+            <!-- 底部固定区域 -->
+
+        </div>
+    </div>
+    <script src="/Content/assets/libs/layui/layui.js" charset="utf-8"></script>
+    <!--添加后弹出框表单-->
+    <script type="text/html" id="shelf-add-model">
+        <form id="shelf-add-form" lay-filter="shelf-add-form" class="layui-form model-form">
+            <div style="margin: 20px;">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">货架编号</label>
+                    <div class="layui-input-inline">
+                        <input name="SHELF_ID" placeholder="请输入货架编号" type="text" class="layui-input"
+                               lay-verify="required" required />
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">区域</label>
+                    <div class="layui-input-inline">
+                        <input name="SHELF_AREA" placeholder="请输入货架区域" type="text" class="layui-input"
+                               lay-verify="required" required />
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn layui-btn-primary close" onclick="layer.closeAll()" type="button"> 取消</button>
+                        <button class="layui-btn" lay-filter="shelf-add-form-submit" lay-submit>添加</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </script>
+    <!--修改弹窗-->
+    <script type="text/html" id="shelf-model">
+        <form id="shelf-modify-form" lay-filter="shelf-modify-form" class="layui-form model-form">
+            <div style="margin: 20px;">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">货架编号</label>
+                    <div class="layui-input-inline">
+                        <input name="SHELF_ID" placeholder="请输入货架编号" type="text" class="layui-input" lay-verify="required" required />
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">区域</label>
+                    <div class="layui-input-inline">
+                        <input name="SHELF_AREA" placeholder="请输入货架区域" type="text" class="layui-input" lay-verify="required" required />
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn layui-btn-primary close" onclick="layer.closeAll()" type="button"> 取消</button>
+                        <button class="layui-btn" lay-filter="shelf-modify-form-submit" lay-submit>保存</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </script>
+    <script>
+        //JavaScript代码区域
+        layui.use(['element', 'layer'], function () {
+            var element = layui.element, layer = layui.layer;
+
+        });</script>
+    <!-- 表格操作列 -->
+    <script type="text/html" id="staff-table-bar">
+        <a class="layui-btn layui-btn-xs" lay-event="edit">修改</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    </script>
+    <script>
+        layui.use(['form', 'table'], function () {
+            var $ = layui.jquery;
+            var form = layui.form;
+            var table = layui.table;
+            var layer = layui.layer;
+
+            table.render({
+                elem: '#shelf_info_table'
+                , url: '/SHELves/getJson/' //数据接口
+                , method: "post"
+                , cellMinWidth: 120
+                //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+                //width 支持：数字、百分比和不填写。
+                //你还可以通过 minWidth 参数局部定义当前单元格的最小宽度，layui 2.2.1 新增
+                , cols: [[
+                    { type: 'numbers' },
+                    { field: 'SHELF_ID', sort: true, title: '货架编号' },
+                    { field: 'SHELF_AREA', sort: true, title: '区域' },
+                    { align: 'center', toolbar: '#staff-table-bar', title: '操作' }
+                ]]
+
+            });
+
+            // 添加按钮点击事件
+            $(document).on('click', '#shelf-btn-add', function (data) {
+                layer.open({
+                    type: 1,
+                    title: '添加货架',
+                    area: '400px',
+                    offset: 'auto',
+                    content: $('#shelf-add-model').html(),
+                    success: function () {
+                        form.val('shelf-add-form', data);
+                    }
+                });
+            });
+            // 工具条点击事件
+            table.on('tool(shelf_info_table)', function (obj) {
+                var data = obj.data;
+                if (obj.event === 'edit') { //修改
+                    layer.open({
+                        type: 1,
+                        title: '修改货架信息',
+                        area: '400px',
+                        offset: 'auto',
+                        content: $('#shelf-model').html(),
+                        success: function () {
+                            form.val('shelf-modify-form', data);
+                        }
+                    });
+                } else if (obj.event === 'del') { //删除
+                    layer.confirm('确定要删除吗？', { title: '提示' }, function (index) {
+                        obj.del();
+                        //alert(data.VIP_ID);
+                        $.post('/SHELves/Delete/' + data.SHELF_ID);
+                        //向服务端发送删除指令
+                        layer.close(index);
+
+                    });
+                }
+            });
+
+        });</script>
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+
+    <script type="text/javascript">
+        //搜索按钮响应事件
+        $(document).ready(function () {
+
+            $("#shelf-btn-search").click(function () {
+                var type = $("#type").val();
+                var val = $(" input[ name='title' ] ").val();
+                alert(type + val);
+
+                layui.use(['table', 'element'], function () {
+
+                    var table = layui.table;
+                    var element = layui.element;
+                    var $ = layui.jquery;
+
+                    var linkString = '/SHELves/searchShelf/' + type + '/' + val;
+                    //alert(linkString);
+
+                    table.render({
+                        elem: '#shelf_info_table'
+                        , url: linkString //数据接口
+                        , method: "post"
+                        , cellMinWidth: 120
+                        //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+                        //width 支持：数字、百分比和不填写。
+                        //你还可以通过 minWidth 参数局部定义当前单元格的最小宽度，layui 2.2.1 新增
+                        , cols: [[
+                            { type: 'numbers' },
+                            { field: 'SHELF_ID', sort: true, title: '货架编号' },
+                            { field: 'SHELF_AREA', sort: true, title: '区域' },
+                            { align: 'center', toolbar: '#staff-table-bar', title: '操作' }
+                        ]]
+
+                    });
+                });
+            });
+        });
+
+    </script>
+    <script type="text/javascript">
+            layui.use(['form', 'table'], function () {
+                var table = layui.table;
+                var $ = layui.jquery;
+                var form = layui.form;
+
+
+                //添加弹窗提交按钮点击事件
+                form.on('submit(shelf-add-form-submit)', function (data) {
+                    var elem1 = data.field.SHELF_ID;
+                    var elem2 = data.field.SHELF_AREA;
+                    alert(elem1+elem2);
+
+                    $.post('/SHELves/test/' + elem1+'/'+elem2, function (data) {
+                        var IsExist = data;
+                        if (IsExist == "2") {
+                            layer.alert('货架ID已存在', {
+                               btn: ['确定']
+                              , yes: function (index) {
+                                  //layer.close(index);
+                                  layer.closeAll();
+                              }
+                            });
+
+                        }
+                        else {
+
+                                  layui.use(['table', 'element'], function () {
+                                        var table = layui.table;
+                                        var $ = layui.jquery;
+                                        //alert(elem2);
+                                        table.render({
+                                            elem: '#shelf_info_table'
+                                            , url: '/SHELves/createShelf/' + elem1 + '/' + elem2 //数据接口
+                                            , method: "post"
+                                            , cellMinWidth: 120
+                                            , cols: [[
+                                                { type: 'numbers' },
+                                                { field: 'SHELF_ID', sort: true, title: '货架编号' },
+                                                { field: 'SHELF_AREA', sort: true, title: '区域' },
+                                                { align: 'center', toolbar: '#staff-table-bar', title: '操作' }
+                                            ]]
+                                        });
+                                    });
+                                    layer.closeAll();
+                        }
+                    })
+                    return false;
+                });
+
+                //修改弹窗提交按钮点击事件
+                form.on('submit(shelf-modify-form-submit)', function (data) {
+                    var elem1 = data.field.SHELF_ID;
+                    var elem2 = data.field.SHELF_AREA;
+
+                    alert(elem1 + elem2);
+                    layui.use(['table', 'element'], function () {
+                        var table = layui.table;
+                        var $ = layui.jquery;
+
+                        table.render({
+                            elem: '#shelf_info_table'
+                            , url: '/SHELves/editShelf/' + elem1 + '/' + elem2 //数据接口
+                            , method: "post"
+                            , cellMinWidth: 120
+                            , cols: [[
+                                { type: 'numbers' },
+                                { field: 'SHELF_ID', sort: true, title: '货架编号' },
+                                { field: 'SHELF_AREA', sort: true, title: '区域' },
+                                { align: 'center', toolbar: '#staff-table-bar', title: '操作' }
+                            ]]
+                        });
+                    });
+
+                    //return false;
+                });
+
+
+            });
+    </script>
+</body>
+</html>
