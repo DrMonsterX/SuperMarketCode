@@ -21,7 +21,7 @@ namespace MySuperMarket.Controllers
             return View();
         }
 
-        
+
         public JsonResult getJson()
         {
             var list = db.PLAN.Include(n => n.PRODUCT_ATTRIBUTE).Select(n => new { PLAN_ID = n.PLAN_ID, PRODUCT_ID = n.PRODUCT_ID, PRODUCT_NAME = n.PRODUCT_ATTRIBUTE.PRODUCT_NAME, SUPPLIER_ID = n.PRODUCT_ATTRIBUTE.SUPPLIER_ID, PURCHASE_PRICE = n.PRODUCT_ATTRIBUTE.PURCHASE_PRICE, PLAN_NUM = n.PLAN_NUM });
@@ -81,7 +81,7 @@ namespace MySuperMarket.Controllers
 
             }
 
-            
+
             var list2 = db.PLAN.Select(n => new { PLAN_ID = n.PLAN_ID, PRODUCT_ID = n.PRODUCT_ID, PRODUCT_NAME = n.PRODUCT_ATTRIBUTE.PRODUCT_NAME, SUPPLIER_ID = n.PRODUCT_ATTRIBUTE.SUPPLIER_ID, PURCHASE_PRICE = n.PRODUCT_ATTRIBUTE.PURCHASE_PRICE, PLAN_NUM = n.PLAN_NUM });
             return Json(new { code = 0, msg = "", count = 1000, data = list2 }, JsonRequestBehavior.AllowGet);
 
@@ -188,7 +188,7 @@ namespace MySuperMarket.Controllers
             newPlan.PLAN_ID = id;
             newPlan.PLAN_NUM = plan_num;
 
-            
+
             if (pLAN == null)
             {
                 db.PLAN.Add(newPlan);
@@ -214,25 +214,15 @@ namespace MySuperMarket.Controllers
             int.TryParse(purchase, out pur);
             int plan_num;
             int.TryParse(plan_number, out plan_num);
-            /*
-            if (id == null)
-            {
-                return Json(null);
-            }
-            */
+            
             PLAN pLAN = db.PLAN.Find(plan_id);
-            /*
-            if (eMPLOYEE == null)
-            {
-                //return Json(null);
-            }
-            */
-            pLAN.PLAN_ID = plan_id ;
-            pLAN.PRODUCT_ID= pro_id;
+           
+            pLAN.PLAN_ID = plan_id;
+            pLAN.PRODUCT_ID = pro_id;
             pLAN.PRODUCT_ATTRIBUTE.PRODUCT_NAME = pro_name;
             pLAN.PRODUCT_ATTRIBUTE.SUPPLIER_ID = sup_id;
             pLAN.PRODUCT_ATTRIBUTE.PURCHASE_PRICE = pur;
-            pLAN.PLAN_NUM = plan_num ;
+            pLAN.PLAN_NUM = plan_num;
 
             db.Entry(pLAN).State = EntityState.Modified;
 
