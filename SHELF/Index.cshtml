@@ -141,7 +141,6 @@
                                     <!-- 主体表格部分 -->
                                     <!-- 声明一个隐藏的表格，通过render函数进行数据载入 -->
                                     <table class="layui-hide" id="shelf_info_table" lay-filter="shelf_info_table"></table>
-
                                 </div>
                             </div>
                         </div>
@@ -162,8 +161,8 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">货架编号</label>
                     <div class="layui-input-inline">
-                        <input name="SHELF_ID" placeholder="请输入货架编号" type="text" class="layui-input"
-                               lay-verify="required" required />
+                        <input name="SHELF_ID" placeholder="请输入货架编号" type="number" class="layui-input"
+                               lay-verify="required|number" required />
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -189,7 +188,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">货架编号</label>
                     <div class="layui-input-inline">
-                        <input name="SHELF_ID" placeholder="请输入货架编号" type="text" class="layui-input" lay-verify="required" required />
+                        <input name="SHELF_ID" placeholder="请输入货架编号" type="number"  class="layui-input" lay-verify="required|number" required />
                     </div>
                 </div>
                 <div class="layui-form-item">
