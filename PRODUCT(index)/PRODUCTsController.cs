@@ -137,7 +137,6 @@ namespace MySuperMarket.Controllers
                 testProduct.PRODUCT_DATE = x.PRODUCT_DATE;
                 testProduct.BATCH_NUMBER = x.BATCH_NUMBER;
                 testProduct.SHEIF_ID = x.SHEIF_ID;
-                //testProduct.DISCOUNT = discount;
                 db.Entry(testProduct).State = EntityState.Modified;
                 db.SaveChanges();
             }
@@ -238,8 +237,6 @@ namespace MySuperMarket.Controllers
             decimal.TryParse(discount, out myDiscount);
 
             PRODUCT myProduct = db.PRODUCT.Find(batch_id);
-
-            //myProduct.DISCOUNT = myDiscount;
 
             db.Entry(myProduct).State = EntityState.Modified;
 
@@ -438,7 +435,7 @@ namespace MySuperMarket.Controllers
 
             else if (search_type.Equals("3"))
             {
-                DateTime x= Convert.ToDateTime(value);
+                DateTime x = Convert.ToDateTime(value);
                 var list = db.PRODUCT.Include(s => s.PRODUCT_ATTRIBUTE).Where(n => n.PRODUCT_DATE == x).Select(n => new { BATCH_ID = n.BATCH_ID, PRODUCT_ID = n.PRODUCT_ID, PRODUCT_NAME = n.PRODUCT_ATTRIBUTE.PRODUCT_NAME, PRODUCT_DATE = n.PRODUCT_DATE, BATCH_NUMBER = n.BATCH_NUMBER });
                 return Json(new { code = 0, msg = "", count = 1000, data = list }, JsonRequestBehavior.AllowGet);
 
@@ -447,12 +444,12 @@ namespace MySuperMarket.Controllers
             else if (search_type.Equals("4"))
             {
                 int x;
-                int.TryParse(value,out x);
+                int.TryParse(value, out x);
                 var list = db.PRODUCT.Include(s => s.PRODUCT_ATTRIBUTE).Where(n => n.BATCH_NUMBER == x).Select(n => new { BATCH_ID = n.BATCH_ID, PRODUCT_ID = n.PRODUCT_ID, PRODUCT_NAME = n.PRODUCT_ATTRIBUTE.PRODUCT_NAME, PRODUCT_DATE = n.PRODUCT_DATE, BATCH_NUMBER = n.BATCH_NUMBER });
                 return Json(new { code = 0, msg = "", count = 1000, data = list }, JsonRequestBehavior.AllowGet);
 
             }
-            
+
 
             var list1 = db.PRODUCT.Include(s => s.PRODUCT_ATTRIBUTE).Select(n => new { BATCH_ID = n.BATCH_ID, PRODUCT_ID = n.PRODUCT_ID, PRODUCT_NAME = n.PRODUCT_ATTRIBUTE.PRODUCT_NAME, PRODUCT_DATE = n.PRODUCT_DATE, BATCH_NUMBER = n.BATCH_NUMBER });
             return Json(new { code = 0, msg = "", count = 1000, data = list1 }, JsonRequestBehavior.AllowGet);
@@ -514,19 +511,8 @@ namespace MySuperMarket.Controllers
             int x;
             int.TryParse(number, out x);
 
-            /*
-            if (id == null)
-            {
-                return Json(null);
-            }
-            */
             PRODUCT pRODUCT = db.PRODUCT.Find(bat_id);
-            /*
-            if (eMPLOYEE == null)
-            {
-                //return Json(null);
-            }
-            */
+            
             pRODUCT.BATCH_ID = bat_id;
             pRODUCT.BATCH_NUMBER = x;
 
