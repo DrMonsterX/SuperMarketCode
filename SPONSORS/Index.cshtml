@@ -104,7 +104,7 @@
         <div class="layui-body" style="padding: 0px 20px 20px 20px; background-color: #F2F2F2;">
             <!-- 内容主体区域 -->
             <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
-               
+
                 <div class="layui-tab-content" style="margin-top: 10px">
                     <div class="layui-tab-item layui-show">
                         <!--第一个界面-->
@@ -159,7 +159,7 @@
                             </div>
                         </div>
                     </div>
-                   
+
                 </div>
             </div>
         </div>
@@ -176,8 +176,8 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">赞助商ID</label>
                     <div class="layui-input-inline">
-                        <input name="SPONSOR_ID" placeholder="请输入ID" type="text" class="layui-input"
-                               lay-verify="required" required />
+                        <input name="SPONSOR_ID" placeholder="请输入ID" type="number" class="layui-input"
+                               lay-verify="required|number1" required />
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -190,8 +190,8 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">联系方式</label>
                     <div class="layui-input-inline">
-                        <input name="PHONE_NUMBER" placeholder="请输入联系方式" type="text" class="layui-input"
-                               lay-verify="required" required />
+                        <input name="PHONE_NUMBER" placeholder="请输入联系方式" type="tel" class="layui-input"
+                               lay-verify="required|phone" required />
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -210,8 +210,8 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">赞助商ID</label>
                     <div class="layui-input-inline">
-                        <input name="SPONSOR_ID" placeholder="请输入ID" type="text" class="layui-input"
-                               lay-verify="required" required />
+                        <input name="SPONSOR_ID" placeholder="请输入ID" type="number" class="layui-input"
+                               lay-verify="required|number1" required />
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -224,8 +224,8 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">联系方式</label>
                     <div class="layui-input-inline">
-                        <input name="PHONE_NUMBER" placeholder="请输入联系方式" type="text" class="layui-input"
-                               lay-verify="required" required />
+                        <input name="PHONE_NUMBER" placeholder="请输入联系方式" type="tel" class="layui-input"
+                               lay-verify="required|phone" required />
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -243,7 +243,7 @@
             var element = layui.element, layer = layui.layer;
 
         });</script>
-    
+
     <!-- 表格操作列 -->
     <script type="text/html" id="staff-table-bar">
         <a class="layui-btn layui-btn-xs" lay-event="edit">修改</a>
@@ -352,14 +352,23 @@
         });
 
     </script>
-   
 
-    </script>
+
+
     <script type="text/javascript">
         layui.use(['form', 'table'], function () {
             var table = layui.table;
             var $ = layui.jquery;
             var form = layui.form;
+            //自定义验证规则
+            form.verify({
+                number1: function (value) {
+                    if (value.length != 4) {
+                        return '赞助商ID必须得4个字符哦';
+                    }
+                }
+
+            });
 
 
             //添加弹窗提交按钮点击事件
