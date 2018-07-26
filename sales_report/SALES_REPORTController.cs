@@ -6,13 +6,13 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using test1.Models;
+using MySuperMarket.Models;
 
 namespace test1.Controllers
 {
     public class SALES_REPORTController : Controller
     {
-        private MySuperMarket1 db = new MySuperMarket1();
+        private MyMarket db = new MyMarket();
 
         // GET: SALES_REPORT
         public ActionResult Index()

@@ -13,7 +13,7 @@ namespace MySuperMarket.Controllers
     public class INCOMEsController : Controller
     {
         private MyMarket db = new MyMarket();
-  
+
         public ActionResult Index()
         {
             return View();
@@ -26,7 +26,7 @@ namespace MySuperMarket.Controllers
         }
         public JsonResult search01(string id)
         {
-            if(id=="!!")
+            if (id == "!!")
             {
                 var list2 = db.INCOME.Select(n => new { INCOME_ID = n.INCOME_ID, INCOME_DATE = n.INCOME_DATE, MONEY = n.MONEY, TYPE = n.TYPE });
                 return Json(new { code = 0, msg = "", count = 1000, data = list2 }, JsonRequestBehavior.AllowGet);
@@ -35,7 +35,7 @@ namespace MySuperMarket.Controllers
             string date_high_s = id.Substring(7, 4) + "-12-31";
             var date_low = Convert.ToDateTime(date_low_s);
             var date_high = Convert.ToDateTime(date_high_s);
-            var list = db.INCOME.Where(n => n.INCOME_DATE > date_low && n.INCOME_DATE < date_high).Select(n => new { INCOME_ID = n.INCOME_ID, INCOME_DATE = n.INCOME_DATE, MONEY = n.MONEY, TYPE = n.TYPE });
+            var list = db.INCOME.Where(n => n.INCOME_DATE >= date_low && n.INCOME_DATE <= date_high).Select(n => new { INCOME_ID = n.INCOME_ID, INCOME_DATE = n.INCOME_DATE, MONEY = n.MONEY, TYPE = n.TYPE });
             return Json(new { code = 0, msg = "", count = 1000, data = list }, JsonRequestBehavior.AllowGet);
         }
         public JsonResult advancedSearch(string para01, string para02, string para03, string para04)
@@ -85,7 +85,6 @@ namespace MySuperMarket.Controllers
             }
             if (date_low_s != "!!")
             {
-                // date = Convert.ToDateTime(l_date);
                 list = list.Where(s => s.INCOME_DATE > date_low);
             }
             if (date_high_s != "!!")
@@ -112,7 +111,6 @@ namespace MySuperMarket.Controllers
 
             }
             var tot = list.Sum(x => x.MONEY);
-            //iNCOME.MONEY = tot;
             return tot.ToString();
         }
     }
