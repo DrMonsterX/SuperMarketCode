@@ -28,7 +28,7 @@ namespace MySuperMarket.Controllers
 
         public JsonResult search01(string id)
         {
-            if(id=="!!")
+            if (id == "!!")
             {
                 var list2 = db.EXPENSE.Select(n => new { EXPENSE_ID = n.EXPENSE_ID, EXPENSE_DATE = n.EXPENSE_DATE, MONEY = n.MONEY, TYPE = n.TYPE });
                 return Json(new { code = 0, msg = "", count = 1000, data = list2 }, JsonRequestBehavior.AllowGet);
@@ -86,7 +86,6 @@ namespace MySuperMarket.Controllers
             }
             if (date_low_s != "!!")
             {
-                // date = Convert.ToDateTime(l_date);
                 list = list.Where(s => s.EXPENSE_DATE > date_low);
             }
             if (date_high_s != "!!")
