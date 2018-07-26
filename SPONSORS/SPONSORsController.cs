@@ -21,13 +21,13 @@ namespace MySuperMarket.Controllers
         }
 
         // GET: SPONSORs/Details/5
-        
+
         public JsonResult getJson()
         {
             var list = db.SPONSOR.Select(n => new { SPONSOR_ID = n.SPONSOR_ID, SPONSOR_NAME = n.SPONSOR_NAME, PHONE_NUMBER = n.PHONE_NUMBER });
             return Json(new { code = 0, msg = "", count = 1000, data = list }, JsonRequestBehavior.AllowGet);
         }
-        
+
 
         [HttpPost]
         public bool test(string id)
@@ -91,7 +91,7 @@ namespace MySuperMarket.Controllers
             return Json(new { code = 0, msg = "", count = 1000, data = list2 }, JsonRequestBehavior.AllowGet);
 
         }
-        
+
         [HttpPost]
         public JsonResult Create01(string para01, string para02, string para03)
         {
@@ -106,7 +106,7 @@ namespace MySuperMarket.Controllers
             newSponsor.SPONSOR_NAME = name;
             newSponsor.PHONE_NUMBER = number;
 
-            
+
             if (sPONSOR == null)
             {
                 db.SPONSOR.Add(newSponsor);
@@ -124,20 +124,9 @@ namespace MySuperMarket.Controllers
             string id = para01;
             string name = para02;
             string number = para03;
-            
-            /*
-            if (id == null)
-            {
-                return Json(null);
-            }
-            */
+
             SPONSOR sPONSOR = db.SPONSOR.Find(id);
-            /*
-            if (eMPLOYEE == null)
-            {
-                //return Json(null);
-            }
-            */
+            
             sPONSOR.SPONSOR_ID = id;
             sPONSOR.SPONSOR_NAME = name;
             sPONSOR.PHONE_NUMBER = number;
@@ -155,7 +144,7 @@ namespace MySuperMarket.Controllers
 
 
             var list = db.SPONSOR.Select(n => new { SPONSOR_ID = n.SPONSOR_ID, SPONSOR_NAME = n.SPONSOR_NAME, PHONE_NUMBER = n.PHONE_NUMBER });
-            return Json(new { code = 0, msg = "", count = 1000, data = list }, JsonRequestBehavior.AllowGet); 
+            return Json(new { code = 0, msg = "", count = 1000, data = list }, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
         public void Delete(string id)
